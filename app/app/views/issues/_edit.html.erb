@@ -1,0 +1,4 @@
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.select :status, Issue.status.collect { |k, v| [v, k] } %>
+  </div>
