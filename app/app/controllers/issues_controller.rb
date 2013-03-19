@@ -6,6 +6,7 @@ class IssuesController < ApplicationController
     @closed_issues = Issue.closed
     @open_issues = Issue.open
     @urgent_issues = Issue.urgent
+    @assigned_issues = Issue.assigned
     @recent_issues = Issue.recent
     @long_wait_issues = Issue.long_wait
     respond_to do |format|
@@ -66,6 +67,8 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.update_attributes(params[:issue])
+        @issue.status = 3 
+        @issue.save
         format.html { redirect_to issues_path, notice: 'Issue was successfully updated.' }
         format.json { head :no_content }
       else
