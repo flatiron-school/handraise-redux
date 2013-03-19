@@ -67,8 +67,10 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.update_attributes(params[:issue])
-        @issue.status = 3 
-        @issue.save
+        unless @issue.assignee.nil?
+          @issue.status = 3 
+          @issue.save
+        end
         format.html { redirect_to issues_path, notice: 'Issue was successfully updated.' }
         format.json { head :no_content }
       else
