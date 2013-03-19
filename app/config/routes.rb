@@ -1,4 +1,7 @@
 App::Application.routes.draw do
+  
+  get 'issues/:id/resolve' => 'issues#resolve', :as => "resolve"
+
   resources :users
 
 

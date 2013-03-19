@@ -84,4 +84,13 @@ class IssuesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def resolve
+    @issue = Issue.find(params[:id])
+    @issue.status = 0
+    @issue.save
+
+    redirect_to issues_path
+  end
+
 end

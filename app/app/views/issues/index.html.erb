@@ -1,66 +1,71 @@
 <h1>Listing Issues</h1>
 
 <table>
-  <tr>
-    <th colspan="8"><h2>URGENT ISSUES</h2></th>
-  </tr>
+
   <tr>
     <th>Title</th>
     <th>Content</th>
     <th>User</th>
     <th>Status</th>
     <th>Time submitted</th>
+    <th>Mark as Resolved</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
-<% @urgent_issues.each do |issue| %>
+<% unless @urgent_issues.empty? %>
   <tr>
-    <td><%= issue.title %></td>
-    <td><%= issue.content %></td>
-    <td><%= issue.user.name %></td>
-    <td><%= issue.current_status %></td>
-    <td><%= time_ago_in_words(issue.created_at) %> ago</td>
-    <td><%= link_to 'Show', issue %></td>
-    <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-    <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <th colspan="8"><h2>URGENT ISSUES</h2></th>
   </tr>
+  <% @urgent_issues.each do |issue| %>
+    <tr>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
 <% end %>
 
+<% unless @open_issues.empty? %>
   <tr>
     <th colspan="8"><h2>OPEN ISSUES</h2></th>
   </tr>
-
-<% @open_issues.each do |issue| %>
-  <tr>
-    <td><%= issue.title %></td>
-    <td><%= issue.content %></td>
-    <td><%= issue.user.name %></td>
-    <td><%= issue.current_status %></td>
-    <td><%= time_ago_in_words(issue.created_at) %> ago</td>
-    <td><%= link_to 'Show', issue %></td>
-    <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-    <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <% @open_issues.each do |issue| %>
+    <tr>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
 <% end %>
 
-
-  <tr>
-    <th colspan="8"><h2>CLOSED ISSUES</h2></th>
-  </tr>
-
-<% @closed_issues.each do |issue| %>
-  <tr>
-    <td><%= issue.title %></td>
-    <td><%= issue.content %></td>
-    <td><%= issue.user.name %></td>
-    <td><%= issue.current_status %></td>
-    <td><%= time_ago_in_words(issue.created_at) %> ago</td>
-    <td><%= link_to 'Show', issue %></td>
-    <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-    <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<% unless @closed_issues.empty? %>
+    <tr>
+      <th colspan="8"><h2>CLOSED ISSUES</h2></th>
+    </tr>
+  <% @closed_issues.each do |issue| %>
+    <tr>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
 <% end %>
 
 
