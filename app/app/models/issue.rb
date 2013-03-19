@@ -40,4 +40,9 @@ class Issue < ActiveRecord::Base
   def is_urgent?
     self.status == 2
   end
+
+  def self.recent
+    Issue.where('created_at > ?', Time.now-15.minutes)
+  end
+
 end

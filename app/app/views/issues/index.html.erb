@@ -1,8 +1,8 @@
 <h1>Listing Issues</h1>
 
 <table>
-
   <tr>
+    <th>Status</th>
     <th>Title</th>
     <th>Content</th>
     <th>User</th>
@@ -11,15 +11,24 @@
     <th>Mark as Resolved</th>
     <th></th>
     <th></th>
+  </tr>
+
+  <tr>
+    <th>Urgent</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
     <th></th>
   </tr>
 
 <% unless @urgent_issues.empty? %>
-  <tr>
-    <th colspan="8"><h2>URGENT ISSUES</h2></th>
-  </tr>
   <% @urgent_issues.each do |issue| %>
     <tr>
+      <td></td>
       <td><%= issue.title %></td>
       <td><%= issue.content %></td>
       <td><%= issue.user.name %></td>
@@ -31,13 +40,24 @@
     </tr>
   <% end %>
 <% end %>
+
+  <tr>
+    <th>Open</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
 
 <% unless @open_issues.empty? %>
-  <tr>
-    <th colspan="8"><h2>OPEN ISSUES</h2></th>
-  </tr>
   <% @open_issues.each do |issue| %>
     <tr>
+      <td></td>
       <td><%= issue.title %></td>
       <td><%= issue.content %></td>
       <td><%= issue.user.name %></td>
@@ -50,12 +70,22 @@
   <% end %>
 <% end %>
 
+  <tr>
+    <th>Closed</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
 <% unless @closed_issues.empty? %>
-    <tr>
-      <th colspan="8"><h2>CLOSED ISSUES</h2></th>
-    </tr>
   <% @closed_issues.each do |issue| %>
     <tr>
+      <td></td>
       <td><%= issue.title %></td>
       <td><%= issue.content %></td>
       <td><%= issue.user.name %></td>
@@ -67,7 +97,6 @@
     </tr>
   <% end %>
 <% end %>
-
 
 </table>
 
