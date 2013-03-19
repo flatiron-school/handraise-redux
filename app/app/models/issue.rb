@@ -8,7 +8,8 @@ class Issue < ActiveRecord::Base
   STATUS_MAP = {
     0 => :closed,
     1 => :open,
-    2 => :urgent
+    2 => :urgent,
+    3 => :assigned
   }
 
   def current_status
