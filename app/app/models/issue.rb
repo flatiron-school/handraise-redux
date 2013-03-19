@@ -48,6 +48,14 @@ class Issue < ActiveRecord::Base
     self.status == 2
   end
 
+  def self.assigned
+    Issue.where(:status => 3)
+  end
+
+  def is_assigned?
+    self.status == 3
+  end
+
   def self.recent
     Issue.not_closed.where('created_at > ?', Time.now-15.minutes)
   end
