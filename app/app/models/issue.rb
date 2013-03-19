@@ -1,7 +1,9 @@
 class Issue < ActiveRecord::Base
-  attr_accessible :content, :status, :title, :user_id
+  attr_accessible :content, :status, :title, :user_id, :assignee_id
 
   belongs_to :user
+
+  belongs_to :assignee, :class_name => "User", :foreign_key => :assignee_id
 
   STATUS_MAP = {
     0 => :closed,
@@ -19,6 +21,10 @@ class Issue < ActiveRecord::Base
 
   def self.closed
     Issue.where(:status => 0)
+  end
+
+  def self.not_closed
+    Issue.where(:status => 1 || 2)
   end
 
   def is_closed?
@@ -42,11 +48,11 @@ class Issue < ActiveRecord::Base
   end
 
   def self.recent
-    Issue.where('created_at > ?', Time.now-15.minutes).where(:status => 1 || 2)
+    Issue.not_closed.where('created_at > ?', Time.now-15.minutes)
   end
 
   def self.long_wait
-    Issue.where('created_at < ?', Time.now-1.hour)
+    Issue.not_closed.where('created_at < ?', Time.now-1.hour)
   end
 
 end
