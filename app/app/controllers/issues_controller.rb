@@ -3,7 +3,9 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
     @issues = Issue.all
-
+    @closed_issues = Issue.closed
+    @open_issues = Issue.open
+    @urgent_issues = Issue.urgent
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }

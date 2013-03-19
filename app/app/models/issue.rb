@@ -17,12 +17,27 @@ class Issue < ActiveRecord::Base
     STATUS_MAP
   end
 
-  def closed?
-    Issue.find_by_status :status => 0
+  def self.closed
+    Issue.where(:status => 0)
   end
 
   def is_closed?
     self.status == 0
   end
 
+  def self.open
+    Issue.where(:status => 1)
+  end
+
+  def is_open?
+    self.status == 1
+  end
+
+  def self.urgent
+    Issue.where(:status => 2)
+  end
+
+  def is_urgent?
+    self.status == 2
+  end
 end

@@ -2,6 +2,9 @@
 
 <table>
   <tr>
+    <th colspan="8"><h2>URGENT ISSUES</h2></th>
+  </tr>
+  <tr>
     <th>Title</th>
     <th>Content</th>
     <th>User</th>
@@ -12,8 +15,7 @@
     <th></th>
   </tr>
 
-<% @issues.each do |issue| %>
-  <% next if issue.is_closed? %>
+<% @urgent_issues.each do |issue| %>
   <tr>
     <td><%= issue.title %></td>
     <td><%= issue.content %></td>
@@ -25,8 +27,46 @@
     <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+
+  <tr>
+    <th colspan="8"><h2>OPEN ISSUES</h2></th>
+  </tr>
+
+<% @open_issues.each do |issue| %>
+  <tr>
+    <td><%= issue.title %></td>
+    <td><%= issue.content %></td>
+    <td><%= issue.user.name %></td>
+    <td><%= issue.current_status %></td>
+    <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+    <td><%= link_to 'Show', issue %></td>
+    <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+
+
+  <tr>
+    <th colspan="8"><h2>CLOSED ISSUES</h2></th>
+  </tr>
+
+<% @closed_issues.each do |issue| %>
+  <tr>
+    <td><%= issue.title %></td>
+    <td><%= issue.content %></td>
+    <td><%= issue.user.name %></td>
+    <td><%= issue.current_status %></td>
+    <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+    <td><%= link_to 'Show', issue %></td>
+    <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    <td><%= link_to 'Destroy', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+
+
 </table>
 
 <br />
 
 <%= link_to 'New Issue', new_issue_path %>
+
