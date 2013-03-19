@@ -6,6 +6,8 @@ class IssuesController < ApplicationController
     @closed_issues = Issue.closed
     @open_issues = Issue.open
     @urgent_issues = Issue.urgent
+    @recent_issues = Issue.recent
+    @long_wait_issues = Issue.long_wait
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }
