@@ -41,6 +41,8 @@
   <% end %>
 <% end %>
 
+
+
   <tr>
     <th>Open</th>
     <th></th>
@@ -97,6 +99,66 @@
     </tr>
   <% end %>
 <% end %>
+
+
+  <tr>
+    <th>Long wait</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+
+<% unless @long_wait_issues.empty? %>
+  <% @long_wait_issues.each do |issue| %>
+    <tr>
+      <td></td>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
+<% end %>
+
+  <tr>
+    <th>Recent</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+
+<% unless @recent_issues.empty? %>
+  <% @recent_issues.each do |issue| %>
+    <tr>
+      <td></td>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
+<% end %>
+
 
 </table>
 

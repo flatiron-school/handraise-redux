@@ -42,7 +42,11 @@ class Issue < ActiveRecord::Base
   end
 
   def self.recent
-    Issue.where('created_at > ?', Time.now-15.minutes)
+    Issue.where('created_at > ?', Time.now-15.minutes).where(:status => 1 || 2)
+  end
+
+  def self.long_wait
+    Issue.where('created_at < ?', Time.now-1.hour)
   end
 
 end
