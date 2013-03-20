@@ -6,6 +6,8 @@ App::Application.routes.draw do
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
 
+  get 'big_board' => 'issues#big_board'
+
   resources :users
 
   resources :issues
