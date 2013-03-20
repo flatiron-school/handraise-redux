@@ -13,8 +13,39 @@
     <th></th>
   </tr>
 
+
+  <tr>
+    <th>Issues in Waiting room</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% unless @waiting_room_issues.empty? %>
+  <% @waiting_room_issues.each do |issue| %>
+    <tr>
+      <td></td>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
+<% end %>
+
+
+
 <tr>
-    <th>Assigned</th>
+    <th>Queue answered by Fellow Students</th>
     <th></th>
     <th></th>
     <th></th>
@@ -26,8 +57,8 @@
   </tr>
 
 
-<% unless @assigned_issues.empty? %>
-  <% @assigned_issues.each do |issue| %>
+<% unless @fellow_student_issues.empty? %>
+  <% @fellow_student_issues.each do |issue| %>
     <tr>
       <td></td>
       <td><%= issue.title %></td>
@@ -44,7 +75,7 @@
 
 
   <tr>
-    <th>Urgent</th>
+    <th>Non-urgent questions in Instructor Queue</th>
     <th></th>
     <th></th>
     <th></th>
@@ -55,8 +86,9 @@
     <th></th>
   </tr>
 
-<% unless @urgent_issues.empty? %>
-  <% @urgent_issues.each do |issue| %>
+
+<% unless @instructor_normal_issues.empty? %>
+  <% @instructor_normal_issues.each do |issue| %>
     <tr>
       <td></td>
       <td><%= issue.title %></td>
@@ -70,11 +102,10 @@
     </tr>
   <% end %>
 <% end %>
-
 
 
   <tr>
-    <th>Open</th>
+    <th>Urgent questions in Instructor Queue</th>
     <th></th>
     <th></th>
     <th></th>
@@ -86,8 +117,8 @@
   </tr>
 
 
-<% unless @open_issues.empty? %>
-  <% @open_issues.each do |issue| %>
+<% unless @instructor_urgent_issues.empty? %>
+  <% @instructor_urgent_issues.each do |issue| %>
     <tr>
       <td></td>
       <td><%= issue.title %></td>
@@ -101,6 +132,8 @@
     </tr>
   <% end %>
 <% end %>
+
+
 
   <tr>
     <th>Closed</th>
@@ -124,65 +157,6 @@
       <td><%= issue.current_status %></td>
       <td><%= time_ago_in_words(issue.created_at) %> ago</td>
       <td></td>
-      <td><%= link_to 'Show', issue %></td>
-      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-    </tr>
-  <% end %>
-<% end %>
-
-
-  <tr>
-    <th>Long wait</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-
-<% unless @long_wait_issues.empty? %>
-  <% @long_wait_issues.each do |issue| %>
-    <tr>
-      <td></td>
-      <td><%= issue.title %></td>
-      <td><%= issue.content %></td>
-      <td><%= issue.user.name %></td>
-      <td><%= issue.current_status %></td>
-      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
-      <td><%= link_to "Resolve", resolve_path(issue) %></td>
-      <td><%= link_to 'Show', issue %></td>
-      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-    </tr>
-  <% end %>
-<% end %>
-
-  <tr>
-    <th>Recent</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-
-<% unless @recent_issues.empty? %>
-  <% @recent_issues.each do |issue| %>
-    <tr>
-      <td></td>
-      <td><%= issue.title %></td>
-      <td><%= issue.content %></td>
-      <td><%= issue.user.name %></td>
-      <td><%= issue.current_status %></td>
-      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
-      <td><%= link_to "Resolve", resolve_path(issue) %></td>
       <td><%= link_to 'Show', issue %></td>
       <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
     </tr>
