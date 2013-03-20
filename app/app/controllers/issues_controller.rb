@@ -45,6 +45,7 @@ class IssuesController < ApplicationController
   def create
     @issue = Issue.new(params[:issue])
     @issue.status = 1
+    @issue.user_id = session[:user_id]
 
     respond_to do |format|
       if @issue.save
@@ -62,7 +63,7 @@ class IssuesController < ApplicationController
   def edit
     @issue = Issue.find(params[:id])
 
-    if @issue.user_id == session[:user_id]
+    if @issue.user_id == session[:user_id] || @current_user.role == 0
       respond_to do |format|
         format.html
         format.json { render json: @issue}
@@ -99,7 +100,7 @@ class IssuesController < ApplicationController
     @issue.destroy
 
     respond_to do |format|
-      format.html { redirect_to issues_url }
+      format.html { redirect_to issues_path, notice: "Issue was successfully destroyed." }
       format.json { head :no_content }
     end
   end
