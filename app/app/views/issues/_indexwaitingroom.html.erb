@@ -1,0 +1,27 @@
+<tr>
+  <th>Issues in Waiting room</th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+
+<% unless @waiting_room_issues.empty? %>
+  <% @waiting_room_issues.each do |issue| %>
+    <tr>
+      <td></td>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
+<% end %>
