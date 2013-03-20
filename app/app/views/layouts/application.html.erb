@@ -5,6 +5,9 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <% if current_page?(:controller => 'issues', :action => 'index') %>
+    <meta http-equiv="refresh" content="5">
+  <% end %>
 </head>
 <body>
 

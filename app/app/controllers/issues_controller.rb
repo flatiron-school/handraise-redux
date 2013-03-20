@@ -2,13 +2,15 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
+    Issue.timebased_status    
+
     @issues = Issue.all
     @closed_issues = Issue.closed
-    @open_issues = Issue.open
-    @urgent_issues = Issue.urgent
-    @assigned_issues = Issue.assigned
-    @recent_issues = Issue.recent
-    @long_wait_issues = Issue.long_wait
+    @waiting_room_issues = Issue.waiting_room
+    @fellow_student_issues = Issue.fellow_student
+    @instructor_normal_issues = Issue.instructor_normal
+    @instructor_urgent_issues = Issue.instructor_urgent
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }
