@@ -20,11 +20,6 @@
     <%= f.text_area :content %>
   </div>
 
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.select :user_id, User.all.collect{|u| [u.name, u.id]} %>
-  </div>
-
   <% if @issue.id? %>
     <%= render :partial => "edit", :locals => { :f => f, :issue => @issue } %>
   <% end %>

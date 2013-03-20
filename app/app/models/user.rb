@@ -6,19 +6,31 @@ class User < ActiveRecord::Base
   validates :password, :presence => { :on => :create }
 
   USER_ROLES = {
-    0 => :admin,
-    10 => :student
+    :admin => 0,
+    :student => 10
   }
+
+  def set_as_admin 
+    self.role = USER_ROLES[:admin]
+  end
+
+  def set_as_student 
+    self.role = USER_ROLES[:student]
+  end
 
   def self.user_roles
     USER_ROLES
   end
 
   def self.authenticate(email, password)
-    user = User.find_by_email(email)
-    if user.authenticate(password)
-      user
-    else
+    begin
+      user = User.find_by_email(email)
+      if user.authenticate(password)
+        user
+      else
+        false
+      end
+    rescue
       false
     end
   end
@@ -35,6 +47,10 @@ class User < ActiveRecord::Base
   end
 
   def can_destroy?(issue)
+    true if (self.role == 0 || issue.user_id == self.id)
+  end
+
+  def can_resolve?(issue)
     true if (self.role == 0 || issue.user_id == self.id)
   end
 
