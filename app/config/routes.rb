@@ -2,11 +2,15 @@ App::Application.routes.draw do
   
   get 'issues/:id/resolve' => 'issues#resolve', :as => "resolve"
 
-  resources :users
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  get 'logout' => 'sessions#destroy'
 
+  resources :users
 
   resources :issues
 
+  resources :sessions
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
