@@ -1,0 +1,57 @@
+<tr>
+    <th>Queue answered by Fellow Students</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% unless @fellow_student_issues.empty? %>
+  <% @fellow_student_issues.each do |issue| %>
+    <tr>
+      <td></td>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
+<% end %>
+
+<tr>
+  <th>Closed</th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+
+<% unless @closed_issues.empty? %>
+  <% @closed_issues.each do |issue| %>
+    <tr>
+      <td></td>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
+<% end %>
+
+

@@ -67,7 +67,7 @@ class Issue < ActiveRecord::Base
   end
 
   def self.timebased_status
-    Issue.all.each do |issue|
+    Issue.not_closed.each do |issue|
       case
       when issue.created_at < Time.now-40.minutes 
         issue.status = 4
@@ -78,10 +78,13 @@ class Issue < ActiveRecord::Base
       when issue.created_at < Time.now-5.minutes
         issue.status = 2
         issue.save
-      end
-        
+      end       
     end
   end
+
+  # def current_user
+  #   Issue.where(:user_id => current_user.id)    
+  # end  
 
 
 end
