@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :login_required, :only => "new"
+  skip_before_filter :login_required, :only => ["new", "create"]
 
   # GET /users
   # GET /users.json
@@ -43,6 +43,15 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    
+    case @user.email 
+      when "bob@flatironschool.com"
+        @user.set_as_admin
+      when "avi@flatironschool.com"
+        @user.set_as_admin
+      else
+        @user.set_as_student
+    end
 
     respond_to do |format|
       if @user.save
