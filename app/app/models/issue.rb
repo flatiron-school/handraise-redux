@@ -34,8 +34,8 @@ class Issue < ActiveRecord::Base
     self.status == 0
   end
 
-  def self.waiting_room
-    Issue.where(:status => 1)
+  def self.waiting_room(user_id)
+    Issue.where(:status => 1, :user_id => user_id)
   end
 
   def is_waiting_room?
@@ -69,22 +69,22 @@ class Issue < ActiveRecord::Base
   def self.timebased_status
     Issue.not_closed.each do |issue|
       case
-      when issue.created_at < Time.now-40.minutes 
+      when issue.created_at < Time.now-10.minutes 
         issue.status = 4
         issue.save
-      when issue.created_at < Time.now-20.minutes
+      when issue.created_at < Time.now-3.minutes
         issue.status = 3
         issue.save 
-      when issue.created_at < Time.now-5.minutes
+      when issue.created_at < Time.now-1.minutes
         issue.status = 2
         issue.save
       end       
     end
   end
 
-  # def current_user
-  #   Issue.where(:user_id => current_user.id)    
-  # end  
+  def from_current_user
+    self.user_id == @current_user.id    
+  end  
 
 
 end

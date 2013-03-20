@@ -1,0 +1,69 @@
+<h1>Big Board View</h1>
+
+<table>
+  <tr>
+    <th>Status</th>
+    <th>Title</th>
+    <th>Content</th>
+    <th>User</th>
+    <th>Status</th>
+    <th>Time submitted</th>
+    <th>Mark as Resolved</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% number_urgent = @instructor_urgent_issues.size %>
+<% number_normal = @instructor_normal_issues.size %>
+
+<% case %>
+<% when number_urgent < 3 %> 
+  <% @instructor_urgent_issues.slice(0..(number_urgent-1)).each do |issue| %>
+    <tr>
+      <td></td>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
+
+  <% @instructor_normal_issues.slice(0..(2-number_urgent)).each do |issue| %>
+    <tr>
+      <td></td>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
+
+<% when number_urgent >= 3 %> 
+  <% @instructor_urgent_issues.slice(0..2).each do |issue| %>
+    <tr>
+      <td></td>
+      <td><%= issue.title %></td>
+      <td><%= issue.content %></td>
+      <td><%= issue.user.name %></td>
+      <td><%= issue.current_status %></td>
+      <td><%= time_ago_in_words(issue.created_at) %> ago</td>
+      <td><%= link_to "Resolve", resolve_path(issue) %></td>
+      <td><%= link_to 'Show', issue %></td>
+      <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+    </tr>
+  <% end %>
+<% end %>
+
+</table>
+
+<br />
+
+<%= link_to 'All Issues', issues_path %> 
