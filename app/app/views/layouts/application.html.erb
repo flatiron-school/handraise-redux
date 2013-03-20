@@ -5,7 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <% if current_page?(:controller => 'issues', :action => 'index') %>
+  <% if current_page?(issues_path) %>
     <meta http-equiv="refresh" content="5">
   <% end %>
 </head>
@@ -13,8 +13,14 @@
 
 <p id="notice"><%= notice %></p>
 
-<%= link_to "Login", login_path %>
-<%= link_to "Logout", logout_path %>
+<% if current_user %>
+  Logged in as: <%= current_user.email %>
+  <%= link_to "Logout", logout_path %>
+<% else %>
+  <%= link_to("Sign Up", new_user_path) unless current_page?(new_user_path) %>
+  <%= link_to("Login", login_path) unless current_page?(login_path) %>
+<% end %>
+
 <%= yield %>
 
 </body>

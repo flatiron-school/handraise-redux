@@ -1,4 +1,5 @@
 class IssuesController < ApplicationController
+
   # GET /issues
   # GET /issues.json
   def index
@@ -60,6 +61,15 @@ class IssuesController < ApplicationController
   # GET /issues/1/edit
   def edit
     @issue = Issue.find(params[:id])
+
+    if @issue.user_id == session[:user_id]
+      respond_to do |format|
+        format.html
+        format.json { render json: @issue}
+      end
+    else
+      redirect_to issues_path, :notice => "You are not authorized to edit this issue"
+    end
   end
 
   # PUT /issues/1
