@@ -7,7 +7,7 @@ class IssuesController < ApplicationController
 
     @issues = Issue.all
     @closed_issues = Issue.closed
-    @waiting_room_issues = Issue.waiting_room
+    @waiting_room_issues = Issue.waiting_room(current_user.id)
     @fellow_student_issues = Issue.fellow_student
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
@@ -110,6 +110,18 @@ class IssuesController < ApplicationController
     @issue.save
 
     redirect_to issues_path
+  end
+
+  def big_board
+    Issue.timebased_status    
+  
+    @instructor_normal_issues = Issue.instructor_normal
+    @instructor_urgent_issues = Issue.instructor_urgent
+    # binding.pry
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @issues }
+    end
   end
 
 end

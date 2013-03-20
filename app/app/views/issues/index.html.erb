@@ -13,13 +13,18 @@
     <th></th>
   </tr>
 
-<%= render 'indexinstructor' %>
-<%= render 'indexstudent' %>
-<%= render 'indexwaitingroom' %>
-
+<% case current_user.role %>
+  <% when 0 %>
+    <%= render 'indexinstructor' %>
+    <%= render 'indexstudent' %>
+  <% when 10 %>
+    <%= render 'indexinstructor' %>
+    <%= render 'indexstudent' %>
+    <%= render 'indexwaitingroom' %>
+<% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Issue', new_issue_path %>
+<%= link_to 'New Issue', new_issue_path %> | <%= link_to 'Big Board View', big_board_path %>
 
