@@ -21,4 +21,8 @@ class User < ActiveRecord::Base
     end    
   end
 
+  def logged_in?
+    true if self.id == session[:user_id]
+  end
+
 end
