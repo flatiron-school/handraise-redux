@@ -121,6 +121,14 @@ class IssuesController < ApplicationController
     redirect_to issues_path
   end
 
+  def unassign
+    @issue = Issue.find(params[:id])
+    @issue.assignee_id = nil
+    @issue.save
+
+    redirect_to issues_path
+  end
+
   def big_board
     Issue.timebased_status    
   

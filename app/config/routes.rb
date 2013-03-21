@@ -2,6 +2,7 @@ App::Application.routes.draw do
   
   get 'issues/:id/resolve' => 'issues#resolve', :as => "resolve"
   get 'issues/:id/assign' => 'issues#assign', :as => "assign"
+  get 'issues/:id/unassign' => 'issues#unassign', :as => "unassign"
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
