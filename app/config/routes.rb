@@ -8,6 +8,8 @@ App::Application.routes.draw do
 
   get 'big_board' => 'issues#big_board'
 
+  get "theme" => "issues#theme", :as => "theme"
+
   resources :users
 
   resources :issues

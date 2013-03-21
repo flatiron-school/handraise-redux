@@ -1,0 +1,31 @@
+<h1>Theme for Site</h1>
+<% @issues.each do |issue| %>
+  <div class="issue">
+    <div class="issue_position">
+      <%= @issues.index(issue) + 1 %>
+    </div>
+    <div class="issue_votes">
+      +4 votes
+    </div>
+    <div class="issue_box">
+      <h5><%= issue.title %></h5>
+      <p><%= issue.content %></p>
+      <div class="issue_bottom">
+        <hr>
+        <p>
+          Submitted by: <br> <%= issue.user.name %> | <%= time_ago_in_words(issue.created_at) %> ago
+        </p>
+      </div>
+    </div>
+    <ul class="issue_icons">
+      <li><%= link_to(raw('<i class="icon-remove"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue)%></li>
+      <li><%= link_to(raw('<i class="icon-pencil"></i>'), edit_issue_path(issue)) if current_user.can_edit?(issue) %></li>
+      <li><%= link_to raw('<i class="icon-ok"></i>'), resolve_path(issue) %></li>
+      <li><%= link_to raw('<i class="icon-user"></i>'), "http://google.com" %></li>    
+    </ul>
+  </div>
+<% end %>
+
+<%#= link_to raw('<i class="icon-trash icon-white"></i>'), card, confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger' %>
+
+<!--       <td><%#= link_to('Delete', issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue) %></td> -->
