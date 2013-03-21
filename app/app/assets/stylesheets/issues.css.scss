@@ -1,3 +1,93 @@
 // Place all the styles related to the Issues controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.issue {
+  position: relative;
+  width: 20em;
+  float: left;
+  margin: 3em;
+}
+
+.issue_box {
+  border: solid;
+  width: 20em;
+  height: 20em;
+  text-align: center;
+  position: relative;
+
+}
+
+.issue_bottom {
+  float: left;
+  width: 20em;
+  position: absolute;
+  bottom: 0;
+}
+
+.issue_icons {
+  list-style: none;
+  position: absolute;
+  right: 0;
+  margin-right: -6px;
+  
+  li {
+    float: right;
+    border: solid;
+    border-top: none;
+    text-align: right;
+
+    i {
+      width: 2em;
+      height: 100%;
+    }
+  }
+
+  li:first-child {
+    border-left: none;
+  }
+
+  li:nth-child(3) {
+    border-right: none;
+  }
+
+  li:last-child {
+    border-right: none;
+  }
+}
+
+.issue_votes {
+  width: 5em;
+  height: 5em;
+  border-radius: 5em;
+  border: solid;
+  float: right;
+  line-height: 5em;
+  position: relative;
+  right: -2.5em;
+  top: -2.5em;
+  z-index: 1;
+  background-color: white;
+}
+
+.issue_position {
+  width: 5em;
+  height: 5em;
+  border-radius: 5em;
+  border: solid;
+  float: left;
+  text-align: center;
+  padding: auto;
+  left: -5em;
+  line-height: 5em;
+  position: relative;
+  left: -2.5em;
+  top: -2.5em;
+  z-index: 1;
+  background-color: white;
+  /*font-size: 2em;*/
+
+  p {
+
+  }
+}
