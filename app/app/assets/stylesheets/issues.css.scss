@@ -6,11 +6,17 @@
   position: relative;
   width: 20em;
   float: left;
-  margin: 3em;
+  margin: 4em;
+  margin-top: 8em;
+}
+
+.quick-button {
+border: 1px solid #ddd;
+margin-bottom: -1px;
+
 }
 
 .issue_box {
-  border: solid;
   width: 20em;
   height: 20em;
   text-align: center;
@@ -29,31 +35,18 @@
   list-style: none;
   position: absolute;
   right: 0;
-  margin-right: -6px;
-  
+  margin-top: 10px;
+  z-index: 2;
   li {
     float: right;
-    border: solid;
-    border-top: none;
     text-align: right;
 
     i {
-      width: 2em;
+      width: 1em;
       height: 100%;
     }
   }
 
-  li:first-child {
-    border-left: none;
-  }
-
-  li:nth-child(3) {
-    border-right: none;
-  }
-
-  li:last-child {
-    border-right: none;
-  }
 }
 
 .issue_votes {
@@ -65,7 +58,7 @@
   line-height: 5em;
   position: relative;
   right: -2.5em;
-  top: -2.5em;
+  top: -4em;
   z-index: 1;
   background-color: white;
 }
@@ -82,12 +75,17 @@
   line-height: 5em;
   position: relative;
   left: -2.5em;
-  top: -2.5em;
+  top: -4em;
   z-index: 1;
   background-color: white;
   /*font-size: 2em;*/
-
-  p {
-
-  }
 }
+
+
+.btn {
+  border-radius: 0 0 8px 8px;
+}
+
+
+
+

@@ -1,27 +1,32 @@
 <h1>Theme for Site</h1>
 <% @issues.each do |issue| %>
-  <div class="issue">
-    <div class="issue_position">
+  <div class="issue quick-button">
+    <div class="issue_position notification">
       <%= @issues.index(issue) + 1 %>
     </div>
-    <div class="issue_votes">
+    <div class="issue_votes notification">
       +4 votes
     </div>
     <div class="issue_box">
-      <h5><%= issue.title %></h5>
-      <p><%= issue.content %></p>
+      <h5><%= link_to truncate(issue.title, :length => 35, :omission =>"..."), issue_path(issue) %></h5>
+      <p><%= link_to truncate(issue.content, :length => 200, :omission =>"..."), issue_path(issue) %></p>
       <div class="issue_bottom">
         <hr>
         <p>
-          Submitted by: <br> <%= issue.user.name %> | <%= time_ago_in_words(issue.created_at) %> ago
+          Submitted by: <br> <%= link_to issue.user.name, issue.user %> | <%= time_ago_in_words(issue.created_at) %> ago
         </p>
       </div>
     </div>
     <ul class="issue_icons">
-      <li><%= link_to(raw('<i class="icon-remove"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue)%></li>
-      <li><%= link_to(raw('<i class="icon-pencil"></i>'), edit_issue_path(issue)) if current_user.can_edit?(issue) %></li>
-      <li><%= link_to raw('<i class="icon-ok"></i>'), resolve_path(issue) %></li>
-      <li><%= link_to raw('<i class="icon-user"></i>'), "http://google.com" %></li>    
+      <li><%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue)%>
+      </li>
+
+
+
+
+      <li><%= link_to(raw('<i class="icon-pencil btn btn-info"></i>'), edit_issue_path(issue)) if current_user.can_edit?(issue) %></li>
+      <li><%= link_to raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue) %></li>
+      <li><%= link_to raw('<i class="icon-user btn btn-success"></i>'), "http://google.com" %></li>    
     </ul>
   </div>
 <% end %>
