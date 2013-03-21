@@ -12,7 +12,6 @@ class IssuesController < ApplicationController
     @fellow_student_issues = Issue.fellow_student
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }
@@ -108,7 +107,15 @@ class IssuesController < ApplicationController
 
   def resolve
     @issue = Issue.find(params[:id])
-    @issue.status = 0
+    @issue.status = Issue::STATUS_MAP[:closed]
+    @issue.save
+
+    redirect_to issues_path
+  end
+
+  def assign
+    @issue = Issue.find(params[:id])
+    @issue.assignee_id = session[:user_id]
     @issue.save
 
     redirect_to issues_path
