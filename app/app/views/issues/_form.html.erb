@@ -20,10 +20,6 @@
     <%= f.text_area :content %>
   </div>
 
-  <% if @issue.id? %>
-    <%= render :partial => "edit", :locals => { :f => f, :issue => @issue } %>
-  <% end %>
-
   <div class="actions">
     <%= f.submit %>
   </div>
