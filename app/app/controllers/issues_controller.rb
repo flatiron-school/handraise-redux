@@ -12,6 +12,8 @@ class IssuesController < ApplicationController
     @fellow_student_issues = Issue.fellow_student
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
+    @assigned_issues = Issue.assigned
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }

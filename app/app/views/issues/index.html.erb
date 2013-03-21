@@ -1,31 +1,52 @@
 <h1>Listing Issues</h1>
 
-<table>
-  <tr>
-    <th>Status</th>
-    <th>Title</th>
-    <th>Content</th>
-    <th>User</th>
-    <th>Assigned To</th>
-    <th>Time submitted</th>
-    <th>Mark as Resolved</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% case current_user.role %>
-  <% when User::USER_ROLES[:admin] %>
-    <%= render 'indexinstructor' %>
-    <%= render 'indexstudent' %>
-  <% when User::USER_ROLES[:student] %>
-    <%= render 'indexinstructor' %>
-    <%= render 'indexstudent' %>
-    <%= render 'indexwaitingroom' %>
+<h3>Assigned</h3>
+<% @assigned_issues.each do |issue| %>
+  <h5><%= issue.assigned_to %></h5>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @assigned_issues, :issue => issue } %>
 <% end %>
-</table>
 
 <br />
+<hr>
 
-<%= link_to 'New Issue', new_issue_path %> | <%= link_to 'Big Board View', big_board_path %>
+<div class="clear"></div>
 
+<h3>Urgent</h3>
+<% @instructor_urgent_issues.each do |issue| %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>
+<% end %>
+
+<br />
+<hr>
+
+<div class="clear"></div>
+
+<h3>Teacher Queue</h3>
+<% @instructor_normal_issues.each do |issue| %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_normal_issues, :issue => issue } %>
+<% end %>
+
+<br />
+<hr>
+
+<div class="clear"></div>
+
+<h3>Student Queue</h3>
+<% @fellow_student_issues.each do |issue| %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
+<% end %>
+
+<br />
+<hr>
+
+<div class="clear"></div>
+
+<h3><%= "Waiting Room" unless current_user.admin? %></h3>
+<% @waiting_room_issues.each do |issue| %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @waiting_room_issues, :issue => issue } %>
+<% end %>
+
+<br />
+<hr>
+
+<div class="clear"></div>
