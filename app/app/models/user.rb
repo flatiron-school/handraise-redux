@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
     USER_ROLES
   end
 
+  def role_name
+    User.user_roles.key(self.role)
+  end
+
   def can_edit?(issue)
     true if (self.role == USER_ROLES[:admin] || issue.user_id == self.id)
   end
