@@ -1,4 +1,5 @@
 class IssuesController < ApplicationController
+  skip_before_filter :login_required, :only => "theme"
 
   # GET /issues
   # GET /issues.json
@@ -123,6 +124,10 @@ class IssuesController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @issues }
     end
+  end
+
+  def theme
+    @issues = Issue.all
   end
 
 end
