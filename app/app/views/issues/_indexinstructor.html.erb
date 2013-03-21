@@ -23,7 +23,7 @@
       <td><%= issue.assigned_to if issue.assignee_id.present? %></td>
       <td><%= time_ago_in_words(issue.created_at) %> ago</td>
       <td><%= link_to("Resolve", resolve_path(issue)) if @current_user.can_resolve?(issue) %></td>
-      <td><%= link_to("Assign", assign_path(issue)) if issue.assignee_id.blank? %><%= link_to("Unassign", unassign_path(issue)) if issue.assignee_id.present? %></td>
+      <td><%= link_to("Assign", assign_path(issue)) if issue.assignee_id.blank? && @current_user.can_assign?(issue) %><%= link_to("Unassign", unassign_path(issue)) if issue.assignee_id.present? && @current_user.can_unassign?(issue) %></td>
       <td><%= link_to('Edit', edit_issue_path(issue)) if @current_user.can_edit?(issue) %></td>
       <td><%= link_to('Delete', issue, method: :delete, data: { confirm: 'Are you sure?' }) if @current_user.can_destroy?(issue) %></td>
     </tr>
@@ -53,11 +53,11 @@
       <td><%= link_to issue.title, issue_path(issue) %></td>
       <td><%= issue.content %></td>
       <td><%= issue.user.name %></td>
-      <td><%= issue.assigned_to %></td>
+      <td><%= issue.assigned_to if issue.assignee_id.present? %></td>
       <td><%= time_ago_in_words(issue.created_at) %> ago</td>
       <td><%= link_to("Resolve", resolve_path(issue)) if @current_user.can_resolve?(issue) %></td>
-      <td></td>
-      <td><%= link_to('Edit', edit_issue_path(issue)) if @current_user.can_edit?(issue) %></td>
+      <td><%= link_to("Assign", assign_path(issue)) if issue.assignee_id.blank? %><%= link_to("Unassign", unassign_path(issue)) if issue.assignee_id.present? %></td>
+     <td><%= link_to('Edit', edit_issue_path(issue)) if @current_user.can_edit?(issue) %></td>
       <td><%= link_to('Delete', issue, method: :delete, data: { confirm: 'Are you sure?' }) if @current_user.can_destroy?(issue) %></td>
     </tr>
   <% end %>

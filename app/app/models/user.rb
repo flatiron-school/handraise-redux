@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     true if (self.role == USER_ROLES[:admin] || issue.user_id == self.id)
   end
 
+  def can_assign?(issue)
+    true if Issue.not_closed.collect { |i| i.assignee_id }.include?(self.id) == false
+  end
+
+  def can_unassign?(issue)
+    true if issue.assignee_id == self.id
+  end
+
   # def can?(issue, action)
   #   true if (self.role == USER_ROLES[:admin] || issue.user_id == self.id)
   # end
