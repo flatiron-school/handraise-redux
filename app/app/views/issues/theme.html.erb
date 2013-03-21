@@ -1,21 +1,21 @@
 <h1>Theme for Site</h1>
 <% @issues.each do |issue| %>
   <div class="issue quick-button">
-    <div class="issue_position notification">
+    <div class="circles queue_position notification">
       <%= @issues.index(issue) + 1 %>
     </div>
-    <div class="issue_votes notification">
-      +4 votes
+    <div class="circles votes notification">
+      +4
     </div>
     <div class="issue_box">
-      <h5><%= link_to truncate(issue.title, :length => 35, :omission =>"..."), issue_path(issue) %></h5>
-      <p><%= link_to truncate(issue.content, :length => 200, :omission =>"..."), issue_path(issue) %></p>
-      <div class="issue_bottom">
-        <hr>
-        <p>
-          Submitted by: <br> <%= link_to issue.user.name, issue.user %> | <%= time_ago_in_words(issue.created_at) %> ago
-        </p>
-      </div>
+      <%= link_to truncate(issue.title, :length => 35, :omission =>"..."), issue_path(issue), :class => "title" %>
+      <p><%= link_to truncate(issue.content, :length => 200, :omission =>"..."), issue_path(issue), :class => "description" %></p>
+    </div>
+    <div class="credits">
+      <hr>
+      <p>
+        Submitted by: <br> <%= link_to issue.user.name, issue.user %> | <%= time_ago_in_words(issue.created_at) %> ago
+      </p>
     </div>
     <ul class="issue_icons">
       <li><%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue)%>

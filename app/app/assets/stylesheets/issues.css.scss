@@ -2,90 +2,85 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.issue {
-  position: relative;
-  width: 20em;
-  float: left;
-  margin: 4em;
-  margin-top: 8em;
-}
+body {
+  font-family: 'helvetica neue', helvetica, arial, verdana, sans-serif;
+  a:hover {
+    color: #646464;
+    background: none;
+  }
+  .issue {
+    position: relative;
+    float: left;
+    margin: 2.5em;
 
-.quick-button {
-border: 1px solid #ddd;
-margin-bottom: -1px;
+    .circles {
+      width: 1.25em;
+      height: 1.75em;
+      border-radius: 5em;
+      border: solid;
+      background-color: white;
+      z-index: 1;
+      position: relative;
+      text-align: center;
+      font-size: 1.25em;
+      line-height: 1.75em;
+    }
+    .queue_position {
+      float: left;
+      right: 1.5em;
+      top: -1.5em;
+    }
+    .votes {
+      float: right;
+      left: 1.5em;
+      top: -1.5em;
+      text-indent: -0.25em;
+    }
 
-}
+    .issue_box {
+      width: 20em;
+      height: 12em;
+      a.title {
+        font-weight: bold;
+        font-size: 2em;
+        line-height: 1.2em;
+        margin: 0.5em 0em;
+        display: block;
+      }
+      p {
+        margin: 0em 1.5em;
+        a.description {
+          font-size: 1.1em;
+          line-height: 1.6em;
+        }
+      }
+    }
 
-.issue_box {
-  width: 20em;
-  height: 20em;
-  text-align: center;
-  position: relative;
+    .issue_icons {
+      list-style: none;
+      position: absolute;
+      right: 0;
+      margin-top: 0px;
+      z-index: 2;
+      li {
+        float: right;
+        text-align: right;
 
-}
+        i {
+          width: 1em;
+          height: 100%;
+          font-size: 1.4em
+        }
+      }
 
-.issue_bottom {
-  float: left;
-  width: 20em;
-  position: absolute;
-  bottom: 0;
-}
-
-.issue_icons {
-  list-style: none;
-  position: absolute;
-  right: 0;
-  margin-top: 10px;
-  z-index: 2;
-  li {
-    float: right;
-    text-align: right;
-
-    i {
-      width: 1em;
-      height: 100%;
     }
   }
 
+  .quick-button {
+    padding: 0px;
+  }
+
+  .btn {
+    border-radius: 0 0 8px 8px;
+  }
 }
-
-.issue_votes {
-  width: 5em;
-  height: 5em;
-  border-radius: 5em;
-  border: solid;
-  float: right;
-  line-height: 5em;
-  position: relative;
-  right: -2.5em;
-  top: -4em;
-  z-index: 1;
-  background-color: white;
-}
-
-.issue_position {
-  width: 5em;
-  height: 5em;
-  border-radius: 5em;
-  border: solid;
-  float: left;
-  text-align: center;
-  padding: auto;
-  left: -5em;
-  line-height: 5em;
-  position: relative;
-  left: -2.5em;
-  top: -4em;
-  z-index: 1;
-  background-color: white;
-  /*font-size: 2em;*/
-}
-
-
-.btn {
-  border-radius: 0 0 8px 8px;
-}
-
-
-
-
