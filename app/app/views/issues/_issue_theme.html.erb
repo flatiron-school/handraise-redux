@@ -18,7 +18,7 @@
   <ul class="issue_icons">
     <li><%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue)%>
     </li>
-    <li><%= link_to(raw('<i class="icon-pencil btn btn-info"></i>'), edit_issue_path(issue)) if @current_user.can_edit?(issue) %></li>
+    <li><%= link_to(raw('<i class="icon-pencil btn btn-warning"></i>'), edit_issue_path(issue)) if @current_user.can_edit?(issue) %></li>
     <li><%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %></li>
     <li><%= link_to(raw('<i class="icon-user btn btn-success"></i>'), assign_path(issue)) if issue.assignee_id.blank? && @current_user.can_assign?(issue) %></li>    
     <li><%= link_to(raw('<i class="icon-user btn btn-danger"></i>'), unassign_path(issue)) if issue.assignee_id.present? && @current_user.can_unassign?(issue) %></li>    
