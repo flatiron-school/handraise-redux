@@ -2,7 +2,6 @@
 
 <h3>Assigned</h3>
 <% @assigned_issues.each do |issue| %>
-  <h5><%= issue.assigned_to %></h5>
   <%= render :partial => 'issue_theme', :locals => { :issues => @assigned_issues, :issue => issue } %>
 <% end %>
 
