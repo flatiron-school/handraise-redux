@@ -6,11 +6,11 @@ class Issue < ActiveRecord::Base
   belongs_to :assignee, :class_name => "User", :foreign_key => :assignee_id
 
   STATUS_MAP = {
-    0 => :closed,
-    1 => :waiting_room,                # part of the waiting_room queue
-    2 => :fellow_student,              # part of the fellow_student queue
-    3 => :instructor_normal,           # part of the instructor queue
-    4 => :instructor_urgent            # part of the instructor queue
+    :closed => 0,
+    :waiting_room => 1,                # part of the waiting_room queue
+    :fellow_student => 2,              # part of the fellow_student queue
+    :instructor_normal => 3,           # part of the instructor queue
+    :instructor_urgent => 4            # part of the instructor queue
   }
 
   def current_status
@@ -22,61 +22,61 @@ class Issue < ActiveRecord::Base
   end
 
   def self.closed
-    Issue.where(:status => 0)
+    Issue.where(:status => STATUS_MAP[:closed])
   end
 
   def self.not_closed
     issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3
-    Issue.where(issues[:status].not_eq(0))
+    Issue.where(issues[:status].not_eq(STATUS_MAP[:closed]))
   end
 
   def is_closed?
-    self.status == 0
+    self.status == STATUS_MAP[:closed]
   end
 
   def self.waiting_room(user_id)
-    Issue.where(:status => 1, :user_id => user_id)
+    Issue.where(:status => STATUS_MAP[:waiting_room], :user_id => user_id)
   end
 
   def is_waiting_room?
-    self.status == 1
+    self.status == STATUS_MAP[:waiting_room]
   end
 
   def self.fellow_student
-    Issue.where(:status => 2)
+    Issue.where(:status => STATUS_MAP[:fellow_student])
   end
 
   def is_fellow_student?
-    self.status == 2
+    self.status == STATUS_MAP[:fellow_student]
   end
 
   def self.instructor_normal
-    Issue.where(:status => 3)
+    Issue.where(:status => STATUS_MAP[:instructor_normal])
   end
 
   def is_instructor_normal?
-    self.status == 3
+    self.status == STATUS_MAP[:instructor_normal]
   end
 
   def self.instructor_urgent
-    Issue.where(:status => 4)
+    Issue.where(:status => STATUS_MAP[:instructor_urgent])
   end
 
   def is_instructor_urgent?
-    self.status == 4
+    self.status == STATUS_MAP[:instructor_urgent]
   end
 
   def self.timebased_status
     Issue.not_closed.each do |issue|
       case
       when issue.created_at < Time.now-10.minutes 
-        issue.status = 4
+        issue.status = STATUS_MAP[:instructor_urgent]
         issue.save
       when issue.created_at < Time.now-3.minutes
-        issue.status = 3
+        issue.status = STATUS_MAP[:instructor_normal]
         issue.save 
       when issue.created_at < Time.now-1.minutes
-        issue.status = 2
+        issue.status = STATUS_MAP[:fellow_student]
         issue.save
       end       
     end
@@ -86,5 +86,8 @@ class Issue < ActiveRecord::Base
     self.user_id == @current_user.id    
   end  
 
+  def assigned_to
+    User.find_by_id(self.assignee_id).name
+  end
 
 end

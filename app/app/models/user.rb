@@ -22,40 +22,20 @@ class User < ActiveRecord::Base
     USER_ROLES
   end
 
-  def self.authenticate(email, password)
-    begin
-      user = User.find_by_email(email)
-      if user.authenticate(password)
-        user
-      else
-        false
-      end
-    rescue
-      false
-    end
-  end
-
-  def encrypt_password
-    if password.present?
-      self.password_salt = BCrypt::Engine.generate_salt
-      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
-    end    
-  end
-
   def can_edit?(issue)
-    true if (self.role == 0 || issue.user_id == self.id)
+    true if (self.role == USER_ROLES[:admin] || issue.user_id == self.id)
   end
 
   def can_destroy?(issue)
-    true if (self.role == 0 || issue.user_id == self.id)
+    true if (self.role == USER_ROLES[:admin] || issue.user_id == self.id)
   end
 
   def can_resolve?(issue)
-    true if (self.role == 0 || issue.user_id == self.id)
+    true if (self.role == USER_ROLES[:admin] || issue.user_id == self.id)
   end
 
   # def can?(issue, action)
-  #   true if (self.role == 0 || issue.user_id == self.id)
+  #   true if (self.role == USER_ROLES[:admin] || issue.user_id == self.id)
   # end
 
   # current_user.can?(edit, object)

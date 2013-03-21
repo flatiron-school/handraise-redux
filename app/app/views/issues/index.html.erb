@@ -6,7 +6,7 @@
     <th>Title</th>
     <th>Content</th>
     <th>User</th>
-    <th>Status</th>
+    <th>Assigned To</th>
     <th>Time submitted</th>
     <th>Mark as Resolved</th>
     <th></th>
@@ -15,10 +15,10 @@
   </tr>
 
 <% case current_user.role %>
-  <% when 0 %>
+  <% when User::USER_ROLES[:admin] %>
     <%= render 'indexinstructor' %>
     <%= render 'indexstudent' %>
-  <% when 10 %>
+  <% when User::USER_ROLES[:student] %>
     <%= render 'indexinstructor' %>
     <%= render 'indexstudent' %>
     <%= render 'indexwaitingroom' %>
