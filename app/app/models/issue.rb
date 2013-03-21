@@ -43,7 +43,7 @@ class Issue < ActiveRecord::Base
   end
 
   def self.fellow_student
-    Issue.where(:status => STATUS_MAP[:fellow_student])
+    Issue.not_assigned.where(:status => STATUS_MAP[:fellow_student])
   end
 
   def is_fellow_student?
@@ -51,7 +51,7 @@ class Issue < ActiveRecord::Base
   end
 
   def self.instructor_normal
-    Issue.where(:status => STATUS_MAP[:instructor_normal])
+    Issue.not_assigned.where(:status => STATUS_MAP[:instructor_normal])
   end
 
   def is_instructor_normal?
@@ -59,7 +59,7 @@ class Issue < ActiveRecord::Base
   end
 
   def self.instructor_urgent
-    Issue.where(:status => STATUS_MAP[:instructor_urgent])
+    Issue.not_assigned.where(:status => STATUS_MAP[:instructor_urgent])
   end
 
   def is_instructor_urgent?
@@ -69,13 +69,13 @@ class Issue < ActiveRecord::Base
   def self.timebased_status
     Issue.not_closed.each do |issue|
       case
-      when issue.created_at < Time.now-10.minutes 
+      when issue.created_at < Time.now-40.minutes 
         issue.status = STATUS_MAP[:instructor_urgent]
         issue.save
-      when issue.created_at < Time.now-3.minutes
+      when issue.created_at < Time.now-20.minutes
         issue.status = STATUS_MAP[:instructor_normal]
         issue.save 
-      when issue.created_at < Time.now-1.minutes
+      when issue.created_at < Time.now-5.minutes
         issue.status = STATUS_MAP[:fellow_student]
         issue.save
       end       
@@ -89,5 +89,15 @@ class Issue < ActiveRecord::Base
   def assigned_to
     User.find_by_id(self.assignee_id).name
   end
+
+  def self.assigned
+    Issue.not_closed.where("assignee_id >= ?", 0)
+  end
+
+  def self.not_assigned
+    Issue.not_closed.where("assignee_id IS NULL")
+  end
+
+
 
 end

@@ -1,0 +1,26 @@
+<div class="issue quick-button">
+  <div class="circles queue_position notification">
+    <%= issues.index(issue) + 1 %>
+  </div>
+  <div class="circles votes notification">
+    +4
+  </div>
+  <div class="issue_box">
+    <%= link_to truncate(issue.title, :length => 35, :omission =>"..."), issue_path(issue), :class => "title" %>
+    <p><%= link_to truncate(issue.content, :length => 200, :omission =>"..."), issue_path(issue), :class => "description" %></p>
+  </div>
+  <div class="credits">
+    <hr>
+    <p>
+      Submitted by: <br> <%= link_to issue.user.name, issue.user %> | <%= time_ago_in_words(issue.created_at) %> ago
+    </p>
+  </div>
+  <ul class="issue_icons">
+    <li><%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue)%>
+    </li>
+    <li><%= link_to(raw('<i class="icon-pencil btn btn-info"></i>'), edit_issue_path(issue)) if current_user.can_edit?(issue) %></li>
+    <li><%= link_to raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue) %></li>
+    <li><%= link_to raw('<i class="icon-user btn btn-success"></i>'), assign_path(issue) %></li>    
+  </ul>
+</div>
+

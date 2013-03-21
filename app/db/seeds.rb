@@ -37,13 +37,13 @@ issues = Issue.create([
   { :content => "What is the best way to create many-to-many associations?",
     :title => "Rails associations",
     :user_id => 2,
-    :status => 2},
+    :status => 1},
   { :content => "How do you use DataMapper?",
     :title => "ORM - DataMapper",
     :user_id => 3,
-    :status => 3},
+    :status => 1},
   { :content => "Where do I save my helper methods?",
     :title => "Rails helpers",
     :user_id => 4,
-    :status => 4}
+    :status => 1}
   ])

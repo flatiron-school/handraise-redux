@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     self.role = USER_ROLES[:student]
   end
 
+  def admin?
+    true if self.role_name == :admin
+  end
+
   def self.user_roles
     USER_ROLES
   end
