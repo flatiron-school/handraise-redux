@@ -1,0 +1,16 @@
+  <%= form_for @response do |f| %>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="responseModalLabel">Response:</h3>
+  </div>
+  <div class="modal-body">
+    <%= hidden_field :issue, :id %>
+    <%= f.text_area :content %>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <%= f.submit :class => "btn btn-primary"%>
+  </div>
+<% end %>
+

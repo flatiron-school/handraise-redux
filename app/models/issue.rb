@@ -1,9 +1,12 @@
 class Issue < ActiveRecord::Base
-  attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist
+  attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses
 
   belongs_to :user
 
   belongs_to :assignee, :class_name => "User", :foreign_key => :assignee_id
+
+  has_many :responses
+  has_many :users, :through => :responses
 
   STATUS_MAP = {
     :closed => 0,
