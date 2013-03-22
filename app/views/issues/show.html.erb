@@ -30,5 +30,30 @@
 <hr width="40%">
 <br>
 
+<% if @issue.responses.count > 0 %>
+  <div>
+    <h4>Responses:</h4>
+    <% @issue.responses[0..-2].each do |response| %>
+      <h5><%= response.user.name %> | <%= time_ago_in_words(response.created_at) %> ago</h5>
+      <%= response.content %>
+      <br>
+      <hr width="40%">
+    <% end %>
+  </div>
+<% end %>
+<hr width="40%">
+<br>
+
+
+
+<a href="#responseModal" role="button" class="btn btn-sucess" data-toggle="modal">Respond to this issue</a>
+
+<div id="responseModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel" aria-hidden="true">
+  <%= render :partial => "response_form", :locals => { :@response => @response , :issue => @issue, :id => @issue.id} %>
+</div>
+
+
+
+<br><br>
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
 <%= link_to 'Back', issues_path %>
