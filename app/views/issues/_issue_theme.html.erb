@@ -8,7 +8,7 @@
   </div>
   <div class="issue_box">
     <%= link_to truncate(issue.title, :length => 35, :omission =>"..."), issue_path(issue), :class => "title" %>
-    <p><%= link_to truncate(issue.content, :length => 200, :omission =>"..."), issue_path(issue), :class => "description" %></p>
+    <p><%= link_to truncate(issue.content, :length => 140, :omission =>"..."), issue_path(issue), :class => "description" %></p>
   </div>
   <div class="credits">
     <hr>
