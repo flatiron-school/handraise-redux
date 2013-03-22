@@ -1,5 +1,5 @@
 class Issue < ActiveRecord::Base
-  attr_accessible :content, :status, :title, :user_id, :assignee_id
+  attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist
 
   belongs_to :user
 
@@ -14,7 +14,7 @@ class Issue < ActiveRecord::Base
   }
 
   def current_status
-    STATUS_MAP[self.status].to_s 
+    Issue.status.key(self.status).to_s 
   end
 
   def self.status
