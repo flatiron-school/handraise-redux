@@ -43,7 +43,7 @@ body {
       border: solid;
       background-color: white;
       z-index: 1;
-      position: relative;
+      position: absolute;
       text-align: center;
       font-size: 1.25em;
       font-weight: bold;
@@ -51,12 +51,12 @@ body {
     }
     .queue_position {
       float: left;
-      right: 1.5em;
+      right: -1.5em;
       top: -1.5em;
     }
     .votes {
       float: right;
-      left: 1.5em;
+      left: -1.5em;
       top: -1.5em;
       text-indent: -0.25em;
     }
@@ -72,7 +72,7 @@ body {
       height: 12em;
       a.title {
         font-weight: bold;
-        font-size: 2em;
+        font-size: 1.6em;
         line-height: 1.2em;
         margin: 0.5em 0em;
         display: block;
