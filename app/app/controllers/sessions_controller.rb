@@ -3,8 +3,19 @@ class SessionsController < ApplicationController
 
   def new
   end
+
+  def new_github
+  end
+
+  def github
+    raise response.inspect
+    github_code = params[:code]
+    github_path = "https://github.com/login/oauth/#{github_code}"
+    # raise HTTParty.post(github_path).inspect
+  end
   
   def create
+    raise params.inspect
     @user = User.find_by_email(params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id

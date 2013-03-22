@@ -12,13 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br />
+    <h5>Title</h5><br />
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
+    <h5>Content</h5><br />
+    <%= f.text_area :content, :rows => "10", :cols => "10" %>
   </div>
+  <div class="field">
+    <h5>Link to a Gist</h5><br />
+    <%= f.text_field :relevant_gist %>
+  </div>
+
 
   <div class="actions">
     <%= f.submit %>

@@ -1,25 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
+<h2>
   <%= @issue.title %>
-</p>
+</h2>
 
-<p>
-  <b>Content:</b>
-  <%= @issue.content %>
-</p>
-
-<p>
-  <b>User:</b>
+<div>
+  <h4>Posted By:</h4>
   <%= @issue.user.name %>
-</p>
+</div>
+<hr width="40%">
+<div>
+  <h4>Content:</h4>
+  <%= @issue.content %>
+</div>
+<hr width="40%">
 
-<p>
-  <b>Status:</b>
+<% if @issue.relevant_gist != nil %>
+<div>
+  <h4>Gist:</h4>
+  <%= link_to@issue.relevant_gist, @issue.relevant_gist, :target => "_blank" %>
+</div>
+<hr width='40%'>
+<% end %>
+
+<div>
+  <h4>Status:</h4>
   <%= @issue.current_status %>
-</p>
-
+</div>
+<hr width="40%">
+<br>
 
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
 <%= link_to 'Back', issues_path %>
