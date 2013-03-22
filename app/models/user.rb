@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :role, :profile_url
+  attr_accessible :email, :name, :password, :password_confirmation, :role, :profile_url, :responses
   has_many :issues
+
+  has_many :responses
+  has_many :issues, :through => :responses
 
   has_secure_password
   validates :password, :presence => { :on => :create }
