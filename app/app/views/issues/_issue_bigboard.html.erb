@@ -1,0 +1,21 @@
+<div class="issue quick-button">
+  
+  <div>
+    <%= image_tag("janevora.jpeg", :class => "profile_image") %>
+  </div>
+
+  <div class="circles queue_position notification">
+    <%= issues.index(issue) + 1 %>
+  </div>
+  
+  <div class="circles votes notification">
+    +4
+  </div>
+  
+  <div class="credits">
+    <p>
+      <br>Submitted by: <br> <%= link_to issue.user.name, issue.user %> | <%= time_ago_in_words(issue.created_at) %> ago
+    </p>
+  </div>
+</div>
+
