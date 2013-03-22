@@ -8,6 +8,11 @@ App::Application.routes.draw do
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
 
+  get 'github' => 'sessions#github'
+
+  get 'login/github' => 'sessions#new_github'
+  match '/auth/:provider/callback' => "sessions#github"
+
   get 'big_board' => 'issues#big_board'
 
   get "theme" => "issues#theme", :as => "theme"
