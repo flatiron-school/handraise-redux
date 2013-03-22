@@ -14,7 +14,7 @@
   
   <div class="credits">
     <p>
-      <br>Submitted by: <br> <%= link_to issue.user.name, issue.user %> | <%= time_ago_in_words(issue.created_at) %> ago
+      <h1><%= link_to issue.user.name, issue.user %></h1> <br>Submitted <%= time_ago_in_words(issue.created_at) %> ago
     </p>
   </div>
 </div>
