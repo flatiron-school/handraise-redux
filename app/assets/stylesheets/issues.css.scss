@@ -12,7 +12,6 @@ body {
     position: relative;
     float: left;
     margin: 2.5em;
-    width: 25%;
 
     .profile_image {
       width: 100%;
@@ -125,6 +124,10 @@ body {
 
   .quick-button {
     padding: 0px;
+  }
+
+  .bigpicture {
+    width: 25%;
   }
 
   .btn {
