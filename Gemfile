@@ -12,7 +12,7 @@ group :development, :test do
 end  
 
 group :production do
- gem 'pg'
+  gem 'pg'
 end 
 
 
@@ -45,7 +45,7 @@ gem 'httparty'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+ gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
