@@ -128,7 +128,11 @@ class Issue < ActiveRecord::Base
   end
 
   def self.average_wait_time_open
-    (Issue.wait_time_open_in_seconds/60)/Issue.total_open_issues
+    if total_open_issues == 0
+      0
+    else
+      (Issue.wait_time_open_in_seconds/60)/Issue.total_open_issues
+    end
   end
 
   def self.average_wait_time_closed
