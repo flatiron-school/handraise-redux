@@ -37,7 +37,6 @@
     <% if current_page?(issues_path) || current_page?(big_board_path) %>
       <meta http-equiv="refresh" content="60">
     <% end %>
-
   </head>
   <body>
 
@@ -76,6 +75,26 @@
               <li><%= link_to "Report A Bug", "https://github.com/flatiron-school/handraise-redux/issues", :target => "_blank" %></li>
             </ul>
           </div><!--/.well -->
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Issues summary</li>
+              <li>Current open issues:<br>
+                <strong><%= Issue.total_open_issues %></strong>
+              </li>
+              <li>Average waiting time for open issues:<br>
+                <strong><%= Issue.average_wait_time_open.to_i %> minutes</strong>
+              </li>    
+              <hr>
+              <li>Total closed issues: <br> 
+                <strong><%= Issue.total_closed_issues %></strong>
+              </li>
+              <% if Issue.total_closed_issues > 0 %>
+              <li>Average time taken to resolve issues:<br>
+                <strong><%= Issue.average_wait_time_closed.to_i %> minutes</strong>
+              </li>              
+              <% end %>
+            </ul>
+          </div><!--/.well -->
         </div><!--/span-->
         <% end %>
         
@@ -111,6 +130,7 @@
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+
     <%= javascript_include_tag "application" %>
 
   </body>

@@ -37,8 +37,17 @@
     <h4>Responses:</h4>
     <% @issue.responses[0..-2].each do |response| %>
       <h5><%= response.user.name %> | <%= time_ago_in_words(response.created_at) %> ago</h5>
+      <% if response.answer %>
+        <h6>Correct Answer!</h6>
+        <% if @issue.asker?(current_user) %>
+          <%= button_to "Unmark as Answer", :controller => "responses", :action => "answer", :response_id => response.id %>
+        <% end %>
+      <% end %>
       <%= response.content %>
-      <br>
+      <br><br>
+      <% if !@issue.answered? && @issue.asker?(current_user) %>
+        <%= button_to "Mark As Answer", :controller => "responses", :action => "answer", :response_id => response.id %>
+      <% end %>
       <hr width="40%">
     <% end %>
   </div>
