@@ -8,6 +8,8 @@ App::Application.routes.draw do
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
 
+  post 'issues/:id/answer' => 'responses#answer'
+
   get 'github' => 'sessions#github'
 
   get 'login/github' => 'sessions#new_github'
