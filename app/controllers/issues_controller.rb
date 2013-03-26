@@ -24,6 +24,7 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     @issue = Issue.find(params[:id])
+
     @response = @issue.responses.build
 
     respond_to do |format|
