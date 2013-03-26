@@ -155,7 +155,7 @@ class IssuesController < ApplicationController
     vote.user = current_user
     vote.save
 
-    redirect_to issue_path(@issue)
+    redirect_to issues_path
   end
 
   def votedown
@@ -163,7 +163,7 @@ class IssuesController < ApplicationController
     vote = Vote.where(:user_id => current_user.id, :issue_id => @issue.id).first
     vote.delete
 
-    redirect_to issue_path(@issue)
+    redirect_to issues_path
   end
 
 end

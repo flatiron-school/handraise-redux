@@ -4,10 +4,14 @@
     <%= issues.index(issue) + 1 %>
   </div>
   <div class="circles votes notification">
-    <% if issue.voted_on?(@current_user) %>
-      <%= link_to ("-" + issue.votes.size.to_s), votedown_path(issue) %>
+    <% if @current_user == issue.user %>
+      <%= issue.votes.size.to_s %>
     <% else %>
-      <%= link_to ("+" + issue.votes.size.to_s), voteup_path(issue) %>
+      <% if issue.voted_on?(@current_user) %>
+        <%= link_to(raw('<i class="icon-thumbs-down"></i>'), votedown_path(issue)) %>
+      <% else %>
+        <%= link_to(raw('<i class="icon-thumbs-up"></i>'), voteup_path(issue)) %>
+      <% end %>
     <% end %>
   </div>
   <div class="issue_box">
@@ -29,6 +33,7 @@
       </p>
       <%= "Assigned To: " if issue.assignee_id.present? %>
     <strong><%= issue.assigned_to if issue.assignee_id.present? %></strong>
+      <p>Vote Count: <%= issue.votes.size.to_s %></p>
 
     </div>
   </div>
