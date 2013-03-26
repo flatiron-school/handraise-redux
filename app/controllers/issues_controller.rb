@@ -3,9 +3,7 @@ class IssuesController < ApplicationController
 
   # GET /issues
   # GET /issues.json
-  def index
-    # Issue.timebased_status    
-
+  def index   
     @issues = Issue.all
     @closed_issues = Issue.closed
     @waiting_room_issues = Issue.waiting_room(current_user.id)

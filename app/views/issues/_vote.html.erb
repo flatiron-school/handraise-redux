@@ -1,9 +1,9 @@
 <% unless @current_user == asker %>
-
   <% if issue.voted_on?(@current_user) %>
-    <%= link_to ("-" + issue.votes.size.to_s), votedown_path %>
+    <%= link_to(raw('<i class="icon-thumbs-down"></i>'), votedown_path(issue)) %>
   <% else %>
-    <%= link_to ("+" + issue.votes.size.to_s), voteup_path %>
+    <%= link_to(raw('<i class="icon-thumbs-up"></i>'), voteup_path(issue)) %>
   <% end %>
-
 <% end %>
+
+<em> | Vote Count: <%= issue.votes.size.to_s %></em>
