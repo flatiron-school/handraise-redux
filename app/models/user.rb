@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
     true if self.role_name == :admin
   end
 
-  def issue_owner?(issue)
+  def owns?(issue)
     true if self.id == issue.user_id
   end
 
@@ -41,15 +41,15 @@ class User < ActiveRecord::Base
   end
 
   def can_edit?(issue)
-    true if admin? || issue_owner?(issue)
+    true if admin? || owns?(issue)
   end
 
   def can_destroy?(issue)
-    true if admin? || issue_owner?(issue)
+    true if admin? || owns?(issue)
   end
 
   def can_resolve?(issue)
-    true if admin? || issue_owner?(issue)
+    true if admin? || owns?(issue)
   end
 
   def can_assign?(issue)
