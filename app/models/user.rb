@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   has_many :responses
   has_many :issues, :through => :responses
 
+  has_many :votes
+  has_many :issues, :through => :votes
+
   has_secure_password
   validates :password, :presence => { :on => :create }
 
@@ -51,6 +54,10 @@ class User < ActiveRecord::Base
 
   def can_unassign?(issue)
     true if issue.assignee_id == self.id
+  end
+
+  def can_upvote?(issue)
+    true if issue.user_id != self.id 
   end
 
   # def can?(issue, action)
