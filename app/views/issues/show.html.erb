@@ -4,6 +4,8 @@
   <%= @issue.title %>
 </h2>
 
+<%= render :partial => 'vote', :locals => {:issue => @issue, :asker => @issue.user} %>
+
 <div>
   <h4>Posted By:</h4>
   <%= @issue.user.name %>

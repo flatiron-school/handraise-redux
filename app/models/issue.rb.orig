@@ -135,17 +135,18 @@ class Issue < ActiveRecord::Base
     (Issue.wait_time_closed_in_seconds/60)/Issue.total_closed_issues
   end
 
+<<<<<<< HEAD
+  def voted_on?(user)
+    vote_user_id_array = self.votes.collect {|vote| vote.user_id}
+    vote_user_id_array.include?(user.id)
+=======
   def answered?
     true unless self.responses.where(:answer => 1).empty?
   end
 
   def asker?(user)
     true if self.user == user
-  end
-
-  def voted_on?(user)
-    vote_user_id_array = self.votes.collect {|vote| vote.user_id}
-    vote_user_id_array.include?(user.id)
+>>>>>>> master
   end
 
 end

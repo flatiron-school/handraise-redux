@@ -3,9 +3,7 @@ class IssuesController < ApplicationController
 
   # GET /issues
   # GET /issues.json
-  def index
-    # Issue.timebased_status    
-
+  def index   
     @issues = Issue.all
     @closed_issues = Issue.closed
     @waiting_room_issues = Issue.waiting_room(current_user.id)
@@ -147,6 +145,23 @@ class IssuesController < ApplicationController
 
   def theme
     @issues = Issue.all
+  end
+
+  def voteup
+    @issue = Issue.find(params[:id])
+    vote = @issue.votes.create
+    vote.user = current_user
+    vote.save
+
+    redirect_to issues_path
+  end
+
+  def votedown
+    @issue = Issue.find(params[:id])
+    vote = Vote.where(:user_id => current_user.id, :issue_id => @issue.id).first
+    vote.delete
+
+    redirect_to issues_path
   end
 
 end
