@@ -4,7 +4,7 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    Issue.timebased_status    
+    # Issue.timebased_status    
 
     @issues = Issue.all
     @closed_issues = Issue.closed

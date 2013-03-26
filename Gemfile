@@ -51,3 +51,4 @@ gem 'httparty'
 # gem 'debugger'
 
 gem 'pry'
+gem 'whenever'
