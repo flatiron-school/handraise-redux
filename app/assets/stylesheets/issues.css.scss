@@ -29,7 +29,7 @@ body {
     }
 
     .submission_details {
-      text-align: left;
+      text-align: center;
     }
 
     .credits {
@@ -51,14 +51,21 @@ body {
     }
     .queue_position {
       float: left;
-      right: -1.5em;
+      left: -1.5em;
       top: -1.5em;
     }
     .votes {
       float: right;
-      left: -1.5em;
+      right: -1.5em;
       top: -1.5em;
-      text-indent: -0.25em;
+
+      a {
+        color: #fff;
+
+        i {
+          font-size: 22px;
+        }
+      } 
     }
 
     .assignee_name {
