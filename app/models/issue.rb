@@ -137,4 +137,12 @@ class Issue < ActiveRecord::Base
     (Issue.wait_time_closed_in_seconds/60)/Issue.total_closed_issues
   end
 
+  def answered?
+    true unless self.responses.where(:answer => 1).empty?
+  end
+
+  def asker?(user)
+    true if self.user == user
+  end
+
 end
