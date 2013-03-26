@@ -132,8 +132,6 @@ class IssuesController < ApplicationController
   end
 
   def big_board
-    Issue.timebased_status    
-  
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
     # binding.pry
