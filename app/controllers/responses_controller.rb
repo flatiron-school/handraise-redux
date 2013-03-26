@@ -18,6 +18,14 @@ class ResponsesController < ApplicationController
     @response.toggle_answer
     @response.save
 
+    @issue = @response.issue
+    if @issue.status == 0
+      Issue.status_change(@issue)  
+    else
+      @issue.status = Issue::STATUS_MAP[:closed]
+    end
+    @issue.save
+
     redirect_to issue_path(@response.issue)
   end
 

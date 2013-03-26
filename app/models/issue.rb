@@ -71,18 +71,20 @@ class Issue < ActiveRecord::Base
 
   def self.timebased_status
     Issue.not_closed.each do |issue|
-      case
-      when issue.created_at < Time.now-40.minutes 
-        issue.status = STATUS_MAP[:instructor_urgent]
-        issue.save
-      when issue.created_at < Time.now-20.minutes
-        issue.status = STATUS_MAP[:instructor_normal]
-        issue.save 
-      when issue.created_at < Time.now-5.minutes
-        issue.status = STATUS_MAP[:fellow_student]
-        issue.save
-      end       
+      Issue.status_change(issue)
+      issue.save
     end
+  end
+
+  def self.status_change(issue)
+    case
+    when issue.created_at < Time.now-40.minutes 
+      issue.status = STATUS_MAP[:instructor_urgent]
+    when issue.created_at < Time.now-20.minutes
+      issue.status = STATUS_MAP[:instructor_normal]
+    when issue.created_at < Time.now-5.minutes
+      issue.status = STATUS_MAP[:fellow_student]
+    end    
   end
 
   def from_current_user
