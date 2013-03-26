@@ -3,17 +3,15 @@
   <div class="circles queue_position notification">
     <%= issues.index(issue) + 1 %>
   </div>
+  <% unless @current_user == issue.user %>
   <div class="circles votes notification">
-    <% if @current_user == issue.user %>
-      <%= issue.votes.size.to_s %>
+    <% if issue.voted_on?(@current_user) %>
+      <%= link_to(raw('<i class="icon-thumbs-down"></i>'), votedown_path(issue)) %>
     <% else %>
-      <% if issue.voted_on?(@current_user) %>
-        <%= link_to(raw('<i class="icon-thumbs-down"></i>'), votedown_path(issue)) %>
-      <% else %>
-        <%= link_to(raw('<i class="icon-thumbs-up"></i>'), voteup_path(issue)) %>
-      <% end %>
+      <%= link_to(raw('<i class="icon-thumbs-up"></i>'), voteup_path(issue)) %>
     <% end %>
   </div>
+  <% end %>
   <div class="issue_box">
     <%= link_to truncate(issue.title, :length => 35, :omission =>"..."), issue_path(issue), :class => "title" %>
     <p><%= link_to truncate(issue.content, :length => 140, :omission =>"..."), issue_path(issue), :class => "description" %></p>
@@ -33,7 +31,8 @@
       </p>
       <%= "Assigned To: " if issue.assignee_id.present? %>
     <strong><%= issue.assigned_to if issue.assignee_id.present? %></strong>
-      <p>Vote Count: <%= issue.votes.size.to_s %></p>
+      <p>Vote Count: </p>
+      <strong><%= issue.votes.size.to_s %></strong>
 
     </div>
   </div>
