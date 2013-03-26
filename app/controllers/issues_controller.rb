@@ -148,4 +148,21 @@ class IssuesController < ApplicationController
     @issues = Issue.all
   end
 
+  def voteup
+    @issue = Issue.find(params[:id])
+    vote = @issue.votes.create
+    vote.user = current_user
+    vote.save
+
+    redirect_to issue_path(@issue)
+  end
+
+  def votedown
+    @issue = Issue.find(params[:id])
+    vote = Vote.where(:user_id => current_user.id, :issue_id => @issue.id).first
+    vote.delete
+
+    redirect_to issue_path(@issue)
+  end
+
 end

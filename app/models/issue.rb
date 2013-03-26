@@ -8,6 +8,9 @@ class Issue < ActiveRecord::Base
   has_many :responses
   has_many :users, :through => :responses
 
+  has_many :votes
+  has_many :users, :through => :votes
+
   STATUS_MAP = {
     :closed => 0,
     :waiting_room => 1,                # part of the waiting_room queue
@@ -135,6 +138,11 @@ class Issue < ActiveRecord::Base
 
   def self.average_wait_time_closed
     (Issue.wait_time_closed_in_seconds/60)/Issue.total_closed_issues
+  end
+
+  def voted_on?(user)
+    vote_user_id_array = self.votes.collect {|vote| vote.user_id}
+    vote_user_id_array.include?(user.id)
   end
 
 end
