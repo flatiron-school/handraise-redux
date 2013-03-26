@@ -20,7 +20,7 @@ class ResponsesController < ApplicationController
 
     @issue = @response.issue
     if @issue.status == 0
-      Issue.status_change(@issue)  
+      @issue.status_change 
     else
       @issue.status = Issue::STATUS_MAP[:closed]
     end
