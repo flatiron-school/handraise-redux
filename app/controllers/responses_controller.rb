@@ -15,11 +15,7 @@ class ResponsesController < ApplicationController
 
   def answer
     @response = Response.find_by_id(params[:response_id])
-    if @response.answer == 1
-      @response.answer = nil
-    else
-      @response.answer = 1
-    end
+    @response.toggle_answer
     @response.save
 
     redirect_to issue_path(@response.issue)

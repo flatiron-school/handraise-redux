@@ -24,7 +24,7 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     @issue = Issue.find(params[:id])
-    @answer = @issue.responses.where(:answer => 1)
+
     @response = @issue.responses.build
 
     respond_to do |format|
