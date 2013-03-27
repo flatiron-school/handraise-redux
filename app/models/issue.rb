@@ -19,6 +19,30 @@ class Issue < ActiveRecord::Base
     :instructor_urgent => 4            # part of the instructor queue
   }
 
+  def self.scopable_by(status_key, opts = {})
+    define_singleton_method status_key do
+      pre_scope = opts[:pre_scope] ? Issue.send(opts[:pre_scope]) : Issue
+      pre_scope.where(:status => Issue::STATUS_MAP[status_key])
+    end
+
+    define_method "is_#{status_key}?" do
+      self.status == Issue::STATUS_MAP[status_key]
+    end
+  end
+
+  scopable_by :closed
+  scopable_by :fellow_student, :pre_scope => :not_assigned
+  scopable_by :instructor_normal, :pre_scope => :not_assigned
+  scopable_by :instructor_urgent, :pre_scope => :not_assigned
+
+  def self.waiting_room(user_id)
+    Issue.where(:status => Issue::STATUS_MAP[:waiting_room], :user_id => user_id)
+  end
+
+  def is_waiting_room?
+    self.status == Issue::STATUS_MAP[:waiting_room]
+  end
+
   def current_status
     Issue.status.key(self.status).to_s 
   end
@@ -27,49 +51,9 @@ class Issue < ActiveRecord::Base
     STATUS_MAP
   end
 
-  def self.closed
-    Issue.where(:status => STATUS_MAP[:closed])
-  end
-
   def self.not_closed
     issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3
     Issue.where(issues[:status].not_eq(STATUS_MAP[:closed]))
-  end
-
-  def is_closed?
-    self.status == STATUS_MAP[:closed]
-  end
-
-  def self.waiting_room(user_id)
-    Issue.where(:status => STATUS_MAP[:waiting_room], :user_id => user_id)
-  end
-
-  def is_waiting_room?
-    self.status == STATUS_MAP[:waiting_room]
-  end
-
-  def self.fellow_student
-    Issue.not_assigned.where(:status => STATUS_MAP[:fellow_student])
-  end
-
-  def is_fellow_student?
-    self.status == STATUS_MAP[:fellow_student]
-  end
-
-  def self.instructor_normal
-    Issue.not_assigned.where(:status => STATUS_MAP[:instructor_normal])
-  end
-
-  def is_instructor_normal?
-    self.status == STATUS_MAP[:instructor_normal]
-  end
-
-  def self.instructor_urgent
-    Issue.not_assigned.where(:status => STATUS_MAP[:instructor_urgent])
-  end
-
-  def is_instructor_urgent?
-    self.status == STATUS_MAP[:instructor_urgent]
   end
 
   def self.for_instructor
