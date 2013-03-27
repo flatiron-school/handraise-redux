@@ -54,3 +54,4 @@ gem 'figaro'
 
 gem 'pry'
 gem 'whenever'
+gem 'aasm'

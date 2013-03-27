@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130327152508) do
 
+
   create_table "issues", :force => true do |t|
     t.text     "content"
     t.string   "title"
@@ -22,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20130327152508) do
     t.datetime "updated_at",    :null => false
     t.integer  "assignee_id"
     t.string   "relevant_gist"
+    t.string   "aasm_state"
   end
 
   create_table "responses", :force => true do |t|

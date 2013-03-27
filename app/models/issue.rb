@@ -1,5 +1,38 @@
 class Issue < ActiveRecord::Base
-  attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses
+  include AASM
+
+  aasm :whiny_transitions => false do
+    state :waiting_room, :initial => true
+    state :fellow_student
+    state :instructor_normal
+    state :instructor_urgent
+    state :closed
+
+    # before triggering first event, issue.aasm_state will be empty. this method can be called to save issue.aasm_state to 'waiting_room'
+    event :to_waiting_room do
+      transitions :from => :waiting_room, :to => :waiting_room
+    end
+
+    event :to_fellow_student do
+      transitions :from => [:waiting_room, :instructor_urgent], :to => :fellow_student
+    end
+
+    event :to_instructor_normal do
+      transitions :from => [:fellow_student, :instructor_urgent], :to => :instructor_normal
+    end
+
+    event :to_instructor_urgent do
+      transitions :from => [:fellow_student, :instructor_normal], :to => :instructor_urgent
+    end
+
+    event :to_closed do
+      transitions :from => [:waiting_room, :fellow_student, :instructor_normal, :instructor_urgent], :to => :closed
+    end
+
+  end
+
+
+  attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses, :aasm_state
 
   belongs_to :user
 
