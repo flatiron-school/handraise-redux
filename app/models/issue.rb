@@ -72,6 +72,14 @@ class Issue < ActiveRecord::Base
     self.status == STATUS_MAP[:instructor_urgent]
   end
 
+  def is_assigned?
+    true unless self.assignee_id.nil?
+  end
+
+  def is_unassigned?
+    self.assignee_id.nil?
+  end
+
   def status_change
     case
     when self.created_at < Time.now-40.minutes 
