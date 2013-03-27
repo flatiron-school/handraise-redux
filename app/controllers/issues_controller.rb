@@ -131,10 +131,13 @@ class IssuesController < ApplicationController
     twilio_client = TwilioWrapper.new
 
     @issue = Issue.find(params[:id])
+
+    twilio_client.create_sms(@issue,'unassign')
+
     @issue.assignee_id = nil
     @issue.save
 
-    twilio_client.create_sms(@issue,'unassign')
+    
 
     redirect_to issues_path
   end
