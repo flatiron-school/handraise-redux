@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :role, :profile_url, :responses
+  attr_accessible :email, :name, :password, :password_confirmation, :role, :profile_url, :responses, :cellxz
   has_many :issues
 
   has_many :responses

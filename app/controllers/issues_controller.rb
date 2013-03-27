@@ -120,6 +120,15 @@ class IssuesController < ApplicationController
     @issue.assignee_id = session[:user_id]
     @issue.save
 
+    client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+    from = ENV['TWILIO_FROM']
+
+    client.account.sms.messages.create(
+      :from => from,
+      :to => @issue.user.cell,
+      :body => "#{@issue.user.name}, your issue is now assigned to #{User.find_by_id(@issue.assignee_id).name}."
+    )
+
     redirect_to issues_path
   end
 

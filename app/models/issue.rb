@@ -44,6 +44,7 @@ class Issue < ActiveRecord::Base
   has_many :votes
   has_many :users, :through => :votes
 
+  extend IssueStats
 
   STATUS_MAP = {
     :closed => 0,
@@ -53,6 +54,30 @@ class Issue < ActiveRecord::Base
     :instructor_urgent => 4            # part of the instructor queue
   }
 
+  def self.scopable_by(status_key, opts = {})
+    define_singleton_method status_key do
+      pre_scope = opts[:pre_scope] ? Issue.send(opts[:pre_scope]) : Issue
+      pre_scope.where(:status => Issue::STATUS_MAP[status_key])
+    end
+
+    define_method "is_#{status_key}?" do
+      self.status == Issue::STATUS_MAP[status_key]
+    end
+  end
+
+  scopable_by :closed
+  scopable_by :fellow_student, :pre_scope => :not_assigned
+  scopable_by :instructor_normal, :pre_scope => :not_assigned
+  scopable_by :instructor_urgent, :pre_scope => :not_assigned
+
+  def self.waiting_room(user_id)
+    Issue.where(:status => Issue::STATUS_MAP[:waiting_room], :user_id => user_id)
+  end
+
+  def is_waiting_room?
+    self.status == Issue::STATUS_MAP[:waiting_room]
+  end
+
   def current_status
     Issue.status.key(self.status).to_s 
   end
@@ -61,49 +86,9 @@ class Issue < ActiveRecord::Base
     STATUS_MAP
   end
 
-  def self.closed
-    Issue.where(:status => STATUS_MAP[:closed])
-  end
-
   def self.not_closed
     issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3
     Issue.where(issues[:status].not_eq(STATUS_MAP[:closed]))
-  end
-
-  def is_closed?
-    self.status == STATUS_MAP[:closed]
-  end
-
-  def self.waiting_room(user_id)
-    Issue.where(:status => STATUS_MAP[:waiting_room], :user_id => user_id)
-  end
-
-  def is_waiting_room?
-    self.status == STATUS_MAP[:waiting_room]
-  end
-
-  def self.fellow_student
-    Issue.not_assigned.where(:status => STATUS_MAP[:fellow_student])
-  end
-
-  def is_fellow_student?
-    self.status == STATUS_MAP[:fellow_student]
-  end
-
-  def self.instructor_normal
-    Issue.not_assigned.where(:status => STATUS_MAP[:instructor_normal])
-  end
-
-  def is_instructor_normal?
-    self.status == STATUS_MAP[:instructor_normal]
-  end
-
-  def self.instructor_urgent
-    Issue.not_assigned.where(:status => STATUS_MAP[:instructor_urgent])
-  end
-
-  def is_instructor_urgent?
-    self.status == STATUS_MAP[:instructor_urgent]
   end
 
   def self.for_instructor
@@ -151,46 +136,6 @@ class Issue < ActiveRecord::Base
 
   def self.not_assigned
     Issue.not_closed.where("assignee_id IS NULL")
-  end
-
-  def self.wait_time_total
-    (Issue.wait_time_open_in_seconds + Issue.wait_time_closed_in_seconds)/60
-  end
-
-  def self.average_wait_time_total
-    Issue.wait_time_total/(Issue.total_open_issues + Issue.total_closed_issues)
-  end
-
-  def self.wait_time_open_in_seconds
-    Issue.not_closed.inject(0) do |time, issue|
-      time + (Time.now - issue.created_at) 
-    end
-  end
-
-  def self.wait_time_closed_in_seconds
-    Issue.closed.inject(0) do |time, issue|
-      time + (issue.updated_at - issue.created_at) 
-    end
-  end
-
-  def self.total_open_issues
-    Issue.not_closed.size
-  end
-
-  def self.total_closed_issues
-    Issue.closed.size
-  end
-
-  def self.average_wait_time_open
-    if total_open_issues == 0
-      0
-    else
-      (Issue.wait_time_open_in_seconds/60)/Issue.total_open_issues
-    end
-  end
-
-  def self.average_wait_time_closed
-    (Issue.wait_time_closed_in_seconds/60)/Issue.total_closed_issues
   end
 
   def answered?
