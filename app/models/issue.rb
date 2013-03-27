@@ -11,6 +11,8 @@ class Issue < ActiveRecord::Base
   has_many :votes
   has_many :users, :through => :votes
 
+  extend IssueStats
+
   STATUS_MAP = {
     :closed => 0,
     :waiting_room => 1,                # part of the waiting_room queue
