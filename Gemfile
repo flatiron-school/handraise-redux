@@ -52,3 +52,4 @@ gem 'httparty'
 
 gem 'pry'
 gem 'whenever'
+gem 'aasm'
