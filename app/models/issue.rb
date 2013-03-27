@@ -72,6 +72,18 @@ class Issue < ActiveRecord::Base
     self.status == STATUS_MAP[:instructor_urgent]
   end
 
+  def self.for_instructor
+    issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3
+
+    # # Filter for
+    # only closed issues
+    # only issues that are in states instructor urgent or normal
+    # only issues that are not assigned
+    filter_for_instructor = (issues[:status].not_eq(Issue::STATUS_MAP[:closed]) and (issues[:status].eq(Issue::STATUS_MAP[:instructor_urgent]) or issues[:status].eq(Issue::STATUS_MAP[:instructor_normal])) and issues[:assignee_id].eq(nil))
+
+    Issue.where(filter_for_instructor).first
+  end
+
   def is_assigned?
     true unless self.assignee_id.nil?
   end
