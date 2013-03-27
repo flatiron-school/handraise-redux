@@ -4,7 +4,24 @@ body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+
+  .login {
+    position: relative;
+    right: 0;
+    display: block;
+    float: right;
+    margin: 0;
+
+    li {
+      padding: 10px 0px;
+      text-shadow:none;
+      color: #333;
+      list-style: none;
+    }
+  }
 }
+
+
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
