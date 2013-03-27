@@ -126,7 +126,7 @@ class IssuesController < ApplicationController
     client.account.sms.messages.create(
       :from => from,
       :to => @issue.user.cell,
-      :body => "#{@issue.user.name}, your issue is now assigned."
+      :body => "#{@issue.user.name}, your issue is now assigned to #{User.find_by_id(@issue.assignee_id).name}."
     )
 
     redirect_to issues_path
