@@ -28,12 +28,13 @@ class User < ActiveRecord::Base
     true if self.role_name == :admin
   end
 
+<<<<<<< HEAD
   def owns?(issue)
     true if self.id == issue.user_id
-  end
-
+=======
   def self.admin
     User.where(:role => USER_ROLES[:admin])
+>>>>>>> implent auto assign, add rake task autoassign
   end
 
   def self.user_roles
