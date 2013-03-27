@@ -3,6 +3,7 @@ set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log
 
 every 1.minutes do
   rake "states:update"
+  rake "states:auto_assign"
 end
 
 # Use this file to easily define all of your cron jobs.
