@@ -61,10 +61,6 @@ body {
 
       a {
         color: #fff;
-
-        i {
-          font-size: 22px;
-        }
       } 
     }
 
@@ -131,6 +127,10 @@ body {
 
   .quick-button {
     padding: 0px;
+
+    i {
+      font-size: 22px;
+    }
   }
 
   .bigpicture {

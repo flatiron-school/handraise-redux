@@ -4,13 +4,11 @@
     <%= issues.index(issue) + 1 %>
   </div>
   <% unless @current_user == issue.user %>
-  <div class="circles votes notification">
     <% if issue.voted_on?(@current_user) %>
-      <%= link_to(raw('<i class="icon-thumbs-down"></i>'), votedown_path(issue)) %>
+      <%= link_to(raw('<div class="circles votes notification"><i class="icon-thumbs-down"></i></div>'), votedown_path(issue)) %>
     <% else %>
-      <%= link_to(raw('<i class="icon-thumbs-up"></i>'), voteup_path(issue)) %>
+      <%= link_to(raw('<div class="circles votes notification"><i class="icon-thumbs-up"></i></div>'), voteup_path(issue)) %>
     <% end %>
-  </div>
   <% end %>
   <div class="issue_box">
     <%= link_to truncate(issue.title, :length => 35, :omission =>"..."), issue_path(issue), :class => "title" %>
