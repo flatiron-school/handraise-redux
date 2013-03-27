@@ -32,8 +32,16 @@ class User < ActiveRecord::Base
     true if self.id == issue.user_id
   end
 
+  def self.admin
+    User.where(:role => USER_ROLES[:admin])
+  end
+
   def self.user_roles
     USER_ROLES
+  end
+
+  def is_available?
+    true if Issue.not_closed.find_by_assignee_id(self.id).nil?
   end
 
   def role_name
