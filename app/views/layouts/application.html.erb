@@ -56,6 +56,22 @@
               <li><%= link_to "Add An Issue", new_issue_path %></li> 
               <li><%= link_to "Report A Bug", "https://github.com/flatiron-school/handraise-redux/issues", :target => "_blank" %></li>
             </ul>
+            <ul class="login">
+              <li>
+                <% if current_user %>
+                  Logged in as: <%= link_to current_user.email, edit_user_path(current_user) %>
+                  <%= link_to "Logout", logout_path %>
+                <% else %>
+                  <% unless current_page?(new_user_path) %>
+                    <%= link_to("Sign Up", new_user_path) %> 
+                  <% end %>
+                  <% unless current_page?(login_path) %>
+                    <%= link_to("Login", login_path) %> 
+                  <% end %>
+                  <%#= link_to("Login with Github", "https://github.com/login/oauth/authorize?client_id=#") %>
+                <% end %> 
+              </li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -105,19 +121,7 @@
         <% end %>
           <%= bootstrap_flash %>
 
-          <% if current_user %>
-            Logged in as: <%= current_user.email %>
-            <%= link_to "Logout", logout_path %>
-          <% else %>
-            <% unless current_page?(new_user_path) %>
-              <%= link_to("Sign Up", new_user_path) %> |
-            <% end %>
-            <% unless current_page?(login_path) %>
-              <%= link_to("Login", login_path) %> 
-            <% end %>
-            <%#= link_to("Login with Github", "https://github.com/login/oauth/authorize?client_id=#") %>
-          <% end %> 
-          <%= yield %>
+            <%= yield %>
         </div>
       </div><!--/row-->
 
