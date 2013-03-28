@@ -8,10 +8,16 @@ class SessionsController < ApplicationController
   end
 
   def github
-    raise response.inspect
-    github_code = params[:code]
-    github_path = "https://github.com/login/oauth/#{github_code}"
-    # raise HTTParty.post(github_path).inspect
+    auth = request.env['omniauth.auth']
+    unless @auth = Identity.find_from_hash(auth)
+      # create a new user or add an auth to existing user, depending on
+      # whether there is already a user signed in.
+      @auth = Identity.create_from_hash(auth, current_user)
+    end
+
+    # Log the authorizing user in.
+    current_user = @auth.user
+    redirect_to issues_path, :notice => "Welcome, #{current_user.name}."
   end
   
   def create
