@@ -31,11 +31,13 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem "twitter-bootstrap-rails"
+gem 'twitter-bootstrap-rails'
 gem 'omniauth-github'
 gem 'octokit'
+gem 'httparty'
 gem 'twilio-ruby'
 gem 'figaro'
+gem 'exception_notification'
 
 # To use ActiveModel has_secure_password
  gem 'bcrypt-ruby', '~> 3.0.0'
