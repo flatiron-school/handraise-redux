@@ -1,5 +1,9 @@
 require 'bundler/capistrano' # for bundler support
 
+set :whenever_command, "bundle exec whenever"
+require 'whenever/capistrano' # for whenever support 
+
+
 set :application, "handraise"
 set :repository,  "git@github.com:flatiron-school/handraise-redux.git"
 
