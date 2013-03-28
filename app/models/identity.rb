@@ -1,5 +1,5 @@
 class Identity < ActiveRecord::Base
-  attr_accessible :provider, :uid, :user_id
+  attr_accessible :provider, :uid, :user_id, :token, :login_name
 
   belongs_to :user
   validates_presence_of :user_id, :uid, :provider
@@ -11,7 +11,7 @@ class Identity < ActiveRecord::Base
 
   def self.create_from_hash(hash, user = nil)
     user ||= User.create_from_hash!(hash)
-    Identity.create(:user_id => user.id, :uid => hash['uid'], :provider => hash['provider'])
+    Identity.create(:user_id => user.id, :uid => hash['uid'], :provider => hash['provider'], :token => hash['credentials']['token'], :login_name => hash[:info][:nickname])
   end
 
 end
