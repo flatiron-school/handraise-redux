@@ -33,7 +33,7 @@ end
 gem 'jquery-rails'
 gem "twitter-bootstrap-rails"
 gem 'omniauth-github'
-gem 'httparty'
+gem 'octokit'
 gem 'twilio-ruby'
 gem 'figaro'
 
