@@ -13,10 +13,7 @@ App::Application.routes.draw do
 
   post 'issues/:id/answer' => 'responses#answer'
 
-  get 'github' => 'sessions#github'
-
-  get 'login/github' => 'sessions#new_github'
-  match '/auth/:provider/callback' => "sessions#github"
+  match '/auth/github/callback', :to => "sessions#github"
 
   get 'big_board' => 'issues#big_board'
 
