@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, :presence => { :on => :create }
 
+  has_many :identities
+
   USER_ROLES = {
     :admin => 0,
     :student => 10
@@ -77,5 +79,9 @@ class User < ActiveRecord::Base
   # end
 
   # current_user.can?(edit, object)
+
+  def self.create_from_hash(hash)
+    create(:name => hash['info']['name'])
+  end
 
 end
