@@ -1,3 +1,7 @@
+# http://stackoverflow.com/questions/9482298/rails-cron-whenever-bundle-command-not-found
+env :PATH, ENV['PATH']
+
+set :whenever_command, "bundle exec whenever"
 set :environment, "development"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
