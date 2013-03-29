@@ -1,3 +1,4 @@
+set :whenever_command, "bundle exec whenever"
 set :environment, "development"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
