@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328194142) do
+ActiveRecord::Schema.define(:version => 20130329194449) do
 
   create_table "identities", :force => true do |t|
     t.string   "provider"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20130328194142) do
     t.integer  "assignee_id"
     t.string   "relevant_gist"
     t.string   "aasm_state"
+    t.string   "gist_id"
   end
 
   create_table "responses", :force => true do |t|
