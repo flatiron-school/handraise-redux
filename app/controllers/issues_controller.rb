@@ -50,7 +50,7 @@ class IssuesController < ApplicationController
     @issue.user_id = session[:user_id]
 
     new_gist = params[:issue]["relevant_gist"]
-    @issue.gist_it(new_gist) if gist_content != ""
+    @issue.send_to_github(new_gist, @current_user) if new_gist != ""
 
     respond_to do |format|
       if @issue.save

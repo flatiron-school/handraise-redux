@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
     # Log the authorizing user in.
     current_user = @auth.user
-    redirect_to issues_path, :notice => "Welcome, #{current_user.name}."
+    redirect_to new_issue_path, :notice => "Welcome, #{current_user.name}."
   end
   
   def create
