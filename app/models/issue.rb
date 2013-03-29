@@ -151,4 +151,9 @@ class Issue < ActiveRecord::Base
     vote_user_id_array.include?(user.id)
   end
 
+  def send_to_github(new_gist)
+    client = Octokit::Client.new(:login => current_user.identities.first.login_name, :oauth_token => current_user.identities.first.token)
+    client.create_gist({:public => true, :files => {"handraise:#{@issue.title}.txt" => {:content => new_gist}}})    
+  end
+
 end
