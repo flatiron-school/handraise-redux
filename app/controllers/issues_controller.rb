@@ -49,9 +49,8 @@ class IssuesController < ApplicationController
     @issue.status = 1
     @issue.user_id = session[:user_id]
 
-    gist_content = params[:issue]["relevant_gist"]
-    client = Octokit::Client.new(:login => current_user.identities.first.login_name, :oauth_token => current_user.identities.first.token)
-    client.create_gist({:public => true, :files => {"handraise_issue#{@issue.title}.txt" => {:content => gist_content}}})
+    new_gist = params[:issue]["relevant_gist"]
+    @issue.gist_it(new_gist) if gist_content != ""
 
     respond_to do |format|
       if @issue.save

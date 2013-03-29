@@ -74,6 +74,11 @@ class User < ActiveRecord::Base
     true if issue.user_id != self.id 
   end
 
+  def has_identity?(auth_provider)
+    identity_array = self.identities.collect {|identity| identity.provider}
+    identity_array.include?(auth_provider)
+  end
+
   # def can?(issue, action)
   #   true if (self.role == USER_ROLES[:admin] || issue.user_id == self.id)
   # end
