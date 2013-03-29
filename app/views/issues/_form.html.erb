@@ -19,10 +19,17 @@
     <h5>Content</h5><br />
     <%= f.text_area :content, :rows => "10", :cols => "10" %>
   </div>
-  <div class="field">
-    <h5>Create a gist</h5><br />
-    <%= f.text_area :relevant_gist %>
-  </div>
+
+  <% if @current_user.has_identity?("github") %>
+    <div class="field">
+      <h5>Create a gist</h5><br />
+      <%= f.text_area :relevant_gist %>
+    </div>
+  <% else %>
+    <p>
+      If you would like to <strong>create a gist on GitHub,</strong> please first <a href="/auth/github">authenticate with GitHub</a>.
+    </p>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>
