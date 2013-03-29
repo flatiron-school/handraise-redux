@@ -4,32 +4,36 @@
   <%= @issue.title %>
 </h2>
 
-<%= render :partial => 'vote', :locals => {:issue => @issue, :asker => @issue.user} %>
-
 <div>
   <h4>Posted By:</h4>
   <%= @issue.user.name %>
 </div>
-<hr width="40%">
+<hr width="80%">
 <div>
   <h4>Content:</h4>
   <%= @issue.content %>
 </div>
-<hr width="40%">
+<hr width="80%">
 
-<% if @issue.relevant_gist != nil %>
+<% if @issue.gist_id %>
 <div>
   <h4>Gist:</h4>
-  <%= link_to@issue.relevant_gist, @issue.relevant_gist, :target => "_blank" %>
+  <script src="https://gist.github.com/<%=@user_login_name%>/<%=@issue.gist_id%>.js"></script>
 </div>
-<hr width='40%'>
+<hr width='80%'>
 <% end %>
+
+<div>
+  <h4>Votes:</h4>
+  <%= render :partial => 'vote', :locals => {:issue => @issue, :asker => @issue.user} %>
+</div>
+<hr width='80%'>
 
 <div>
   <h4>Status:</h4>
   <%= @issue.current_status %>
 </div>
-<hr width="40%">
+<hr width="80%">
 <br>
 
 <% if @issue.responses.count > 0 %>
@@ -48,11 +52,11 @@
       <% if !@issue.answered? && @issue.asker?(current_user) %>
         <%= button_to "Mark As Answer", :controller => "responses", :action => "answer", :response_id => response.id %>
       <% end %>
-      <hr width="40%">
+      <hr width="80%">
     <% end %>
   </div>
 <% end %>
-<hr width="40%">
+<hr width="80%">
 <br>
 
 
