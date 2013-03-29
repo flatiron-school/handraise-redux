@@ -22,7 +22,7 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     @issue = Issue.find(params[:id])
-
+    @user_login_name = current_user.identities.first.login_name
     @response = @issue.responses.build
 
     respond_to do |format|

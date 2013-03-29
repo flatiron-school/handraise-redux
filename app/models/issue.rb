@@ -155,7 +155,12 @@ class Issue < ActiveRecord::Base
     user_login_name = current_user.identities.first.login_name
     user_oauth_token = current_user.identities.first.token
     client = Octokit::Client.new(:login => user_login_name, :oauth_token => user_oauth_token)
-    client.create_gist({:public => true, :files => {"#{self.title}.txt" => {:content => new_gist}}})
+    gist_hash = client.create_gist({:public => true, :files => {"#{self.title}.txt" => {:content => new_gist}}})    
+    save_gist_id(gist_hash)
   end
 
+  def save_gist_id(gist_hash)
+    self.gist_id = gist_hash[:id]
+    self.save
+  end
 end
