@@ -35,3 +35,14 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
+
+namespace(:customs) do
+  task :symlink, :roles => :app do
+    run <<-CMD
+      ln -nfs #{shared_path}/system/uploads/application.yml #{release_path}/config/application.yml
+    CMD
+  end
+end
+
+after "deploy","customs:symlink"
+after "deploy","deploy:cleanup"
