@@ -86,6 +86,10 @@ class IssuesController < ApplicationController
       @gist = params[:issue]["relevant_gist"]
       @issue.relevant_gist = @gist
       @issue.edit_github_gist(@gist, @current_user)
+    else
+      @new_gist = params[:issue]["relevant_gist"]
+      @issue.send_to_github(new_gist, @current_user) if new_gist != ""
+      @issue.relevant_gist = @new_gist
     end
     @issue.save
 
