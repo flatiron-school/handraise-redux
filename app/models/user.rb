@@ -71,12 +71,20 @@ class User < ActiveRecord::Base
   end
 
   def can_upvote?(issue)
-    true if issue.user_id != self.id 
+    true if issue.user_id != self.id && issue.votes.collect {|vote| vote.user_id}.include?(self.id) == false
+  end
+
+  def can_votedown?(issue)
+    true if issue.votes.collect {|vote| vote.user_id}.include?(self.id) == true
   end
 
   def has_identity?(auth_provider)
     identity_array = self.identities.collect {|identity| identity.provider}
     identity_array.include?(auth_provider)
+  end
+
+  def has_cell?
+    true if self.cell
   end
 
   # def can?(issue, action)
@@ -87,6 +95,10 @@ class User < ActiveRecord::Base
 
   def self.create_from_hash(hash)
     create(:name => hash['info']['name'])
+  end
+
+  def can_edit_profile?(user)
+    true if self == user
   end
 
 end
