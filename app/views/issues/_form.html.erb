@@ -22,8 +22,10 @@
 
   <% if @current_user.has_identity?("github") %>
     <div class="field">
-      <h5>Create a gist</h5><br />
+      <h5><%= @issue.relevant_gist? ? "Update" : "Create a" %> Gist</h5><br />
       <%= f.text_area :relevant_gist %>
+
+
     </div>
   <% else %>
     <h5>Want to make a Gist?</h5>

@@ -152,11 +152,20 @@ class Issue < ActiveRecord::Base
   end
 
   def send_to_github(new_gist, current_user)
-    user_login_name = current_user.identities.first.login_name
-    user_oauth_token = current_user.identities.first.token
-    client = Octokit::Client.new(:login => user_login_name, :oauth_token => user_oauth_token)
+    client = self.github_user(current_user)
     gist_hash = client.create_gist({:public => true, :files => {"#{self.title}.txt" => {:content => new_gist}}})    
     save_gist_id(gist_hash)
+  end
+
+  def edit_github_gist(gist, current_user)
+    client = self.github_user(current_user)
+    gist_hash = client.edit_gist(self.gist_id, {:files => {"#{self.title}.txt" => {:content => gist}}})    
+  end
+
+  def github_user(current_user)
+    user_login_name = current_user.identities.first.login_name
+    user_oauth_token = current_user.identities.first.token
+    Octokit::Client.new(:login => user_login_name, :oauth_token => user_oauth_token)
   end
 
   def save_gist_id(gist_hash)
@@ -164,3 +173,4 @@ class Issue < ActiveRecord::Base
     self.save
   end
 end
+
