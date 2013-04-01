@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   end
 
   def has_cell?
-    true if self.cell
+    true unless self.cell == "" || self.cell.nil?
   end
 
   # def can?(issue, action)
