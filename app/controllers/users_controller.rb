@@ -37,6 +37,15 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+
+    # if @user.can_edit_profile()
+    #   respond_to do |format|
+    #     format.html
+    #     format.json { render json: @issue}
+    #   end
+    # else
+    #   redirect_to issues_path, :notice => "You are not authorized to edit this user profile"
+    # end
   end
 
   # POST /users
