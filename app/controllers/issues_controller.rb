@@ -81,21 +81,29 @@ class IssuesController < ApplicationController
   # PUT /issues/1
   # PUT /issues/1.json
   def update
-    @issue = Issue.find(params[:id])
-
-    respond_to do |format|
-      if @issue.update_attributes(params[:issue])
-        unless @issue.assignee.nil?
-          @issue.status = 3 
-          @issue.save
-        end
-        format.html { redirect_to issues_path, notice: 'Issue was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @issue.errors, status: :unprocessable_entity }
-      end
+    @issue = Issue.find(params[:id])    
+    if @issue.gist_id
+      @gist = params[:issue]["relevant_gist"]
+      @issue.relevant_gist = @gist
+      @issue.edit_github_gist(@gist, @current_user)
     end
+    @issue.save
+
+    redirect_to issue_path(@issue)
+
+    # respond_to do |format|
+    #   if @issue.update_attributes(params[:issue])
+    #     unless @issue.assignee.nil?
+    #       @issue.status = 3 
+    #       @issue.save
+    #     end
+    #     format.html { redirect_to issues_path, notice: 'Issue was successfully updated.' }
+    #     format.json { head :no_content }
+    #   else
+    #     format.html { render action: "edit" }
+    #     format.json { render json: @issue.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /issues/1
