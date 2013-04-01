@@ -9,7 +9,6 @@ gem 'rails', '3.2.12'
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'pry-rails'
 end  
 
 group :production do
@@ -56,5 +55,6 @@ gem 'exception_notification'
 # gem 'debugger'
 
 gem 'pry'
+gem 'pry-rails'
 gem 'whenever'
 gem 'aasm'
