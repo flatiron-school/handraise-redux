@@ -89,4 +89,8 @@ class User < ActiveRecord::Base
     create(:name => hash['info']['name'])
   end
 
+  def can_edit_profile?(user)
+    true if self == user
+  end
+
 end
