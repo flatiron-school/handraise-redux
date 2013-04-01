@@ -18,7 +18,7 @@
     <hr>
     <div class="small_profile">
       <p>Asked by:</p>
-      <%= image_tag(issue.user.profile_url, :class => "small_profile_image") %>
+      <%= image_tag(issue.user.profile_url, :class => "small_profile_image") if issue.user.profile_url.present? %>
       <p>
         <%= link_to issue.user.name, issue.user %>
       </p>
