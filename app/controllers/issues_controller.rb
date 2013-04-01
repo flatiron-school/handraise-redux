@@ -124,19 +124,22 @@ class IssuesController < ApplicationController
 
   def resolve
     @issue = Issue.find(params[:id])
-    @issue.status = Issue::STATUS_MAP[:closed]
-    @issue.save
-
-    redirect_to issues_path
+    if @current_user.can_resolve?(@issue)
+      @issue.status = Issue::STATUS_MAP[:closed]
+      @issue.save
+      redirect_to issues_path
+    else
+      redirect_to issues_path, :notice => "You are not allowed to mark this issue as resolved"
+    end
   end
 
   def assign
+    @issue = Issue.find(params[:id])
     if @current_user.can_assign?(@issue)
       twilio_client = TwilioWrapper.new
-      @issue = Issue.find(params[:id])
       @issue.assignee_id = session[:user_id]
       @issue.save
-      twilio_client.create_sms(@issue,'assign')
+      twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
       redirect_to issues_path
     else
       redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue"
@@ -147,7 +150,7 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     if @current_user.can_unassign?(@issue)
       twilio_client = TwilioWrapper.new
-      twilio_client.create_sms(@issue,'unassign')
+      twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
       @issue.assignee_id = nil
       @issue.save
       redirect_to issues_path
@@ -172,19 +175,25 @@ class IssuesController < ApplicationController
 
   def voteup
     @issue = Issue.find(params[:id])
-    vote = @issue.votes.create
-    vote.user = current_user
-    vote.save
-
-    redirect_to issues_path
+    if @current_user.can_upvote?(@issue)
+      vote = @issue.votes.create
+      vote.user = current_user
+      vote.save
+      redirect_to issues_path
+    else
+      redirect_to issues_path, :notice => "Don't be sneaky, no one likes a cheater!"
+    end
   end
 
   def votedown
     @issue = Issue.find(params[:id])
-    vote = Vote.where(:user_id => current_user.id, :issue_id => @issue.id).first
-    vote.delete
-
-    redirect_to issues_path
+    if @current_user.can_votedown?(@issue)
+      vote = Vote.where(:user_id => current_user.id, :issue_id => @issue.id).first
+      vote.delete
+      redirect_to issues_path
+    else
+      redirect_to issues_path, :notice => "John Kelly says don't be a dick!"
+    end    
   end
 
 end
