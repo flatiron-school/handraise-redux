@@ -131,30 +131,29 @@ class IssuesController < ApplicationController
   end
 
   def assign
-    twilio_client = TwilioWrapper.new
-
-    @issue = Issue.find(params[:id])
-    @issue.assignee_id = session[:user_id]
-    @issue.save
-
-    twilio_client.create_sms(@issue,'assign')
-
-    redirect_to issues_path
+    if @current_user.can_assign?(@issue)
+      twilio_client = TwilioWrapper.new
+      @issue = Issue.find(params[:id])
+      @issue.assignee_id = session[:user_id]
+      @issue.save
+      twilio_client.create_sms(@issue,'assign')
+      redirect_to issues_path
+    else
+      redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue"
+    end
   end
 
   def unassign
-    twilio_client = TwilioWrapper.new
-
     @issue = Issue.find(params[:id])
-
-    twilio_client.create_sms(@issue,'unassign')
-
-    @issue.assignee_id = nil
-    @issue.save
-
-    
-
-    redirect_to issues_path
+    if @current_user.can_unassign?(@issue)
+      twilio_client = TwilioWrapper.new
+      twilio_client.create_sms(@issue,'unassign')
+      @issue.assignee_id = nil
+      @issue.save
+      redirect_to issues_path
+    else
+      redirect_to issues_path, :notice => "You are not allowed to unassign someone from this issue"
+    end
   end
 
   def big_board
