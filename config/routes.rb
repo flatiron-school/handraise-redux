@@ -19,6 +19,9 @@ App::Application.routes.draw do
 
   get "theme" => "issues#theme", :as => "theme"
 
+  get 'users/:id/admin' => 'users#admin', :as => "makeadmin"
+  get 'users/:id/notadmin' => 'users#notadmin', :as => "removeadmin"
+
   resources :users
 
   resources :issues

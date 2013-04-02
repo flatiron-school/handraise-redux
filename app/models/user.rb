@@ -97,8 +97,8 @@ class User < ActiveRecord::Base
     create(:name => hash['info']['name'])
   end
 
-  def can_edit_profile?(user)
-    true if self == user
+  def can_edit_delete_profile?(user)
+    true if self.id == user.id || self.admin?
   end
 
 end
