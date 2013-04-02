@@ -37,6 +37,10 @@
     <% if current_page?(issues_path) || current_page?(big_board_path) %>
       <meta http-equiv="refresh" content="60">
     <% end %>
+    
+    <% if current_page?(assigned_path) %>
+      <meta http-equiv="refresh" content='<%=@redirect_delay%>;url=<%=@redirect_url%>'>
+    <% end %>
   </head>
   <body>
 

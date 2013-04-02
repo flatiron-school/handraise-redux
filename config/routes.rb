@@ -17,6 +17,8 @@ App::Application.routes.draw do
 
   get 'big_board' => 'issues#big_board'
 
+  get 'assigned' => 'issues#assigned'
+
   get "theme" => "issues#theme", :as => "theme"
 
   get 'users/:id/admin' => 'users#admin', :as => "makeadmin"
