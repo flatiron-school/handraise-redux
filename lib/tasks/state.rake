@@ -29,6 +29,7 @@ namespace :states do
       issue = Issue.for_instructor
       issue.assignee = admin
       issue.save
+      redirect_to assigned_path
 
       puts "Assigned Issue '#{issue.title}', to #{admin.name}"
     end
