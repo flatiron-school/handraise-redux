@@ -30,9 +30,11 @@
 
 <div class="clear"></div>
 
-<h3>Student Queue</h3>
-<% @fellow_student_issues.each do |issue| %>
-  <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
+<% unless current_user.admin? %>
+  <h3>Student Queue</h3>
+  <% @fellow_student_issues.each do |issue| %>
+    <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
+  <% end %>
 <% end %>
 
 <br />

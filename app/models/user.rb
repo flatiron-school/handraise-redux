@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :role, :profile_url, :responses, :cell
+  attr_accessible :email, :name, :password, :password_confirmation, :role, :profile_url, :responses, :cell, :on_call
   has_many :issues
 
   has_many :responses
@@ -42,8 +42,12 @@ class User < ActiveRecord::Base
     USER_ROLES
   end
 
+  def on_call?
+    true if self.on_call == true
+  end
+
   def is_available?
-    true if Issue.not_closed.find_by_assignee_id(self.id).nil?
+    true if Issue.not_closed.find_by_assignee_id(self.id).nil? && self.on_call?
   end
 
   def role_name

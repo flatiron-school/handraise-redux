@@ -1,0 +1,12 @@
+<h1>All Admins</h1>
+
+<% @admins.each do |admin| %>
+  <div>
+    <%= link_to image_tag(admin.profile_url, :class => "profile_image"), oncall_path(admin) %>
+  </div>
+<% end %>
+
+<br />
+
+<%= link_to 'Issues', issues_path %> |
+<%= link_to 'Users', users_path %>  
