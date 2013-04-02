@@ -11,6 +11,9 @@ App::Application.routes.draw do
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
 
+  get 'indexadmin' => 'users#indexadmin'
+  get 'oncall/:id' => 'users#toggle_oncall', :as => 'oncall'
+
   post 'issues/:id/answer' => 'responses#answer'
 
   match '/auth/github/callback', :to => "sessions#github"

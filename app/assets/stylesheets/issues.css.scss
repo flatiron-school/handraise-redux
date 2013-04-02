@@ -23,6 +23,11 @@ body {
       width: 100%;
     }
 
+    .assigned {
+      width: 50%;
+      float: left;
+    }
+
     .small_profile {
       width: 8em;
       float: left;
@@ -154,3 +159,4 @@ body {
 textarea, input {
   width: 500px;
 }
+

@@ -143,6 +143,7 @@ class IssuesController < ApplicationController
     if @current_user.can_assign?(@issue)
       twilio_client = TwilioWrapper.new
       @issue.assignee_id = session[:user_id]
+      # [sound?]
       @issue.save
       twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
       redirect_to issues_path
@@ -165,6 +166,7 @@ class IssuesController < ApplicationController
   end
 
   def big_board
+    @assigned_issues = Issue.assigned
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
     # binding.pry

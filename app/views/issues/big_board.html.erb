@@ -1,22 +1,39 @@
-<h1>Issues Up Next</h1>
+<!--     <audio src="assets/barksound.ogg" type="audio/ogg" autoplay="autoplay" /> 
+ -->
+<h1>Big Board</h1>
+<div class="bigboard">
+  
+  <div class="clear"></div>
+  
+  <div class "queue">
+     <% @assigned_issues.each do |issue| %>
+        <%= render :partial => 'assigned_bigboard', :locals => { :issues => @assigned_issues, :issue => issue } %> 
+      <% end %>
+  </div>
 
+  <div class="clear"></div>
 
-<% number_urgent = @instructor_urgent_issues.size %>
-<% number_normal = @instructor_normal_issues.size %>
+  <hr>
 
-<% case %>
-<% when number_urgent < 3 %> 
-  <% @instructor_urgent_issues.slice(0..(number_urgent-1)).each do |issue| %>
-    <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>   
-  <% end %>
+  <div class="queue">
 
-  <% @instructor_normal_issues.slice(0..(2-number_urgent)).each do |issue| %>
-    <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_normal_issues, :issue => issue } %> 
-  <% end %>
+    <% number_urgent = @instructor_urgent_issues.size %>
+    <% number_normal = @instructor_normal_issues.size %>
 
-<% when number_urgent >= 3 %> 
-  <% @instructor_urgent_issues.slice(0..2).each do |issue| %>
-    <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %> 
-  <% end %>
-<% end %>
+    <% case %>
+    <% when number_urgent < 3 %> 
+      <% @instructor_urgent_issues.slice(0..(number_urgent-1)).each do |issue| %>
+        <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>   
+      <% end %>
 
+      <% @instructor_normal_issues.slice(0..(2-number_urgent)).each do |issue| %>
+        <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_normal_issues, :issue => issue } %> 
+      <% end %>
+
+    <% when number_urgent >= 3 %> 
+      <% @instructor_urgent_issues.slice(0..2).each do |issue| %>
+        <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %> 
+      <% end %>
+    <% end %>
+  </div>
+</div>
