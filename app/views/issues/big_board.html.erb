@@ -2,7 +2,19 @@
  -->
 <h1>Big Board</h1>
 <div class="bigboard">
+  
   <div class="clear"></div>
+  
+  <div class "queue">
+     <% @assigned_issues.each do |issue| %>
+        <%= render :partial => 'assigned_bigboard', :locals => { :issues => @assigned_issues, :issue => issue } %> 
+      <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <hr>
+
   <div class="queue">
 
     <% number_urgent = @instructor_urgent_issues.size %>

@@ -1,0 +1,18 @@
+<div bigboard_container>
+  <div class="issue quick-button bigpicture">
+    
+    <div>
+      <%= image_tag(issue.user.profile_url, :class => "profile_image assigned") %>
+      <%= image_tag(issue.assignee.profile_url, :class => "profile_image assigned") %>
+    </div>
+
+    <div class="clear"></div>
+    
+    <div class="credits">
+      <p>
+        <h1><%= link_to issue.user.name, issue.user %></h1> <br>
+        <h1><%= link_to issue.assignee.name, issue.user %></h1>
+      </p>
+    </div>
+  </div>
+</div>
