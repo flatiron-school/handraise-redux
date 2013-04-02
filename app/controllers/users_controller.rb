@@ -56,15 +56,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.cell = @user.cell.gsub("-","").gsub(".","").gsub("(","").gsub(")","").gsub(" ","")
-    
-    case @user.email 
-      when "bob@flatironschool.com"
-        @user.set_as_admin
-      when "avi@flatironschool.com"
-        @user.set_as_admin
-      else
-        @user.set_as_student
-    end
+    @user.set_as_student
 
     respond_to do |format|
       if @user.save
