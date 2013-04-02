@@ -48,12 +48,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Hand Raise</a>
+          <%= link_to "HandRaise", issues_path, :class => 'brand' %>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
               <li><%= link_to "View All Issues", issues_path %></li>
               <li><%= link_to "View Big Board", big_board_path %></li>
-              <li><%= link_to "Add An Issue", new_issue_path %></li> 
+              <% if current_user.admin? %>  
+                <li><%= link_to "Add An Issue", new_issue_path %></li>
+              <% end %>
+              <li><%= link_to 'Admin Checkin', indexadmin_path %></li> 
               <li><%= link_to "Report A Bug", "https://github.com/flatiron-school/handraise-redux/issues", :target => "_blank" %></li>
             </ul>
             <ul class="login">

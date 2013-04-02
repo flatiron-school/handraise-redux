@@ -116,4 +116,33 @@ class UsersController < ApplicationController
     end
   end
 
+  def indexadmin
+    @admins = User.admin
+
+    if @current_user.admin?
+      respond_to do |format|
+        format.html # indexadmin.html.erb
+        format.json { render json: @users }
+      end
+    else
+      redirect_to issues_path, :notice => "Sorry, only admins have access to users index."
+    end
+  end
+
+  def toggle_oncall
+    @admin = User.find(params[:id])
+
+    if @current_user.admin?
+      case @admin.on_call
+      when true
+        @admin.on_call = false
+      else
+        @admin.on_call = true
+      end
+      @admin.save
+    end
+
+    redirect_to indexadmin_path, :notice => "Hey #{@current_user.name}, you toggled #{@admin.name}'s on-call status to #{@admin.on_call}"
+  end
+
 end

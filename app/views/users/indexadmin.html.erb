@@ -1,0 +1,15 @@
+<h1>All Admins</h1>
+
+<% @admins.each do |admin| %>
+  <div class="issue quick-button bigpicture">
+    <div>
+      <%= link_to image_tag(admin.profile_url, :class => "profile_image"), oncall_path(admin) %>
+      <p><%= admin.name %> is <%= 'not ' unless admin.on_call %>on-call</p>
+    </div>
+  </div>
+<% end %>
+
+<div style="clear:both"></div>
+
+<%= link_to 'All Issues', issues_path %> |
+<%= link_to 'All Users', users_path %>  
