@@ -435,6 +435,11 @@ h6 {
   text-decoration: none;
 }
 
+.navbar-inner button > a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
 .navbar-inner a i {
 	opacity: .8;
 }

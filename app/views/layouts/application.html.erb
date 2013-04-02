@@ -55,13 +55,13 @@
               <li>
                 <% if current_user %>
                   Logged in as: <%= link_to current_user.email, user_path(current_user) %>
-                  <%= link_to "Logout", logout_path %>
+                  <button class="btn btn-small btn-primary"><%= link_to "Logout", logout_path %></button>
                 <% else %>
                   <% unless current_page?(new_user_path) %>
-                    <%= link_to("Sign Up", new_user_path) %> 
+                    <button class="btn btn-small btn-success"><%= link_to("Sign Up", new_user_path) %></button>
                   <% end %>
                   <% unless current_page?(login_path) %>
-                    <%= link_to("Login", login_path) %> 
+                    <button class="btn btn-small btn-primary"><%= link_to("Login", login_path) %></button> 
                   <% end %>
                   <%#= link_to("Login with Github", "https://github.com/login/oauth/authorize?client_id=#") %>
                 <% end %> 
@@ -102,7 +102,7 @@
         <% if current_page?(big_board_path) %>
         <div class="span12">
         <% else %>
-        <div class="span9">
+        <div class="span9" id="content">
         <% end %>
           <%= bootstrap_flash %>
 
@@ -110,9 +110,6 @@
         </div>
       </div><!--/row-->
 
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
 
     </div> <!-- /container -->
 
