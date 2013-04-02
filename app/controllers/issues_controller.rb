@@ -70,7 +70,7 @@ class IssuesController < ApplicationController
   def edit
     @issue = Issue.find(params[:id])
 
-    if @issue.user.can_edit?(@issue)
+    if current_user.can_edit?(@issue)
       respond_to do |format|
         format.html
         format.json { render json: @issue}
