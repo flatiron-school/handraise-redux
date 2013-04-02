@@ -99,9 +99,28 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @current_user.can_edit_delete_profile?(@user)
       @user.destroy
-      redirect_to root_path, :notic => "You have deleted your account."
+      redirect_to root_path, :notice => "You have deleted your account."
     else
       redirect_to issues_path, :notice => "You are not authorized to delete other users"
     end
   end
+
+  def admin
+    @user = User.find(params[:id])
+    if @current_user.admin?
+      @user.set_as_admin 
+      @user.save
+      redirect_to users_path
+    end
+  end
+
+  def notadmin
+    @user = User.find(params[:id])
+    if @current_user.admin?
+      @user.set_as_student
+      @user.save
+      redirect_to users_path
+    end
+  end
+
 end

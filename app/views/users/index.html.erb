@@ -8,6 +8,7 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @users.each do |user| %>
@@ -18,6 +19,14 @@
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+      <% if user == current_user %>
+      <% elsif user.admin?  %>
+        <%= link_to 'Remove Admin Privileges', removeadmin_path(user) %>
+      <% else %>
+        <%= link_to 'Make Admin', makeadmin_path(user) %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>

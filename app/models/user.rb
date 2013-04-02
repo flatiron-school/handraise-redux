@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit_delete_profile?(user)
-    true if self.id == user.id
+    true if self.id == user.id || self.admin?
   end
 
 end
