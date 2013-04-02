@@ -1,0 +1,60 @@
+<hr>
+<h3>Assigned</h3>
+<% @assigned_issues.each do |issue| %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @assigned_issues, :issue => issue } %>
+<% end %>
+
+<div class="clear"></div>
+<br />
+<hr>
+
+
+<h3>Urgent</h3>
+<% @instructor_urgent_issues.each do |issue| %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>
+<% end %>
+
+<div class="clear"></div>
+<br />
+<hr>
+
+<h3>Teacher Queue</h3>
+<% @instructor_normal_issues.each do |issue| %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_normal_issues, :issue => issue } %>
+<% end %>
+
+<div class="clear"></div>
+<br />
+<hr>
+
+<<<<<<< HEAD
+<h3>Student Queue</h3>
+<% @fellow_student_issues.each do |issue| %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
+=======
+<div class="clear"></div>
+
+<% unless current_user.admin? %>
+  <h3>Student Queue</h3>
+  <% @fellow_student_issues.each do |issue| %>
+    <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
+  <% end %>
+>>>>>>> master
+<% end %>
+
+<div class="clear"></div>
+<br />
+<hr>
+
+<h3><%= "Waiting Room" unless current_user.admin? %></h3>
+<% @waiting_room_issues.each do |issue| %>
+  <div id="timer">
+  <input id="minutes" type="text" style="width: 14px; border: none; background-color:none; font-size: 16px; font-weight: bold;"> minutes and <input id="seconds" type="text" style="width: 26px; border: none; background-color:none; font-size: 16px; font-weight: bold;"> seconds<br>
+  left in the waiting room.
+  </div>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @waiting_room_issues, :issue => issue } %>
+<% end %>
+
+<div class="clear"></div>
+<br />
+<hr>

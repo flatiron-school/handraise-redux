@@ -1,0 +1,178 @@
+// Place all the styles related to the Issues controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+  font-family: 'helvetica neue', helvetica, arial, verdana, sans-serif;
+  a:hover {
+    color: #646464;
+    background: none;
+  }
+  .issue {
+    position: relative;
+    float: left;
+    margin: 2.5em;
+
+    .btn {
+      border-radius: 0 0 8px 8px;
+      font-weight: bold;
+      font-size: 1.15em;
+    }
+
+    .profile_image {
+      width: 100%;
+    }
+
+    .assigned {
+      width: 50%;
+      float: left;
+    }
+
+    .small_profile {
+      width: 8em;
+      float: left;
+      margin-right: 1em;
+
+      .small_profile_image {
+        width: 70%;
+      }
+
+    }
+
+    .submission_details {
+      text-align: center;
+    }
+
+    .credits {
+      height: 11.62em;
+    }
+
+    .circles {
+      width: 1.25em;
+      height: 1.75em;
+      border-radius: 5em;
+      border: solid;
+      background-color: white;
+      z-index: 1;
+      position: absolute;
+      text-align: center;
+      font-size: 1.25em;
+      font-weight: bold;
+      line-height: 1.75em;
+    }
+    .queue_position {
+      float: left;
+      left: -1.5em;
+      top: -1.5em;
+    }
+    .votes {
+      float: right;
+      right: -1.5em;
+      top: -1.5em;
+
+      a {
+        color: #fff;
+      } 
+    }
+
+    .assignee_name {
+      position: absolute;
+      top: -1.5em;
+      left: 2.5em;
+    }
+
+    .issue_box {
+      width: 20em;
+      height: 12em;
+      a.title {
+        font-weight: bold;
+        font-size: 1.6em;
+        line-height: 1.2em;
+        margin: 0.5em 0em;
+        display: block;
+      }
+      p {
+        margin: 0em 1.5em;
+        a.description {
+          font-size: 1.1em;
+          line-height: 1.6em;
+        }
+      }
+    }
+    .assignment_buttons {
+      list-style: none;
+      position: absolute;
+      left: 0;
+      margin: 0px;
+      z-index: 2;
+      li {
+        float: left;
+        text-align: right;
+
+        i {
+          width: 1em;
+          height: 100%;
+          font-size: 1.4em
+        }
+      }
+    }
+    .issue_icons {
+      list-style: none;
+      position: absolute;
+      right: 0;
+      margin-top: 0px;
+      z-index: 2;
+      li {
+        float: right;
+        text-align: right;
+
+        i {
+          width: 1em;
+          height: 100%;
+          font-size: 1.4em
+        }
+      }
+
+    }
+  }
+
+  .quick-button {
+    padding: 0px;
+    background-image: none;
+    background: #fff;
+
+    i {
+      font-size: 22px;
+    }
+  }
+
+  .bigpicture {
+    width: 25%;
+  }
+
+<<<<<<< HEAD
+=======
+  .arrow {
+    margin-top: 13%;
+  }
+
+  .waiting {
+    margin-top: 10%;
+  }
+
+  .btn {
+    border-radius: 0 0 8px 8px;
+    font-weight: bold;
+    font-size: 1.15em;
+  }
+>>>>>>> master
+}
+
+.clear {
+  clear: both;
+}
+
+textarea, input {
+  width: 500px;
+}
+
