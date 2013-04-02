@@ -2,13 +2,6 @@
  -->
 <h1>Issues Queue</h1>
 <div class="bigboard">
-  <div class="assigned">
-    <h3>Assigned</h3>
-      <%= render :partial => 'issue_bigboard', :locals => { :issues => @assigned_issues , :issue => @assigned_issues.last } %>
-      <div id="alert">
-        <audio src="assets/Air_Horn_SoundBible.ogg" type="audio/ogg" autoplay="autoplay" /> 
-      </div>
-  </div>
   <div class="clear"></div>
   <div class="queue">
     <h3>Issues Up Next</h3>
