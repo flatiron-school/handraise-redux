@@ -50,7 +50,9 @@ class IssuesController < ApplicationController
     @issue.user_id = session[:user_id]
 
     new_gist = params[:issue]["relevant_gist"]
-    @issue.send_to_github(new_gist, @current_user) if new_gist != ""
+    unless new_gist == "" || new_gist.nil?
+      @issue.send_to_github(new_gist, @current_user)
+    end
 
     respond_to do |format|
       if @issue.save
@@ -68,7 +70,7 @@ class IssuesController < ApplicationController
   def edit
     @issue = Issue.find(params[:id])
 
-    if @issue.user_id == session[:user_id] || @current_user.role == 0
+    if @issue.user.can_edit?(@issue)
       respond_to do |format|
         format.html
         format.json { render json: @issue}
