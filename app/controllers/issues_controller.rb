@@ -143,10 +143,10 @@ class IssuesController < ApplicationController
     if @current_user.can_assign?(@issue)
       twilio_client = TwilioWrapper.new
       @issue.assignee_id = session[:user_id]
-      # [sound?]
       @issue.save
       twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
       redirect_to issues_path
+      # [sound?]
     else
       redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue"
     end
