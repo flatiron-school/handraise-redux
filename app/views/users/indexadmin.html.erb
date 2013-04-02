@@ -4,7 +4,7 @@
   <div class="issue quick-button bigpicture">
     <div>
       <%= link_to image_tag(admin.profile_url, :class => "profile_image"), oncall_path(admin) %>
-      <p><%= admin.name %> is <%= 'not ' unless admin.on_call %>on-call</p>
+      <p><%= admin.name %> is <%= 'not ' unless admin.on_call? %>on-call</p>
     </div>
   </div>
 <% end %>
