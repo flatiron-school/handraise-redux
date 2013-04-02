@@ -116,11 +116,14 @@ class IssuesController < ApplicationController
   # DELETE /issues/1.json
   def destroy
     @issue = Issue.find(params[:id])
-    @issue.destroy
-
-    respond_to do |format|
-      format.html { redirect_to issues_path, notice: "Issue was successfully destroyed." }
-      format.json { head :no_content }
+    if current_user.can_destroy?(@issue)
+      @issue.destroy
+      respond_to do |format|
+        format.html { redirect_to issues_path, notice: "Issue was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to issue_path(@issue), :notice => "You are not authorized to destroy this issue"
     end
   end
 
@@ -194,7 +197,7 @@ class IssuesController < ApplicationController
       vote.delete
       redirect_to issues_path
     else
-      redirect_to issues_path, :notice => "John Kelly says don't be a dick!"
+      redirect_to issues_path, :notice => "Hey #{@current_user.name}, #{@issue.user.name} says don't be a dick!"
     end    
   end
 
