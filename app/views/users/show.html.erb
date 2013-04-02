@@ -13,6 +13,10 @@
   <%= @user.cell %>
 </p>
 
+<div>
+  <%= image_tag(@user.profile_url, :class => "user_profile") %>
+</div>
+
 <%= link_to 'Edit', edit_user_path(@user) %>
 <% if @current_user.admin? %>
  | <%= link_to 'All Users', users_path %>
