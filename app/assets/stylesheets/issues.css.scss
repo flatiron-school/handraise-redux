@@ -13,8 +13,19 @@ body {
     float: left;
     margin: 2.5em;
 
+    .btn {
+      border-radius: 0 0 8px 8px;
+      font-weight: bold;
+      font-size: 1.15em;
+    }
+
     .profile_image {
       width: 100%;
+    }
+
+    .assigned {
+      width: 50%;
+      float: left;
     }
 
     .small_profile {
@@ -127,6 +138,8 @@ body {
 
   .quick-button {
     padding: 0px;
+    background-image: none;
+    background: #fff;
 
     i {
       font-size: 22px;
@@ -137,11 +150,6 @@ body {
     width: 25%;
   }
 
-  .btn {
-    border-radius: 0 0 8px 8px;
-    font-weight: bold;
-    font-size: 1.15em;
-  }
 }
 
 .clear {

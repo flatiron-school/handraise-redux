@@ -47,30 +47,28 @@
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">Hand Raise</a>
+          <a class="brand" href="/">HandRaise</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
               <li><%= link_to "View All Issues", issues_path %></li>
               <li><%= link_to "View Big Board", big_board_path %></li>
-              <li><%= link_to "Add An Issue", new_issue_path %></li> 
+              <li><%= link_to "Add An Issue", new_issue_path %></li>
+              <% if current_user && current_user.admin? %>  
+              <li><%= link_to 'Admin Checkin', indexadmin_path %></li> 
+              <% end %>
               <li><%= link_to "Report A Bug", "https://github.com/flatiron-school/handraise-redux/issues", :target => "_blank" %></li>
             </ul>
             <ul class="login">
               <li>
                 <% if current_user %>
                   Logged in as: <%= link_to current_user.email, user_path(current_user) %>
-                  <%= link_to "Logout", logout_path %>
+                  <button class="btn btn-small btn-primary"><%= link_to "Logout", logout_path %></button>
                 <% else %>
                   <% unless current_page?(new_user_path) %>
-                    <%= link_to("Sign Up", new_user_path) %> 
+                    <button class="btn btn-small btn-success"><%= link_to("Sign Up", new_user_path) %></button>
                   <% end %>
                   <% unless current_page?(login_path) %>
-                    <%= link_to("Login", login_path) %> 
+                    <button class="btn btn-small btn-primary"><%= link_to("Login", login_path) %></button> 
                   <% end %>
                   <%#= link_to("Login with Github", "https://github.com/login/oauth/authorize?client_id=#") %>
                 <% end %> 
@@ -81,31 +79,31 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" id="content">
       <div class="row-fluid">
         <% unless current_page?(big_board_path) %>
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Issues summary</li>
-              <li>Current open issues:<br>
-                <strong><%= Issue.total_open_issues %></strong>
-              </li>
-              <li>Average waiting time for open issues:<br>
-                <strong><%= Issue.average_wait_time_open.to_i %> minutes</strong>
-              </li>    
+          <div  class="box span3">
+            <div class="box-header">
+              <h2><i class="icon-tasks"></i><span class="break"></span>Issues Stats</h2>
+            </div>
+            <div class="box-content">
+              <p><strong>Current open issues:</strong>
+                <%= Issue.total_open_issues %></p>
+              
+              <p><strong>Average waiting time for open issues:</strong>
+                <%= Issue.average_wait_time_open.to_i %> minutes</p>
+                  
               <hr>
-              <li>Total closed issues: <br> 
-                <strong><%= Issue.total_closed_issues %></strong>
-              </li>
+
+              <p><strong>Total closed issues: </strong>
+                <%= Issue.total_closed_issues %></p>
+              
               <% if Issue.total_closed_issues > 0 %>
-              <li>Average time taken to resolve issues:<br>
-                <strong><%= Issue.average_wait_time_closed.to_i %> minutes</strong>
-              </li>              
+              <p><strong>Average time taken to resolve issues:</strong>
+                <%= Issue.average_wait_time_closed.to_i %> minutes</p>                            
               <% end %>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
+            </div>
+          </div><!--/.box -->
         <% end %>
         
         <% if current_page?(big_board_path) %>
@@ -119,9 +117,6 @@
         </div>
       </div><!--/row-->
 
-      <footer>
-        <p>&copy; Company 2013</p>
-      </footer>
 
     </div> <!-- /container -->
 

@@ -27,11 +27,19 @@
 <br />
 <hr>
 
+<<<<<<< HEAD
+<h3>Student Queue</h3>
+<% @fellow_student_issues.each do |issue| %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
+=======
+<div class="clear"></div>
+
 <% unless current_user.admin? %>
   <h3>Student Queue</h3>
   <% @fellow_student_issues.each do |issue| %>
     <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
   <% end %>
+>>>>>>> master
 <% end %>
 
 <div class="clear"></div>
