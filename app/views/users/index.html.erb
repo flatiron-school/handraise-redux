@@ -1,11 +1,11 @@
-<h1>Listing users</h1>
+<h1>All Users</h1>
 
-<table>
+<table cellpadding="8">
   <tr>
     <th>Name</th>
     <th>Email</th>
-    <th>Role</th>
-    <th>Password</th>
+    <th>Cell</th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,11 +15,18 @@
   <tr>
     <td><%= user.name %></td>
     <td><%= user.email %></td>
-    <td><%= user.role %></td>
-    <td><%= user.password %></td>
+    <td><%= user.cell %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+      <% if user == current_user %>
+      <% elsif user.admin?  %>
+        <%= link_to 'Remove Admin Privileges', removeadmin_path(user) %>
+      <% else %>
+        <%= link_to 'Make Admin', makeadmin_path(user) %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>

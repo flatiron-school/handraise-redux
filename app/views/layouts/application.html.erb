@@ -83,16 +83,6 @@
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><%= link_to "View All Issues", issues_path %></li>
-              <li><%= link_to "View Big Board", big_board_path %></li>
-              <li><%= link_to "Add an Issue", new_issue_path %></li>
-              <hr>
-              <li><%= link_to "Report A Bug", "https://github.com/flatiron-school/handraise-redux/issues", :target => "_blank" %></li>
-            </ul>
-          </div><!--/.well -->
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
               <li class="nav-header">Issues summary</li>
               <li>Current open issues:<br>
                 <strong><%= Issue.total_open_issues %></strong>
