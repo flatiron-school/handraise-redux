@@ -4,11 +4,15 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.find(:all, :order => "name")
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
+    if @current_user.admin?
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @users }
+      end
+    else
+      redirect_to issues_path, :notice => "Sorry, only admins have access to users index."      
     end
   end
 
@@ -37,15 +41,14 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
-
-    # if @user.can_edit_profile()
-    #   respond_to do |format|
-    #     format.html
-    #     format.json { render json: @issue}
-    #   end
-    # else
-    #   redirect_to issues_path, :notice => "You are not authorized to edit this user profile"
-    # end
+    if @current_user.can_edit_delete_profile?(@user)
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @user }
+      end
+    else
+      redirect_to issues_path, :notice => "You are not authorized to edit this user profile"
+    end
   end
 
   # POST /users
@@ -94,11 +97,11 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
+    if @current_user.can_edit_delete_profile?(@user)
+      @user.destroy
+      redirect_to root_path, :notic => "You have deleted your account."
+    else
+      redirect_to issues_path, :notice => "You are not authorized to delete other users"
     end
   end
 end
