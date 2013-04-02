@@ -1,20 +1,14 @@
-<div class="issue quick-button bigpicture">
-  
-  <div>
-    <%= image_tag(issue.user.profile_url, :class => "profile_image") %>
+<div bigboard_container>
+  <div class="issue quick-button bigpicture">
+    
+    <div>
+      <%= image_tag(issue.user.profile_url, :class => "profile_image") %>
+    </div>
+    
+    <div class="credits">
+      <p>
+        <h1><%= link_to issue.user.name, issue.user %></h1> <br>Submitted <%= time_ago_in_words(issue.created_at) %> ago
+      </p>
+    </div>
   </div>
-  
-  <div class="credits">
-    <p>
-      <h1><%= link_to issue.user.name, issue.user %></h1> <br>Submitted <%= time_ago_in_words(issue.created_at) %> ago
-    </p>
-  </div>
-</div>
-
-<div class="issue quick-button bigpicture arrow">
-  <h1>==></h1>
-</div>
-
-<div class="issue quick-button bigpicture waiting">
-  <h1>Waiting for available instructor</h1>
 </div>
