@@ -1,0 +1,28 @@
+
+<!-- Button to trigger modal -->
+<!--     <a href="#assignedModal" role="button" class="btn" id="modalToggle" data-toggle="modal">New issue assigned</a> -->
+
+<!-- Modal -->
+<div class="modal show" tabindex="-1" role="dialog" aria-labelledby="assignedModalLabel" aria-hidden="false">
+<div class="modal-header">
+<button type="btnutton" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="assignedModalLabel"><%= @assigned_issues.last.assignee.name %> will help with...</h3>
+  <div id="alert">
+  <!-- Do not delete : alert audio code is inserted here -->
+  </div>
+</div>
+<div class="modal-body">
+   <h4><em><%= @assigned_issues.last.user.name %>'s</em> issue on: </h4>
+   <h4><em>"<%= @assigned_issues.last.title %>"</em></h4>
+   <%= image_tag(@assigned_issues.last.user.profile_url, :class => "small_profile_image") if @assigned_issues.last.user.profile_url.present? %>
+
+
+  <div id="alert">
+    <!-- Do not delete : Alert audio clip code to be inserted here -->
+    <audio src="assets/Air_Horn_SoundBible.ogg" type="audio/ogg" autoplay="autoplay" />
+  </div>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+</div>
+</div>

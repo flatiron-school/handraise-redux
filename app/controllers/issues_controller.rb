@@ -143,10 +143,9 @@ class IssuesController < ApplicationController
     if @current_user.can_assign?(@issue)
       twilio_client = TwilioWrapper.new
       @issue.assignee_id = session[:user_id]
-      # [sound?]
       @issue.save
       twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
-      redirect_to issues_path
+      redirect_to assigned_path
     else
       redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue"
     end
@@ -169,15 +168,15 @@ class IssuesController < ApplicationController
     @assigned_issues = Issue.assigned
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
-    # binding.pry
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }
     end
   end
 
-  def theme
-    @issues = Issue.all
+  def assigned
+    @assigned_issues = Issue.assigned
+    redirect_after_delay(big_board_path, 5)
   end
 
   def voteup

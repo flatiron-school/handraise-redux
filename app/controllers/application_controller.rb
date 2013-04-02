@@ -42,4 +42,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def redirect_after_delay(url, delay)
+    @redirect_delay = delay
+    @redirect_url = url
+    render
+  end
+
 end
