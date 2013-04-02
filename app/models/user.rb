@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
   end
 
   def can_unassign?(issue)
-    true if issue.assignee_id == self.id
+    true if issue.assignee_id == self.id || self.admin?
   end
 
   def can_upvote?(issue)
