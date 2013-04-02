@@ -43,7 +43,12 @@ users = User.create([
     :password => "flatiron",
     :profile_url => "robertwhitney.jpeg",
     :cell => "9177533666"},
-  
+  { :name => "Blake",
+    :email => "blake@flatironschool.com",
+    :role => 0,
+    :password => "flatiron",
+    :profile_url => "blake.jpeg",
+    :cell => "9177533666"},
   { :name => "Justin Kestler",
     :email => "justin.kestler@flatironschool.com",
     :role => 10,
