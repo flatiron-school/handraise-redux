@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_filter :login_required
 
   private
-
+      
   # def sign_up_page?
   #   current_page?(:controller => 'users', :action => 'new')
   # end

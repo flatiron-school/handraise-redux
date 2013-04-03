@@ -32,7 +32,7 @@ class Issue < ActiveRecord::Base
   end
 
 
-  attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses, :aasm_state
+  # attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses, :aasm_state
 
   belongs_to :user
 
