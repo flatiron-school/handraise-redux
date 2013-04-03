@@ -1,7 +1,5 @@
-<h1>My Dashboard</h1>
-
 <% unless @user.issues.empty? %>
-  <h2>My Open Issues</h2>
+  <h1>My Open Issues</h1>
 
     <table class="table table-bordered" >
       <thead>
@@ -21,13 +19,19 @@
             <td>
               <% if issue.gist_id %>
                 <a href="https://gist.github.com/<%=@user_login_name%>/<%=issue.gist_id%>/">Relevant Gist</a>
+              <% else %>
+                n/a
               <% end %>
             </td>
             <td><%= issue.aasm_state %></td>
             <td>
-              <%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue) && issue.is_unassigned? %> &nbsp;
-              <%= link_to(raw('<i class="icon-pencil btn btn-warning"></i>'), edit_issue_path(issue)) if @current_user.can_edit?(issue) && issue.is_unassigned? %> &nbsp;
-              <%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %>
+              <% if issue.closed? %>
+                Add Reopen Functionality
+              <% else %>
+                <%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue) && issue.is_unassigned? %> &nbsp;
+                <%= link_to(raw('<i class="icon-pencil btn btn-warning"></i>'), edit_issue_path(issue)) if @current_user.can_edit?(issue) && issue.is_unassigned? %> &nbsp;
+                <%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %>
+              <% end %>
             </td>
         </tr>
         <% end %>
