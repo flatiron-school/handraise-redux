@@ -105,8 +105,7 @@ class Issue < ActiveRecord::Base
       self.to_instructor_normal
     when self.created_at < Time.now-5.minutes
       self.to_fellow_student
-    end
-    self.save    
+    end    
   end
 
   def from_current_user

@@ -140,6 +140,7 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     if @current_user.owns?(@issue)
       @issue.status_change
+      @issue.save
       redirect_to user_path(@current_user)
     else
       redirect_to issues_path, :notice => "You are not allowed to mark this issue as post unhelped"
