@@ -20,6 +20,7 @@ class Issue < ActiveRecord::Base
     state :fellow_student
     state :instructor_normal
     state :instructor_urgent
+    state :post_help
     state :closed
 
     # before triggering first event, issue.aasm_state will be empty. this method can be called to save issue.aasm_state to 'waiting_room'
@@ -37,6 +38,10 @@ class Issue < ActiveRecord::Base
 
     event :to_instructor_urgent do
       transitions :from => [:closed, :fellow_student, :instructor_normal], :to => :instructor_urgent
+    end
+
+    event :to_post_help do
+      transitions :from => [:fellow_student, :instructor_normal, :instructor_urgent], :to => :post_help
     end
 
     event :to_closed do
@@ -60,6 +65,7 @@ class Issue < ActiveRecord::Base
   scopable_by :fellow_student, :pre_scope => :not_assigned
   scopable_by :instructor_normal, :pre_scope => :not_assigned
   scopable_by :instructor_urgent, :pre_scope => :not_assigned
+  scopable_by :post_help, :pre_scope => :not_assigned
 
   def self.waiting_room(user_id)
     Issue.where(:aasm_state => "waiting_room", :user_id => user_id)
@@ -74,10 +80,11 @@ class Issue < ActiveRecord::Base
     issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3
 
     # # Filter for
-    # only closed issues
+    # only issues that are not closed
+    # only issues that are not post_help
     # only issues that are in states instructor urgent or normal
     # only issues that are not assigned
-    filter_for_instructor = (issues[:aasm_state].not_eq("closed") and (issues[:aasm_state].eq("instructor_urgent") or issues[:aasm_state].eq("instructor_normal")) and issues[:assignee_id].eq(nil))
+    filter_for_instructor = (issues[:aasm_state].not_eq("closed") and issues[:aasm_state].not_eq("post_help") and (issues[:aasm_state].eq("instructor_urgent") or issues[:aasm_state].eq("instructor_normal")) and issues[:assignee_id].eq(nil))
 
     Issue.where(filter_for_instructor).first
   end

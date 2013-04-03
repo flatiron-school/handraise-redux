@@ -75,6 +75,10 @@ class User < ActiveRecord::Base
     true if issue.assignee_id == self.id || self.admin?
   end
 
+  def can_mark_as_helped?(issue)
+    true if issue.assignee_id == self.id || self.admin?
+  end
+
   def can_upvote?(issue)
     true if issue.user_id != self.id && issue.votes.collect {|vote| vote.user_id}.include?(self.id) == false
   end
