@@ -25,8 +25,6 @@ App::Application.routes.draw do
   get 'issues/:id/helped' => 'issues#helped', :as => "helped"
   get 'issues/:id/unhelp' => 'issues#unhelp', :as => "unhelp"
 
-  get "theme" => "issues#theme", :as => "theme"
-
   get 'users/:id/admin' => 'users#admin', :as => "makeadmin"
   get 'users/:id/notadmin' => 'users#notadmin', :as => "removeadmin"
 
