@@ -134,7 +134,7 @@
 	         	box-shadow: -3px -1px 2px rgba(0,0,0,0.95);
 		background: url(../img/bg.jpg) repeat;
 		filter: none;
-		padding: 25px 0px 25px 40px;
+		padding: 25px 40px 25px 40px;
 		margin: -25px -4px;
 		position: relative;
 		z-index: 1px;
@@ -260,6 +260,10 @@
 ====================================================================== */
 @media only screen and (min-width: 768px) and (max-width: 979px) {
 	
+	.header-nav {
+		border: none;
+	}
+
 	#content {
 		-webkit-box-shadow: -2px -1px 2px rgba(0,0,0,0.95);
 	       -moz-box-shadow: -2px -1px 2px rgba(0,0,0,0.95);
@@ -414,7 +418,13 @@
 ====================================================================== */
 @media only screen and (max-width: 767px) {
 	
+	.navbar .btn {
+  	margin-top: 8px;
+	}
 
+	.header-nav {
+		border: none;
+	}
 	
 }
 
@@ -463,8 +473,7 @@
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers)
 =================================================================== */
 @media only screen and (max-width: 479px) {
-	
-	
+
 	#overlay ul {
 		margin: 150px auto 0;
 	}

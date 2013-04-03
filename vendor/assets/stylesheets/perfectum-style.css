@@ -467,7 +467,7 @@ a.brand span {
 .header-nav .nav {
 	margin: 0px;
 }
-.header-nav .btn {
+/*.header-nav .btn {
   	display: inline-block;
   	padding: 11px 20px;
 	margin-top: 0px;
@@ -489,7 +489,7 @@ a.brand span {
   	-webkit-box-shadow: none;
        -moz-box-shadow: none;
           	box-shadow: none;
-}
+}*/
 
 .header-nav .btn i {
 	text-shadow: 0px 1px 1px #0a0c0e !important;

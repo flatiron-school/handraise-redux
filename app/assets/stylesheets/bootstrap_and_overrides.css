@@ -34,3 +34,8 @@
   margin-top: 0px;
   margin-left: 5px;
 }
+
+.nav-collapse .nav>li>a:hover, .nav-collapse .nav>li>a:focus, .nav-collapse .dropdown-menu a:hover, .nav-collapse .dropdown-menu a:focus {
+  background-color: #ffffff;
+  color: #000000;
+}

@@ -1,0 +1,42 @@
+          <div class="box span3">
+            <div class="box-header">
+              <h2>
+                <%= link_to raw('<i class="icon-cog"></i>'), edit_user_path(@user) %>
+                <span class="break"></span>
+                Your Profile
+              </h2>
+            </div>
+            <div class="box-content">
+
+              <p>
+                <b>Name:</b>
+                <%= @user.name %>
+              </p>
+
+              <p>
+                <b>Email:</b>
+                <%= @user.email %>
+              </p>
+
+              <p>
+                <b>Cell:</b>
+                <%= @user.cell %>
+              </p>
+
+              <div>
+                <%= image_tag(@user.profile_url, :class => 'user_profile') %>
+              </div>
+
+              <hr>
+
+              <button class="btn btn-small btn-inverse">
+                <i class="icon-cog"></i> &nbsp;
+                <%= link_to 'Edit Profile', edit_user_path(@user) %>
+              </button>
+              <% if @current_user.admin? %>
+               | <%= link_to 'All Users', users_path %>
+               | <%= link_to 'Admin Checkin', indexadmin_path %>
+              <% end %>
+
+            </div>
+          </div><!--/.box -->
