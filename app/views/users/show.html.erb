@@ -8,6 +8,7 @@
             <th>Content</th>
             <th>Gist Link</th>
             <th>Status</th>
+            <th>Assignee</th>
             <th>Actions</th>
         </tr>
       </thead>
@@ -24,6 +25,13 @@
               <% end %>
             </td>
             <td><%= issue.aasm_state %></td>
+            <td>
+              <% if issue.assignee.nil? %>
+                n/a
+              <% else %>
+                <%= issue.assignee.name %>
+              <% end %>
+            </td>
             <td>
               <% case issue.aasm_state %>
               <% when "post_help" %>
