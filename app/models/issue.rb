@@ -1,4 +1,18 @@
 class Issue < ActiveRecord::Base
+  attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses, :aasm_state
+
+  belongs_to :user
+
+  belongs_to :assignee, :class_name => "User", :foreign_key => :assignee_id
+
+  has_many :responses
+  has_many :users, :through => :responses
+
+  has_many :votes
+  has_many :users, :through => :votes
+
+  extend IssueStats
+
   include AASM
 
   aasm :whiny_transitions => false do
@@ -14,54 +28,31 @@ class Issue < ActiveRecord::Base
     end
 
     event :to_fellow_student do
-      transitions :from => [:waiting_room, :instructor_urgent], :to => :fellow_student
+      transitions :from => [:closed, :waiting_room, :instructor_urgent], :to => :fellow_student
     end
 
     event :to_instructor_normal do
-      transitions :from => [:fellow_student, :instructor_urgent], :to => :instructor_normal
+      transitions :from => [:closed, :fellow_student, :instructor_urgent], :to => :instructor_normal
     end
 
     event :to_instructor_urgent do
-      transitions :from => [:fellow_student, :instructor_normal], :to => :instructor_urgent
+      transitions :from => [:closed, :fellow_student, :instructor_normal], :to => :instructor_urgent
     end
 
     event :to_closed do
       transitions :from => [:waiting_room, :fellow_student, :instructor_normal, :instructor_urgent], :to => :closed
     end
-
   end
 
-
-  attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses, :aasm_state
-
-  belongs_to :user
-
-  belongs_to :assignee, :class_name => "User", :foreign_key => :assignee_id
-
-  has_many :responses
-  has_many :users, :through => :responses
-
-  has_many :votes
-  has_many :users, :through => :votes
-
-  extend IssueStats
-
-  STATUS_MAP = {
-    :closed => 0,
-    :waiting_room => 1,                # part of the waiting_room queue
-    :fellow_student => 2,              # part of the fellow_student queue
-    :instructor_normal => 3,           # part of the instructor queue
-    :instructor_urgent => 4            # part of the instructor queue
-  }
 
   def self.scopable_by(status_key, opts = {})
     define_singleton_method status_key do
       pre_scope = opts[:pre_scope] ? Issue.send(opts[:pre_scope]) : Issue
-      pre_scope.where(:status => Issue::STATUS_MAP[status_key])
+      pre_scope.where(:aasm_state => status_key.to_s)
     end
 
     define_method "is_#{status_key}?" do
-      self.status == Issue::STATUS_MAP[status_key]
+      self.aasm_state == status_key.to_s
     end
   end
 
@@ -71,24 +62,12 @@ class Issue < ActiveRecord::Base
   scopable_by :instructor_urgent, :pre_scope => :not_assigned
 
   def self.waiting_room(user_id)
-    Issue.where(:status => Issue::STATUS_MAP[:waiting_room], :user_id => user_id)
-  end
-
-  def is_waiting_room?
-    self.status == Issue::STATUS_MAP[:waiting_room]
-  end
-
-  def current_status
-    Issue.status.key(self.status).to_s 
-  end
-
-  def self.status
-    STATUS_MAP
+    Issue.where(:aasm_state => "waiting_room", :user_id => user_id)
   end
 
   def self.not_closed
     issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3
-    Issue.where(issues[:status].not_eq(STATUS_MAP[:closed]))
+    Issue.where(issues[:aasm_state].not_eq("closed"))
   end
 
   def self.for_instructor
@@ -98,7 +77,7 @@ class Issue < ActiveRecord::Base
     # only closed issues
     # only issues that are in states instructor urgent or normal
     # only issues that are not assigned
-    filter_for_instructor = (issues[:status].not_eq(Issue::STATUS_MAP[:closed]) and (issues[:status].eq(Issue::STATUS_MAP[:instructor_urgent]) or issues[:status].eq(Issue::STATUS_MAP[:instructor_normal])) and issues[:assignee_id].eq(nil))
+    filter_for_instructor = (issues[:aasm_state].not_eq("closed") and (issues[:aasm_state].eq("instructor_urgent") or issues[:aasm_state].eq("instructor_normal")) and issues[:assignee_id].eq(nil))
 
     Issue.where(filter_for_instructor).first
   end
@@ -114,11 +93,11 @@ class Issue < ActiveRecord::Base
   def status_change
     case
     when self.created_at < Time.now-40.minutes 
-      self.status = STATUS_MAP[:instructor_urgent]
+      self.to_instructor_urgent
     when self.created_at < Time.now-20.minutes
-      self.status = STATUS_MAP[:instructor_normal]
+      self.to_instructor_normal
     when self.created_at < Time.now-5.minutes
-      self.status = STATUS_MAP[:fellow_student]
+      self.to_fellow_student
     end    
   end
 

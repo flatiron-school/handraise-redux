@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Hand Raise" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "HandRaise" %></title>
     <%= csrf_meta_tags %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -48,7 +48,15 @@
       <div class="navbar-inner">
         <div class="container-fluid">
           <a class="brand" href="/">HandRaise</a>
-          <div class="container-fluid nav-collapse">
+
+
+          <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse.header-nav">
+            <i class="icon-bar"></i>
+            <i class="icon-bar"></i>
+            <i class="icon-bar"></i>
+          </a>
+
+          <div class="nav-collapse header-nav collapse">
             <ul class="nav">
               <li><%= link_to "View All Issues", issues_path %></li>
               <li><%= link_to "View Big Board", big_board_path %></li>
@@ -70,7 +78,6 @@
                   <% unless current_page?(login_path) %>
                     <button class="btn btn-small btn-primary"><%= link_to("Login", login_path) %></button> 
                   <% end %>
-                  <%#= link_to("Login with Github", "https://github.com/login/oauth/authorize?client_id=#") %>
                 <% end %> 
               </li>
             </ul>
@@ -80,43 +87,31 @@
     </div>
 
     <div class="container-fluid" id="content">
+
       <div class="row-fluid">
-        <% unless current_page?(big_board_path) %>
-          <div  class="box span3">
-            <div class="box-header">
-              <h2><i class="icon-tasks"></i><span class="break"></span>Issues Stats</h2>
-            </div>
-            <div class="box-content">
-              <p><strong>Current open issues:</strong>
-                <%= Issue.total_open_issues %></p>
-              
-              <p><strong>Average waiting time for open issues:</strong>
-                <%= Issue.average_wait_time_open.to_i %> minutes</p>
-                  
-              <hr>
 
-              <p><strong>Total closed issues: </strong>
-                <%= Issue.total_closed_issues %></p>
-              
-              <% if Issue.total_closed_issues > 0 %>
-              <p><strong>Average time taken to resolve issues:</strong>
-                <%= Issue.average_wait_time_closed.to_i %> minutes</p>                            
-              <% end %>
-            </div>
-          </div><!--/.box -->
-        <% end %>
-        
-        <% if current_page?(big_board_path) %>
-        <div class="span12">
-        <% else %>
-        <div class="span9">
-        <% end %>
-          <%= bootstrap_flash %>
-
+        <% if current_page?(login_path) || current_page?(big_board_path) %>
+          <div class="span12">
+            <%= bootstrap_flash %>
             <%= yield %>
-        </div>
-      </div><!--/row-->
+          </div>
 
+        <% elsif current_page?(user_path(current_user)) %> 
+          <div class="span9">
+            <%= bootstrap_flash %>
+            <%= yield %>
+          </div>
+          <%= render 'profile' %>
+
+        <% else %>
+          <%= render 'layouts/sidebar' %>
+          <div class="span9">
+            <%= bootstrap_flash %>
+            <%= yield %>
+          </div>
+        <% end %>
+
+      </div><!--/row-->
 
     </div> <!-- /container -->
 

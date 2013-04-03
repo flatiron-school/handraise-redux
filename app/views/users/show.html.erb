@@ -1,24 +1,41 @@
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
+<% unless @user.issues.empty? %>
+  <h1>My Open Issues</h1>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
+    <table class="table table-bordered" >
+      <thead>
+        <tr role="row">
+            <th>Title</th>
+            <th>Content</th>
+            <th>Gist Link</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.issues.each do |issue| %>
+        <tr>
+            <td><%= issue.title %></td>
+            <td><%= issue.content %></td>
+            <td>
+              <% if issue.gist_id %>
+                <a href="https://gist.github.com/<%=@user_login_name%>/<%=issue.gist_id%>/">Relevant Gist</a>
+              <% else %>
+                n/a
+              <% end %>
+            </td>
+            <td><%= issue.aasm_state %></td>
+            <td>
+              <% if issue.closed? %>
+                Add Reopen Functionality
+              <% else %>
+                <%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue) && issue.is_unassigned? %> &nbsp;
+                <%= link_to(raw('<i class="icon-pencil btn btn-warning"></i>'), edit_issue_path(issue)) if @current_user.can_edit?(issue) && issue.is_unassigned? %> &nbsp;
+                <%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %>
+              <% end %>
+            </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<p>
-  <b>Cell:</b>
-  <%= @user.cell %>
-</p>
-
-<div>
-  <%= image_tag(@user.profile_url, :class => "user_profile") %>
-</div>
-
-<%= link_to 'Edit', edit_user_path(@user) %>
-<% if @current_user.admin? %>
- | <%= link_to 'All Users', users_path %>
- | <%= link_to 'Admin Checkin', indexadmin_path %>
 <% end %>

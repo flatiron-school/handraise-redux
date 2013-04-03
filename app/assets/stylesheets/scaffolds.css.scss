@@ -46,6 +46,14 @@ a {
   }
 }
 
+button.btn > a {
+  color: #fff;
+}
+
+button.btn > a:hover {
+  text-decoration: none;
+}
+
 div {
   &.field, &.actions {
     margin-bottom: 10px;
