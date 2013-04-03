@@ -37,6 +37,9 @@ gem 'httparty'
 gem 'twilio-ruby'
 gem 'figaro'
 gem 'exception_notification'
+gem 'quiet_assets'
+gem 'thin'
+gem 'debugger'
 
 # To use ActiveModel has_secure_password
  gem 'bcrypt-ruby', '~> 3.0.0'

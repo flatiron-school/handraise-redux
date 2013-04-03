@@ -34,4 +34,19 @@ App::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Configure action mailer and mailgun
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :authentication => :plain,
+    :address => "smtp.mailgun.org",
+    :port => 587,
+    :domain => "handraise.mailgun.org",
+    :user_name => ENV['MAILGUN_LOGIN'],
+    :password => ENV['MAILGUN_PASSWORD'],
+  }
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 end
+
