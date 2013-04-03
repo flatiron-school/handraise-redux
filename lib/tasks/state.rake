@@ -2,16 +2,20 @@ namespace :states do
   desc "Rake task to update state of issues"
   task :update => :environment do
     Issue.not_closed.each do |issue|
+      next if issue.post_help?
       case
       when issue.created_at < Time.now-40.minutes 
         issue.to_instructor_urgent
         issue.save
+        puts "#{Time.now} - Updated Issue #{issue.id} to #{issue.aasm_state}!"
       when issue.created_at < Time.now-15.minutes
         issue.to_instructor_normal
         issue.save 
+        puts "#{Time.now} - Updated Issue #{issue.id} to #{issue.aasm_state}!"
       when issue.created_at < Time.now-2.minutes
         issue.to_fellow_student
         issue.save
+        puts "#{Time.now} - Updated Issue #{issue.id} to #{issue.aasm_state}!"
       end       
     end
     puts "#{Time.now} - Updated State of Open Issues!"
