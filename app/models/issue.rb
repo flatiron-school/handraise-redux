@@ -29,15 +29,15 @@ class Issue < ActiveRecord::Base
     end
 
     event :to_fellow_student do
-      transitions :from => [:closed, :waiting_room, :instructor_urgent], :to => :fellow_student
+      transitions :from => [:closed, :waiting_room, :instructor_urgent, :post_help], :to => :fellow_student
     end
 
     event :to_instructor_normal do
-      transitions :from => [:closed, :fellow_student, :instructor_urgent], :to => :instructor_normal
+      transitions :from => [:closed, :fellow_student, :instructor_urgent, :post_help], :to => :instructor_normal
     end
 
     event :to_instructor_urgent do
-      transitions :from => [:closed, :fellow_student, :instructor_normal], :to => :instructor_urgent
+      transitions :from => [:closed, :fellow_student, :instructor_normal, :post_help], :to => :instructor_urgent
     end
 
     event :to_post_help do
@@ -45,7 +45,7 @@ class Issue < ActiveRecord::Base
     end
 
     event :to_closed do
-      transitions :from => [:waiting_room, :fellow_student, :instructor_normal, :instructor_urgent], :to => :closed
+      transitions :from => [:waiting_room, :fellow_student, :instructor_normal, :instructor_urgent, :post_help], :to => :closed
     end
   end
 
@@ -105,7 +105,8 @@ class Issue < ActiveRecord::Base
       self.to_instructor_normal
     when self.created_at < Time.now-5.minutes
       self.to_fellow_student
-    end    
+    end
+    self.save    
   end
 
   def from_current_user

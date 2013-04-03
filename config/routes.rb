@@ -22,6 +22,9 @@ App::Application.routes.draw do
 
   get 'assigned' => 'issues#assigned'
 
+  get 'helped/:id' => 'issues#helped', :as => "helped"
+  get 'unhelped/:id' => 'issues#unhelped', :as => "unhelped"
+
   get "theme" => "issues#theme", :as => "theme"
 
   get 'users/:id/admin' => 'users#admin', :as => "makeadmin"

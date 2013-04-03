@@ -45,6 +45,8 @@
     <li><%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %></li>
     <li><%= link_to(raw('<button class="btn btn-danger">Need more help</button>'), unassign_path(issue)) if issue.is_assigned? && (issue.user == current_user) %>
     </li>
+    <li><%= link_to(raw('<button class="btn btn-success">Marked as helped</button>'), helped_path(issue)) if issue.is_assigned? && (current_user.can_mark_as_helped?(issue)) %>
+    </li>
   </ul>
 </div>
 
