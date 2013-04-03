@@ -128,12 +128,22 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     if @current_user.can_mark_as_helped?(@issue)
       @issue.to_post_help
+      @issue.assignee_id = nil
       @issue.save
       redirect_to issues_path
     else
       redirect_to issues_path, :notice => "You are not allowed to mark this issue as post help"
     end
+  end
 
+  def unhelped
+    @issue = Issue.find(params[:id])
+    if @current_user.owns?(@issue)
+      @issue.status_change
+      redirect_to user_path(@current_user)
+    else
+      redirect_to issues_path, :notice => "You are not allowed to mark this issue as post unhelped"
+    end
   end
 
   def assign
