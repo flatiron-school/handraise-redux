@@ -27,7 +27,7 @@
             <td>
               <% case issue.aasm_state %>
               <% when "post_help" %>
-                <%= link_to(raw('<i class="icon-remove btn btn-inverse"></i>'), unhelped_path(issue)) if @current_user.owns?(issue) %> &nbsp;
+                <%= link_to(raw('<i class="icon-remove btn btn-inverse"></i>'), unhelp_path(issue)) if @current_user.owns?(issue) %> &nbsp;
                   <%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %>
               <% else %>
                 <% if issue.closed? %>

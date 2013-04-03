@@ -136,7 +136,7 @@ class IssuesController < ApplicationController
     end
   end
 
-  def unhelped
+  def unhelp
     @issue = Issue.find(params[:id])
     if @current_user.owns?(@issue)
       @issue.status_change

@@ -22,8 +22,8 @@ App::Application.routes.draw do
 
   get 'assigned' => 'issues#assigned'
 
-  get 'helped/:id' => 'issues#helped', :as => "helped"
-  get 'unhelped/:id' => 'issues#unhelped', :as => "unhelped"
+  get 'issues/:id/helped' => 'issues#helped', :as => "helped"
+  get 'issues/:id/unhelp' => 'issues#unhelp', :as => "unhelp"
 
   get "theme" => "issues#theme", :as => "theme"
 
