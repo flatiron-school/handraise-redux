@@ -50,7 +50,10 @@
           <a class="brand" href="/">HandRaise</a>
 
 
-          <a class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse.header-nav">
+          <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse.header-nav">
+            <i class="icon-bar"></i>
+            <i class="icon-bar"></i>
+            <i class="icon-bar"></i>
           </a>
 
           <div class="nav-collapse header-nav collapse">
@@ -86,19 +89,24 @@
     <div class="container-fluid" id="content">
 
       <div class="row-fluid">
-        
-        <%= render 'layouts/sidebar' %>
+
+        <% unless current_page?(user_path(current_user)) %> 
+          <%= render 'layouts/sidebar' %>
+        <% end %>
 
         <% if current_page?(big_board_path) %>
           <div class="span12">
         <% else %>
           <div class="span9">
         <% end %>
-
-          <%= bootstrap_flash %>
+            <%= bootstrap_flash %>
             <%= yield %>
+          </div>
 
-        </div>
+        <% if current_page?(user_path(current_user)) %> 
+          <%= render 'profile' %>
+        <% end %>
+
       </div><!--/row-->
 
     </div> <!-- /container -->
