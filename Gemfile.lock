@@ -48,7 +48,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
-<<<<<<< HEAD
     columnize (0.3.6)
     daemons (1.1.9)
     debugger (1.5.0)
@@ -57,9 +56,6 @@ GEM
       debugger-ruby_core_source (~> 1.2.0)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.0)
-=======
-    daemons (1.1.9)
->>>>>>> master
     erubis (2.7.0)
     eventmachine (1.0.0)
     exception_notification (3.0.1)
