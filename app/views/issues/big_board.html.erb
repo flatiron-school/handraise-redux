@@ -4,9 +4,11 @@
   <div class="clear"></div>
   
   <div class "queue">
-     <% @assigned_issues.each do |issue| %>
+    <% unless @assigned_issues.empty? %> 
+      <% @assigned_issues.each do |issue| %>
         <%= render :partial => 'assigned_bigboard', :locals => { :issues => @assigned_issues, :issue => issue } %> 
       <% end %>
+    <% end %>
   </div>
 
   <div class="clear"></div>
