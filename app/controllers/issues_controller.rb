@@ -124,6 +124,18 @@ class IssuesController < ApplicationController
     end
   end
 
+  def helped
+    @issue = Issue.find(params[:id])
+    if @current_user.can_mark_as_helped?(@issue)
+      @issue.to_post_help
+      @issue.save
+      redirect_to issues_path
+    else
+      redirect_to issues_path, :notice => "You are not allowed to mark this issue as post help"
+    end
+
+  end
+
   def assign
     @issue = Issue.find(params[:id])
     if @current_user.can_assign?(@issue)
