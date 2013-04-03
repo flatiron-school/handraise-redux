@@ -90,21 +90,25 @@
 
       <div class="row-fluid">
 
-        <% unless current_page?(user_path(current_user)) %> 
-          <%= render 'layouts/sidebar' %>
-        <% end %>
-
-        <% if current_page?(big_board_path) %>
+        <% if current_page?(login_path) || current_page?(big_board_path) %>
           <div class="span12">
-        <% else %>
-          <div class="span9">
-        <% end %>
             <%= bootstrap_flash %>
             <%= yield %>
           </div>
 
-        <% if current_page?(user_path(current_user)) %> 
+        <% elsif current_page?(user_path(current_user)) %> 
+          <div class="span9">
+            <%= bootstrap_flash %>
+            <%= yield %>
+          </div>
           <%= render 'profile' %>
+
+        <% else %>
+          <%= render 'layouts/sidebar' %>
+          <div class="span9">
+            <%= bootstrap_flash %>
+            <%= yield %>
+          </div>
         <% end %>
 
       </div><!--/row-->
