@@ -1,0 +1,24 @@
+        <% unless current_page?(big_board_path) %>
+          <div  class="box span3">
+            <div class="box-header">
+              <h2><i class="icon-tasks"></i><span class="break"></span>Issues Stats</h2>
+            </div>
+            <div class="box-content">
+              <p><strong>Current open issues:</strong>
+                <%= Issue.total_open_issues %></p>
+              
+              <p><strong>Average waiting time for open issues:</strong>
+                <%= Issue.average_wait_time_open.to_i %> minutes</p>
+                  
+              <hr>
+
+              <p><strong>Total closed issues: </strong>
+                <%= Issue.total_closed_issues %></p>
+              
+              <% if Issue.total_closed_issues > 0 %>
+              <p><strong>Average time taken to resolve issues:</strong>
+                <%= Issue.average_wait_time_closed.to_i %> minutes</p>                            
+              <% end %>
+            </div>
+          </div><!--/.box -->
+        <% end %>
