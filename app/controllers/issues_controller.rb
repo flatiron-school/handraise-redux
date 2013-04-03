@@ -46,7 +46,7 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(params[:issue])
-    @issue.status = 1
+    @issue.to_waiting_room
     @issue.user_id = session[:user_id]
 
     new_gist = params[:issue]["relevant_gist"]
@@ -96,20 +96,6 @@ class IssuesController < ApplicationController
     @issue.save
 
     redirect_to issue_path(@issue)
-
-    # respond_to do |format|
-    #   if @issue.update_attributes(params[:issue])
-    #     unless @issue.assignee.nil?
-    #       @issue.status = 3 
-    #       @issue.save
-    #     end
-    #     format.html { redirect_to issues_path, notice: 'Issue was successfully updated.' }
-    #     format.json { head :no_content }
-    #   else
-    #     format.html { render action: "edit" }
-    #     format.json { render json: @issue.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # DELETE /issues/1
@@ -130,7 +116,7 @@ class IssuesController < ApplicationController
   def resolve
     @issue = Issue.find(params[:id])
     if @current_user.can_resolve?(@issue)
-      @issue.status = Issue::STATUS_MAP[:closed]
+      @issue.to_closed
       @issue.save
       redirect_to issues_path
     else
