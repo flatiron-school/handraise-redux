@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation, :role, :profile_url, :responses, :cell, :on_call
+  attr_accessible :email, :name, :password, :password_confirmation, :role, :profile_url, :responses, :cell, :on_call, :image
+  has_attached_file :image, :default_url => "/assets/missing.png" 
 
   has_many :responses
   has_many :issues, :through => :responses

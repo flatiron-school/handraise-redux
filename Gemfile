@@ -40,6 +40,7 @@ gem 'exception_notification'
 gem 'quiet_assets'
 gem 'thin'
 gem 'debugger'
+gem 'paperclip', '~> 3.0'
 
 # To use ActiveModel has_secure_password
  gem 'bcrypt-ruby', '~> 3.0.0'

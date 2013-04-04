@@ -7,6 +7,7 @@ App::Application.routes.draw do
   get 'issues/:id/voteup' => 'issues#voteup', :as => "voteup"
   get 'issues/:id/votedown' => 'issues#votedown', :as => "votedown"
 
+  get 'signup'=> 'users#new'
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'

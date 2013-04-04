@@ -16,7 +16,7 @@
 <div class="modal-body">
    <h4><em><%= @assigned_issues.last.user.name %>'s</em> issue on: </h4>
    <h4><em>"<%= @assigned_issues.last.title %>"</em></h4>
-   <%= image_tag(@assigned_issues.last.user.profile_url, :class => "small_profile_image") if @assigned_issues.last.user.profile_url.present? %>
+   <%= image_tag(@assigned_issues.last.user.image.url, :class => "small_profile_image") if @assigned_issues.last.user.image.url.present? %>
 </div>
 
 <div class="modal-footer">
