@@ -34,11 +34,15 @@ class IssuesController < ApplicationController
   # GET /issues/new
   # GET /issues/new.json
   def new
-    @issue = Issue.new
+    if current_user.has_open_issue?
+      redirect_to issues_path, :notice => "Please close your open issue '#{@current_user.issues.first.title}' first"
+    else
+      @issue = Issue.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @issue }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @issue }
+      end
     end
   end
 
