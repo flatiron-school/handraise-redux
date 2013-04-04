@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def can_unassign?(issue)
-    true if issue.assignee_id == self.id || self.admin?
+    true if issue.assignee_id == self.id || self.admin? || self.owns?(issue)
   end
 
   def can_mark_as_helped?(issue)
