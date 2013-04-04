@@ -9,11 +9,18 @@
         <% end %>
       </tbody>
     </table>
+<% end %>
 
+<% if @user.admin? %>
+  <button class="btn btn-large btn-primary"> <%= link_to "Add New Issue", new_issue_path %> </button>
+<% else %>
+  <button class="btn btn-large btn-primary"> <%= link_to "Add New Issue", new_issue_path %> </button>
 <% end %>
 
 <% unless @closed_issues.empty? %>
-  <h1>My Issue History</h1>
+  <hr>
+  <div class="box">
+    <h1>My Issue History</h1>
 
     <table class="table table-condensed" >
       <%= render 'issue_table_header' %>
@@ -23,5 +30,5 @@
         <% end %>
       </tbody>
     </table>
-
+  </div>
 <% end %>
