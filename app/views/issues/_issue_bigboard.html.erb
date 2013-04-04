@@ -2,7 +2,7 @@
   <div class="issue quick-button bigpicture">
     
     <div>
-      <%= image_tag(issue.user.profile_url, :class => "profile_image") %>
+      <%= image_tag(issue.user.profile_url, :class => "profile_image") if issue.user.profile_url.present? %>
     </div>
     
     <div class="credits">
