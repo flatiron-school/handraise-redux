@@ -1,0 +1,34 @@
+        <tr>
+            <td><%= link_to issue.title, issue_path(issue) %></td>
+            <td><%= issue.content %></td>
+            <td>
+              <% if issue.gist_id %>
+                <a href="https://gist.github.com/<%=@user_login_name%>/<%=issue.gist_id%>/">Relevant Gist</a>
+              <% else %>
+                n/a
+              <% end %>
+            </td>
+            <td><%= issue.aasm_state %></td>
+            <td>
+              <% if issue.assignee.nil? %>
+                n/a
+              <% else %>
+                <%= issue.assignee.name %>
+              <% end %>
+            </td>
+            <td>
+              <% case issue.aasm_state %>
+              <% when "post_help" %>
+                <%= link_to(raw('<i class="icon-remove btn btn-inverse"></i>'), unhelp_path(issue)) if @current_user.owns?(issue) %> &nbsp;
+                  <%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %>
+              <% else %>
+                <% if issue.closed? %>
+                  <!-- Add Reopen Functionality -->
+                <% else %>
+                  <%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue) && issue.is_unassigned? %> &nbsp;
+                  <%= link_to(raw('<i class="icon-pencil btn btn-warning"></i>'), edit_issue_path(issue)) if @current_user.can_edit?(issue) && issue.is_unassigned? %> &nbsp;
+                  <%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %>
+                <% end %>
+              <% end %>
+            </td>
+        </tr>
