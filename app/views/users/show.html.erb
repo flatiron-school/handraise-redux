@@ -1,19 +1,9 @@
-<% unless @current_user.admin? %>
-  <% unless @closed_issues.empty? %>
-    <div class="box">
-      <h1>My Issue History</h1>
+<% if @user.admin? %>
 
-      <table class="table table-condensed" >
-        <%= render 'issue_table_header' %>
-        <tbody>
-          <% @closed_issues.each do |issue| %>
-            <%= render :partial => 'issue_table_rows', :locals => {:issue => issue} %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
-<% end %>
-<% unless @user.admin? %>
   <button class="btn btn-large btn-primary"> <%= link_to "Add New Issue", new_issue_path %> </button>
+
+<% else %>
+
+  <%= render 'student_profile' %>
+
 <% end %>
