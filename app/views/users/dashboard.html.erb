@@ -4,8 +4,8 @@
     <div class="issue quick-button bigpicture">
       
       <div>
-        <%= image_tag(@assigned_issue.user.profile_url, :class => "profile_image assigned") if @assigned_issue.user.profile_url.present? %>
-        <%= image_tag(@current_user.profile_url, :class => "profile_image assigned") %>
+        <%= image_tag(@assigned_issue.user.image.url, :class => "profile_image assigned") %>
+        <%= image_tag(@current_user.image.url, :class => "profile_image assigned") %>
       </div>
 
       <div class="clear"></div>
