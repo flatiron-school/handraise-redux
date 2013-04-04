@@ -72,8 +72,8 @@
                   Logged in as: <%= link_to current_user.email, user_path(current_user) %>
                   <button class="btn btn-small btn-primary"><%= link_to "Logout", logout_path %></button>
                 <% else %>
-                  <% unless current_page?(new_user_path) %>
-                    <button class="btn btn-small btn-success"><%= link_to("Sign Up", new_user_path) %></button>
+                  <% unless current_page?(signup_path) %>
+                    <button class="btn btn-small btn-success"><%= link_to("Sign Up", signup_path) %></button>
                   <% end %>
                   <% unless current_page?(login_path) %>
                     <button class="btn btn-small btn-primary"><%= link_to("Login", login_path) %></button> 
@@ -90,7 +90,7 @@
 
       <div class="row-fluid">
 
-        <% if current_page?(login_path) || current_page?(big_board_path) %>
+        <% if current_page?(login_path) || current_page?(big_board_path) || current_page?(signup_path) %>
           <div class="span12">
             <%= bootstrap_flash %>
             <%= yield %>
