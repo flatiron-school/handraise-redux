@@ -33,10 +33,5 @@
                 <i class="icon-cog"></i> &nbsp;
                 <%= link_to 'Edit Profile', edit_user_path(@user) %>
               </button>
-              <% if @current_user.admin? %>
-               | <%= link_to 'All Users', users_path %>
-               | <%= link_to 'Admin Checkin', indexadmin_path %>
-              <% end %>
-
             </div>
           </div><!--/.box -->
