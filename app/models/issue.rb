@@ -76,8 +76,6 @@ class Issue < ActiveRecord::Base
     Issue.where(issues[:aasm_state].not_eq("closed"))
   end
 
-  scope :status_not_closed, not_closed
-
   def self.for_instructor
     issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3
 
