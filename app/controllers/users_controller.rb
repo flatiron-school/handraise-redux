@@ -20,7 +20,9 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.includes(:issues).find(params[:id])
-    @user_login_name = @user.identities.first.login_name if @user.identities.first
+      @not_closed_issues = @user.issues.not_closed
+      @closed_issues = @user.issues.closed
+      @user_login_name = @user.identities.first.login_name if @user.identities.first
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
