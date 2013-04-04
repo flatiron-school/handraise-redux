@@ -1,3 +1,19 @@
+<% unless @open_issue.empty? %>
+  <hr>
+  <div class="box">
+    <h1>My Open Issue</h1>
+
+    <table class="table table-condensed" >
+      <%= render 'issue_table_header' %>
+      <tbody>
+        <% @open_issue.each do |issue| %>
+          <%= render :partial => 'issue_table_rows', :locals => {:issue => issue} %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
 <% unless @closed_issues.empty? %>
   <hr>
   <div class="box">
