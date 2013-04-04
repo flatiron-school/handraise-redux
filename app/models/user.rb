@@ -110,4 +110,8 @@ class User < ActiveRecord::Base
     true if self.id == user.id || self.admin?
   end
 
+  def has_open_issue?
+    true unless self.issues.empty?
+  end
+
 end
