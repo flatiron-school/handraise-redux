@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   end
 
   def can_resolve?(issue)
-    true if admin? || owns?(issue)
+    true if owns?(issue)
   end
 
   def can_assign?(issue)
