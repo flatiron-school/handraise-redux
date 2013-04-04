@@ -15,6 +15,8 @@ App::Application.routes.draw do
   get 'indexadmin' => 'users#indexadmin'
   get 'oncall/:id' => 'users#toggle_oncall', :as => 'oncall'
 
+  get 'dashboard' => 'users#dashboard'
+
   post 'issues/:id/answer' => 'responses#answer'
 
   match '/auth/github/callback', :to => "sessions#github"

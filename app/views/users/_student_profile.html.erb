@@ -1,0 +1,15 @@
+<% unless @closed_issues.empty? %>
+  <hr>
+  <div class="box">
+    <h1>My Issue History</h1>
+
+    <table class="table table-condensed" >
+      <%= render 'issue_table_header' %>
+      <tbody>
+        <% @closed_issues.each do |issue| %>
+          <%= render :partial => 'issue_table_rows', :locals => {:issue => issue} %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
