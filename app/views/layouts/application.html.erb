@@ -96,7 +96,7 @@
             <%= yield %>
           </div>
 
-        <% elsif current_page?(user_path(current_user)) %> 
+        <% elsif current_page?(user_path(current_user)) # => ||  current_page?(dashboard_path(current_user)) %> 
           <div class="span9">
             <%= bootstrap_flash %>
             <%= yield %>

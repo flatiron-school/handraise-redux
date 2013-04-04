@@ -20,7 +20,6 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.includes(:issues).find(params[:id])
-      @not_closed_issues = @user.issues.not_closed
       @closed_issues = @user.issues.closed
       @user_login_name = @user.identities.first.login_name if @user.identities.first
     respond_to do |format|
@@ -145,6 +144,15 @@ class UsersController < ApplicationController
     end
 
     redirect_to indexadmin_path, :notice => "Hey #{@current_user.name}, you toggled #{@admin.name}'s on-call status to #{@admin.on_call}"
+  end
+
+  def dashboard
+    # get the admin
+    @assigned_issue = current_user.currently_assigned_issue
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
   end
 
 end

@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     :student => 10
   }
 
+  def currently_assigned_issue
+    Issue.where(:assignee_id => self.id).first
+  end
+
   def set_as_admin 
     self.role = USER_ROLES[:admin]
   end

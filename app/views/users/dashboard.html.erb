@@ -1,0 +1,28 @@
+<% if @assigned_issue %>
+  <h1>Currently Assigned Issue</h1>
+
+    <div class="issue quick-button bigpicture">
+      
+      <div>
+        <%= image_tag(@assigned_issue.user.profile_url, :class => "profile_image assigned") if @assigned_issue.user.profile_url.present? %>
+        <%= image_tag(@current_user.profile_url, :class => "profile_image assigned") %>
+      </div>
+
+      <div class="clear"></div>
+      
+      <div class="credits">
+        <p>
+          <h1><%= @assigned_issue.user.name %></h1> <br>
+          <h1><%= @current_user.name %></h1>
+        </p>
+
+  <button class="btn btn-large btn-primary"> <%= link_to "Skip", unassign_path(@assigned_issue) %> </button>
+
+  <button class="btn btn-large btn-primary"> <%= link_to "Done", helped_path(@assigned_issue) %> </button>
+
+      </div>
+    </div>
+
+<% else %>
+  <p>You currently have no assigned issues.</p>
+<% end %>

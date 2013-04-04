@@ -1,6 +1,6 @@
 <% if @user.admin? %>
 
-  <button class="btn btn-large btn-primary"> <%= link_to "Add New Issue", new_issue_path %> </button>
+  <%= render 'admin_profile' %>
 
 <% else %>
 

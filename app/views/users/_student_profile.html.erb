@@ -1,30 +1,15 @@
-  <% unless @not_closed_issues.empty? %>
-    <h1>My Open Issues</h1>
+<% unless @closed_issues.empty? %>
+  <hr>
+  <div class="box">
+    <h1>My Issue History</h1>
 
-      <table class="table table-condensed" >
-        <%= render 'issue_table_header' %>
-        <tbody>
-          <% @not_closed_issues.each do |issue| %>
-            <%= render :partial => 'issue_table_rows', :locals => {:issue => issue} %>
-          <% end %>
-        </tbody>
-      </table>
-  <% end %>
-
-    <button class="btn btn-large btn-primary"> <%= link_to "Add New Issue", new_issue_path %> </button>
-
-  <% unless @closed_issues.empty? %>
-    <hr>
-    <div class="box">
-      <h1>My Issue History</h1>
-
-      <table class="table table-condensed" >
-        <%= render 'issue_table_header' %>
-        <tbody>
-          <% @closed_issues.each do |issue| %>
-            <%= render :partial => 'issue_table_rows', :locals => {:issue => issue} %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
+    <table class="table table-condensed" >
+      <%= render 'issue_table_header' %>
+      <tbody>
+        <% @closed_issues.each do |issue| %>
+          <%= render :partial => 'issue_table_rows', :locals => {:issue => issue} %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
