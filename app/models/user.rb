@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
   end
 
   def has_open_issue?
-    true unless self.issues.empty?
+    true unless self.issues.not_closed.empty?
   end
 
 end
