@@ -187,11 +187,6 @@ class IssuesController < ApplicationController
     end
   end
 
-  def assigned
-    @assigned_issues = Issue.assigned
-    redirect_after_delay(big_board_path, 5)
-  end
-
   def voteup
     @issue = Issue.find(params[:id])
     if @current_user.can_upvote?(@issue)
