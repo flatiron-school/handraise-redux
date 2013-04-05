@@ -30,7 +30,7 @@ namespace :states do
 
     User.admin.each do |admin|
       next unless admin.is_available?
-      issue = Issue.for_instructor
+      issue = Issue.for_instructor.first
       issue.assignee = admin
       issue.save
       redirect_to assigned_path

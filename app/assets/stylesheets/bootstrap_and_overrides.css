@@ -49,14 +49,14 @@
   width: 2em;
   height: 2em;
   border-radius: 2em;
-  border-color: #2FABE9;
+/*  border-color: #2FABE9;
   background-color: #67C2EF;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, hsl(200, 80%, 82%)), color-stop(100%, hsl(200, 81%, 67%)));
   background-image: -webkit-linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
   background-image: -moz-linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
   background-image: -ms-linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
   background-image: -o-linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
-  background-image: linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
+  background-image: linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));*/
 }
 
 #myCarousel {
