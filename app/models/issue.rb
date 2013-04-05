@@ -101,9 +101,9 @@ class Issue < ActiveRecord::Base
     case
     when self.created_at < Time.now-40.minutes 
       self.to_instructor_urgent
-    when self.created_at < Time.now-0.minutes
+    when self.created_at < Time.now-2.seconds
       self.to_instructor_normal
-    when self.created_at < Time.now-0.minutes
+    when self.created_at < Time.now-1.seconds
       self.to_fellow_student
     end    
   end

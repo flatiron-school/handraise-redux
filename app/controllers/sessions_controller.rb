@@ -24,7 +24,11 @@ class SessionsController < ApplicationController
     @user = User.find_by_email(params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect_to issues_path, :notice => "Logged in!"
+      if @user.admin?
+        redirect_to issues_path, :notice => "Logged in!" 
+      else
+        redirect_to user_path(@user), :notice => "Logged in!"  
+      end
     else
       redirect_to login_path, :notice => "Invalid email or password"
     end
