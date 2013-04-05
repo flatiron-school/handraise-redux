@@ -82,9 +82,7 @@ class Issue < ActiveRecord::Base
     # # Filter for
     # only issues that are not closed
     # only issues that are not post_help
-    # only issues that are in states instructor urgent or normal
-    # only issues that are not assigned
-    filter_for_instructor = (issues[:aasm_state].not_eq("closed") and issues[:aasm_state].not_eq("post_help") and (issues[:aasm_state].eq("instructor_urgent") or issues[:aasm_state].eq("instructor_normal")) and issues[:assignee_id].eq(nil))
+    filter_for_instructor = (issues[:aasm_state].not_eq("closed") and issues[:aasm_state].not_eq("post_help"))
 
     Issue.where(filter_for_instructor)
   end

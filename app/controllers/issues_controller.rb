@@ -11,6 +11,7 @@ class IssuesController < ApplicationController
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
     @assigned_issues = Issue.assigned
+    @issues_assignable = Issue.for_instructor
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }
@@ -157,7 +158,7 @@ class IssuesController < ApplicationController
       @issue.assignee_id = session[:user_id]
       @issue.save
       twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
-      redirect_to assigned_path
+      redirect_to issues_path
     else
       redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue"
     end
