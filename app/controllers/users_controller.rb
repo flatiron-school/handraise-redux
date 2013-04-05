@@ -12,7 +12,7 @@ class UsersController < ApplicationController
         format.json { render json: @users }
       end
     else
-      redirect_to issues_path, :notice => "Sorry, only admins have access to users index."      
+      redirect_to issues_path, :notice => "Sorry, only admins have access to users index."
     end
   end
 
@@ -67,6 +67,7 @@ class UsersController < ApplicationController
       else
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.js { render  :text => 'alert("validate");'}
       end
     end
   end
@@ -102,7 +103,7 @@ class UsersController < ApplicationController
   def admin
     @user = User.find(params[:id])
     if @current_user.admin?
-      @user.set_as_admin 
+      @user.set_as_admin
       @user.save
       redirect_to users_path
     end

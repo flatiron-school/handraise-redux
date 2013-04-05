@@ -1,11 +1,15 @@
+<%= content_for :js do %>
+<script>BigBoard.init()</script>
+<% end %>
+
 <h1>Big Board</h1>
 <div class="bigboard">
   <div class="clear"></div>
-  
+
   <div class "queue">
-    <% unless @assigned_issues.empty? %> 
+    <% unless @assigned_issues.empty? %>
       <% @assigned_issues.each do |issue| %>
-        <%= render :partial => 'assigned_bigboard', :locals => { :issues => @assigned_issues, :issue => issue } %> 
+        <%= render :partial => 'assigned_bigboard', :locals => { :issues => @assigned_issues, :issue => issue } %>
       <% end %>
     <% end %>
   </div>
@@ -15,23 +19,23 @@
   <hr>
 
   <div class="queue">
-  <% unless @instructor_urgent_issues.empty? && @instructor_normal_issues.empty? %>   
+  <% unless @instructor_urgent_issues.empty? && @instructor_normal_issues.empty? %>
       <% number_urgent = @instructor_urgent_issues.size %>
       <% number_normal = @instructor_normal_issues.size %>
 
       <% case %>
-      <% when number_urgent < 3 %> 
+      <% when number_urgent < 3 %>
         <% @instructor_urgent_issues.slice(0..(number_urgent-1)).each do |issue| %>
-          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>   
+          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>
         <% end %>
 
         <% @instructor_normal_issues.slice(0..(2-number_urgent)).each do |issue| %>
-          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_normal_issues, :issue => issue } %> 
+          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_normal_issues, :issue => issue } %>
         <% end %>
 
-      <% when number_urgent >= 3 %> 
+      <% when number_urgent >= 3 %>
         <% @instructor_urgent_issues.slice(0..2).each do |issue| %>
-          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %> 
+          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>
         <% end %>
       <% end %>
     <% end %>

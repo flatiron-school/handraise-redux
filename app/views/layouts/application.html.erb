@@ -35,9 +35,9 @@
     <%#= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <% if current_page?(issues_path) || current_page?(big_board_path) %>
-      <meta http-equiv="refresh" content="60">
+<!--       <meta http-equiv="refresh" content="60"> -->
     <% end %>
-    
+
     <% if current_page?(assigned_path) %>
       <meta http-equiv="refresh" content='<%=@redirect_delay%>;url=<%=@redirect_url%>'>
     <% end %>
@@ -61,8 +61,8 @@
               <li><%= link_to "Issue Queue", issues_path %></li>
               <li><%= link_to "Big Board", big_board_path %></li>
               <li><%= link_to "Add An Issue", new_issue_path %></li>
-              <% if current_user && current_user.admin? %>  
-              <li><%= link_to 'Admin Checkin', indexadmin_path %></li> 
+              <% if current_user && current_user.admin? %>
+              <li><%= link_to 'Admin Checkin', indexadmin_path %></li>
               <% end %>
               <li><%= link_to "Report A Bug", "https://github.com/flatiron-school/handraise-redux/issues", :target => "_blank" %></li>
             </ul>
@@ -76,9 +76,9 @@
                     <button class="btn btn-small btn-success"><%= link_to("Sign Up", signup_path) %></button>
                   <% end %>
                   <% unless current_page?(login_path) %>
-                    <button class="btn btn-small btn-primary"><%= link_to("Login", login_path) %></button> 
+                    <button class="btn btn-small btn-primary"><%= link_to("Login", login_path) %></button>
                   <% end %>
-                <% end %> 
+                <% end %>
               </li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -88,7 +88,7 @@
 
     <div class="container-fluid" id="content">
 
-      <div class="row-fluid">
+      <div class="row-fluid" id="main_content">
 
         <% if current_page?(login_path) || current_page?(big_board_path) || current_page?(signup_path) %>
           <div class="span12">
@@ -96,7 +96,7 @@
             <%= yield %>
           </div>
 
-        <% elsif current_page?(user_path(current_user)) # => ||  current_page?(dashboard_path(current_user)) %> 
+        <% elsif current_page?(user_path(current_user)) # => ||  current_page?(dashboard_path(current_user)) %>
           <div class="span9">
             <%= bootstrap_flash %>
             <%= yield %>
@@ -120,6 +120,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
 
     <%= javascript_include_tag "application" %>
-
+    <%= yield :js %>
   </body>
 </html>

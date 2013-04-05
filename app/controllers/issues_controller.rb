@@ -3,7 +3,7 @@ class IssuesController < ApplicationController
 
   # GET /issues
   # GET /issues.json
-  def index   
+  def index
     @issues = Issue.all
     @closed_issues = Issue.closed
     @waiting_room_issues = Issue.waiting_room(current_user.id)
@@ -87,7 +87,7 @@ class IssuesController < ApplicationController
   # PUT /issues/1
   # PUT /issues/1.json
   def update
-    @issue = Issue.find(params[:id])    
+    @issue = Issue.find(params[:id])
     if @issue.gist_id
       @gist = params[:issue]["relevant_gist"]
       @issue.relevant_gist = @gist
@@ -181,11 +181,14 @@ class IssuesController < ApplicationController
     @assigned_issues = Issue.assigned
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
+
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @issues }
+      format.html {}
+      format.js {}
     end
+
   end
+
 
   def assigned
     @assigned_issues = Issue.assigned
@@ -212,7 +215,7 @@ class IssuesController < ApplicationController
       redirect_to issues_path
     else
       redirect_to issues_path, :notice => "Hey #{@current_user.name}, #{@issue.user.name} says don't be a dick!"
-    end    
+    end
   end
 
 end
