@@ -66,6 +66,15 @@
   display: none;
 }
 
+#myCarousel .issue_actions {
+  list-style-type: none;
+  margin: 0;
+}
+
+#myCarousel .issue_actions li {
+  display: inline;
+}
+
 @media (max-width: 479px) {
   body {
     padding-left: 0px;
