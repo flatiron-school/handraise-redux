@@ -1,13 +1,6 @@
         <tr>
             <td><%= link_to issue.title, issue_path(issue) %></td>
             <td><%= issue.content %></td>
-            <td>
-              <% if issue.gist_id %>
-                <a href="https://gist.github.com/<%=@user_login_name%>/<%=issue.gist_id%>/">Relevant Gist</a>
-              <% else %>
-                n/a
-              <% end %>
-            </td>
             <td><%= issue.aasm_state %></td>
             <td>
               <% if issue.assignee.nil? %>
