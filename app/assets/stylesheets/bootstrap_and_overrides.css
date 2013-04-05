@@ -39,3 +39,42 @@
   background-color: #ffffff;
   color: #000000;
 }
+
+.carousel-indicators li {
+  font-size: 1.2em;
+  color: white;
+  text-align: center;
+  line-height: 2em;
+  text-indent: 0px;
+  width: 2em;
+  height: 2em;
+  border-radius: 2em;
+  border-color: #2FABE9;
+  background-color: #67C2EF;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, hsl(200, 80%, 82%)), color-stop(100%, hsl(200, 81%, 67%)));
+  background-image: -webkit-linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
+  background-image: -moz-linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
+  background-image: -ms-linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
+  background-image: -o-linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
+  background-image: linear-gradient(top, hsl(200, 80%, 82%), hsl(200, 81%, 67%));
+}
+
+#myCarousel {
+  display: none;
+}
+
+@media (max-width: 479px) {
+  body {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  #myCarousel {
+    display: block;
+  }
+
+  #issuesindex {
+    display: none;
+  }
+
+}

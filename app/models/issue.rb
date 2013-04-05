@@ -158,5 +158,7 @@ class Issue < ActiveRecord::Base
     self.gist_id = gist_hash[:id]
     self.save
   end
+
+  
 end
 
