@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
     @assigned_issues = Issue.assigned
-
+    @issues_assignable = Issue.for_instructor
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }
@@ -50,7 +50,7 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(params[:issue])
-    @issue.to_waiting_room
+    @issue.to_fellow_student
     @issue.user_id = session[:user_id]
 
     new_gist = params[:issue]["relevant_gist"]

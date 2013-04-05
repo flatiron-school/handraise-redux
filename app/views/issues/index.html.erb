@@ -1,52 +1,82 @@
-<hr>
-<h3>Assigned</h3>
-<% @assigned_issues.each do |issue| %>
+<div id="myCarousel" class="carousel slide" data-interval="false">
+  <ol class="carousel-indicators">
+    <% @issues_assignable.each_with_index do |issue, index| %>  
+      <li data-target="#myCarousel" data-slide-to="<%= index %>" class="<%= "active" if index == 0 %>">
+        <%= index + 1 %>
+      </li>
+    <% end %>
+  </ol>
+  <div class="carousel-inner">
+    <% @issues_assignable.each_with_index do |issue, index| %>
+      <div class="item <%= "active" if index == 0 %>">
+        <img src="<%= issue.user.image.url %>" alt="" height="40%">
+        <div class="carousel-caption">
+          <h4><%= issue.title %></h4>
+          <p><%= issue.content %></p>
+          <p>Submitted by: <%= issue.user.name %><br />
+            <%= time_ago_in_words(issue.created_at) %> ago<br />
+            <%= "Assigned To: " if issue.assignee_id.present? %><strong><%= issue.assigned_to if issue.assignee_id.present? %></strong>
+
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+</div>
+
+<div id="issuesindex">
+  <hr>
+  <h3>Assigned</h3>
+  <% @assigned_issues.each do |issue| %>
   <%= render :partial => 'issue_theme', :locals => { :issues => @assigned_issues, :issue => issue } %>
-<% end %>
+  <% end %>
 
-<div class="clear"></div>
-<br />
-<hr>
+  <div class="clear"></div>
+  <br />
+  <hr>
 
 
-<h3>Urgent</h3>
-<% @instructor_urgent_issues.each do |issue| %>
+  <h3>Urgent</h3>
+  <% @instructor_urgent_issues.each do |issue| %>
   <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>
-<% end %>
+  <% end %>
 
-<div class="clear"></div>
-<br />
-<hr>
+  <div class="clear"></div>
+  <br />
+  <hr>
 
-<h3>Teacher Queue</h3>
-<% @instructor_normal_issues.each do |issue| %>
+  <h3>Teacher Queue</h3>
+  <% @instructor_normal_issues.each do |issue| %>
   <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_normal_issues, :issue => issue } %>
-<% end %>
+  <% end %>
 
-<div class="clear"></div>
-<br />
-<hr>
+  <div class="clear"></div>
+  <br />
+  <hr>
 
-<% unless current_user.admin? %>
+  <% unless current_user.admin? %>
   <h3>Student Queue</h3>
   <% @fellow_student_issues.each do |issue| %>
-    <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
+  <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
   <% end %>
-<% end %>
+  <% end %>
 
-<div class="clear"></div>
-<br />
-<hr>
+  <div class="clear"></div>
+  <br />
+  <hr>
 
-<h3><%= "Waiting Room" unless current_user.admin? %></h3>
-<% @waiting_room_issues.each do |issue| %>
+  <h3><%= "Waiting Room" unless current_user.admin? %></h3>
+  <% @waiting_room_issues.each do |issue| %>
   <div id="timer">
   <input id="minutes" type="text" style="width: 14px; border: none; background-color:none; font-size: 16px; font-weight: bold;"> minutes and <input id="seconds" type="text" style="width: 26px; border: none; background-color:none; font-size: 16px; font-weight: bold;"> seconds<br>
   left in the waiting room.
   </div>
   <%= render :partial => 'issue_theme', :locals => { :issues => @waiting_room_issues, :issue => issue } %>
-<% end %>
+  <% end %>
 
-<div class="clear"></div>
-<br />
-<hr>
+  <div class="clear"></div>
+  <br />
+  <hr>
+</div>
