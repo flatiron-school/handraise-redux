@@ -8,11 +8,11 @@ namespace :states do
         issue.to_instructor_urgent
         issue.save
         puts "#{Time.now} - Updated Issue #{issue.id} to #{issue.aasm_state}!"
-      when issue.created_at < Time.now-0.minutes
+      when issue.created_at < Time.now-2.seconds
         issue.to_instructor_normal
         issue.save 
         puts "#{Time.now} - Updated Issue #{issue.id} to #{issue.aasm_state}!"
-      when issue.created_at < Time.now-0.minutes
+      when issue.created_at < Time.now-1.seconds
         issue.to_fellow_student
         issue.save
         puts "#{Time.now} - Updated Issue #{issue.id} to #{issue.aasm_state}!"
