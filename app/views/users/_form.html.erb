@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %> <span id="name_required" class="red">*Required</span><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %> <span id="email_required" class="red">*Required</span><br />
     <%= f.text_field :email %><br />
   </div>
   <div class="field">
@@ -24,11 +24,11 @@
     <%= f.text_field :cell %>
   </div>
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :password %> <span id="password_required" class="red">*Required</span><br />
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation %> <span id="password_conf_required" class="red">*Required</span><br />
     <%= f.password_field :password_confirmation %><br />
     <span id="password_match_error">Password confirmation does not match password.</span>
   </div>
@@ -37,6 +37,6 @@
     <%= f.file_field :image %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Sign Up', :class => 'btn btn-success btn-large' %>
   </div>
 <% end %>
