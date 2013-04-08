@@ -3,13 +3,18 @@
   <div class="circles queue_position notification">
     <%= issues.index(issue) + 1 %>
   </div>
+  
   <% unless @current_user == issue.user %>
     <% if issue.voted_on?(@current_user) %>
-      <%= link_to(raw('<div class="circles votes notification"><i class="icon-thumbs-down"></i></div>'), votedown_path(issue)) %>
+      <%= link_to(raw('<div class="circles votes notification"><i class="icon-thumbs-up"></i></div>'), voteup_path(issue), id: ("voteup_id_"+issue.id.to_s), remote: true) %>
+      <%= link_to(raw('<div class="circles votes notification"><i class="icon-thumbs-down"></i></div>'), votedown_path(issue), id: ("votedown_id_"+issue.id.to_s), remote: true) %>
     <% else %>
-      <%= link_to(raw('<div class="circles votes notification"><i class="icon-thumbs-up"></i></div>'), voteup_path(issue)) %>
+      <%= link_to(raw('<div class="circles votes notification"><i class="icon-thumbs-down"></i></div>'), votedown_path(issue), id: ("votedown_id_"+issue.id.to_s), remote: true) %>
+      <%= link_to(raw('<div class="circles votes notification"><i class="icon-thumbs-up"></i></div>'), voteup_path(issue), id: ("voteup_id_"+issue.id.to_s), remote: true) %>
     <% end %>
   <% end %>
+
+
   <div class="issue_box">
     <%= link_to truncate(issue.title, :length => 35, :omission =>"..."), issue_path(issue), :class => "title" %>
     <p><%= link_to truncate(issue.content, :length => 140, :omission =>"..."), issue_path(issue), :class => "description" %></p>
@@ -27,15 +32,16 @@
       <p>
         Submitted: <br> <%= time_ago_in_words(issue.created_at) %> ago
       </p>
-      <%= "Assigned To: " if issue.assignee_id.present? %>
-    <strong><%= issue.assigned_to if issue.assignee_id.present? %></strong>
+      
+      <%= render :partial => 'assigned', :locals => { :issue => issue } %>
+
       <p>Vote Count: </p>
-      <strong><%= issue.votes.size.to_s %></strong>
+      <strong id="vote_count_id_<%= issue.id %>"><%= issue.votes.size.to_s %></strong>
 
     </div>
   </div>
   <ul class="assignment_buttons">
-    <li><%= link_to(raw('<button class="btn btn-success">I\'ll Help</button>'), assign_path(issue)) if issue.assignee_id.blank? && @current_user.can_assign?(issue) && (issue.user != @current_user) %></li>    
+    <li><%= link_to(raw('<button class="btn btn-success">I\'ll Help</button>'), assign_path(issue), id: "will_help", remote: true) if issue.assignee_id.blank? && @current_user.can_assign?(issue) && (issue.user != @current_user) %></li>    
     <li><%= link_to(raw('<button class="btn btn-danger">Unassign</button>'), unassign_path(issue)) if issue.assignee_id.present? && @current_user == issue.assignee && @current_user.can_unassign?(issue) %></li>
   </ul>
   <ul class="issue_icons">
