@@ -87,7 +87,9 @@ class IssuesController < ApplicationController
   # PUT /issues/1.json
   def update
     @issue = Issue.find(params[:id])    
-    if @issue.gist_id
+    if @issue.gist_id.nil?
+      @issue.update_attributes(params[:issue])
+    elsif @issue.gist_id
       @gist = params[:issue]["relevant_gist"]
       @issue.relevant_gist = @gist
       @issue.edit_github_gist(@gist, @current_user)
