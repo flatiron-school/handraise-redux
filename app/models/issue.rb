@@ -74,7 +74,7 @@ class Issue < ActiveRecord::Base
   end
 
   def self.issues_assignable
-    Issue.not_closed.collect {|issue| issue unless issue.aasm_state == "post_help"}
+    Issue.not_closed.collect {|issue| issue unless issue.aasm_state == "post_help"}.delete_if {|issue| issue.nil?}
   end
 
   def is_assigned?
