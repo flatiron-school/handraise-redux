@@ -70,13 +70,13 @@
               <li>
                 <% if current_user %>
                   Logged in as: <%= link_to current_user.email, user_path(current_user) %>
-                  <button class="btn btn-small btn-primary"><%= link_to "Logout", logout_path %></button>
+                 <%= link_to "Logout", logout_path, :class =>"btn btn-small btn-success" %>
                 <% else %>
                   <% unless current_page?(signup_path) %>
-                    <button class="btn btn-small btn-success"><%= link_to("Sign Up", signup_path) %></button>
+                    <%= link_to "Sign Up", signup_path, :class =>"btn btn-small btn-success" %>
                   <% end %>
                   <% unless current_page?(login_path) %>
-                    <button class="btn btn-small btn-primary"><%= link_to("Login", login_path) %></button> 
+                    <%= link_to "Login", login_path, :class =>"btn btn-small btn-primary" %> 
                   <% end %>
                 <% end %> 
               </li>
