@@ -1,13 +1,13 @@
 <div id="myCarousel" class="carousel slide" data-interval="false">
   <ol class="carousel-indicators">
-    <% @issues_assignable.each_with_index do |issue, index| %>  
+    <% @assignable_issues.each_with_index do |issue, index| %>  
       <li data-target="#myCarousel" data-slide-to="<%= index %>" class="<%= "active" if index == 0 %>">
         <%= index + 1 %>
       </li>
     <% end %>
   </ol>
   <div class="carousel-inner">
-    <% @issues_assignable.each_with_index do |issue, index| %>
+    <% @assignable_issues.each_with_index do |issue, index| %>
       <div class="item <%= "active" if index == 0 %>">
         <img src="<%= issue.user.image.url %>" alt="" height="40%">
         <div class="carousel-caption">

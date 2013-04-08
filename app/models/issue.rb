@@ -68,15 +68,13 @@ class Issue < ActiveRecord::Base
     Issue.where(issues[:aasm_state].not_eq("closed"))
   end
 
-  def self.for_instructor
+  def self.not_post_help
     issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3
+    Issue.where(issues[:aasm_state].not_eq("post_help"))
+  end
 
-    # # Filter for
-    # only issues that are not closed
-    # only issues that are not post_help
-    filter_for_instructor = (issues[:aasm_state].not_eq("closed") || issues[:aasm_state].not_eq("post_help"))
-
-    Issue.where(filter_for_instructor)
+  def self.issues_assignable
+    Issue.not_closed.collect {|issue| issue unless issue.aasm_state == "post_help"}
   end
 
   def is_assigned?
