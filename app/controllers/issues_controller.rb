@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
     @assigned_issues = Issue.assigned
-
+    @issues_assignable = Issue.for_instructor
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }
@@ -50,7 +50,7 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(params[:issue])
-    @issue.to_waiting_room
+    @issue.to_fellow_student
     @issue.user_id = session[:user_id]
 
     new_gist = params[:issue]["relevant_gist"]
@@ -158,7 +158,7 @@ class IssuesController < ApplicationController
       @issue.assignee_id = session[:user_id]
       @issue.save
       twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
-      redirect_to assigned_path
+      redirect_to issues_path
     else
       redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue"
     end
@@ -185,11 +185,6 @@ class IssuesController < ApplicationController
       format.html # index.html.erb
       format.json { render json: @issues }
     end
-  end
-
-  def assigned
-    @assigned_issues = Issue.assigned
-    redirect_after_delay(big_board_path, 5)
   end
 
   def voteup

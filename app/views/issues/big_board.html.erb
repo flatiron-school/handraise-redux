@@ -1,7 +1,7 @@
 <h1>Big Board</h1>
 <div class="bigboard">
   <div class="clear"></div>
-  
+  <h2> Assigned issues</h2>
   <div class "queue">
     <% unless @assigned_issues.empty? %> 
       <% @assigned_issues.each do |issue| %>
@@ -15,6 +15,7 @@
   <hr>
 
   <div class="queue">
+  <h2> Issues up next</h2>
   <% unless @instructor_urgent_issues.empty? && @instructor_normal_issues.empty? %>   
       <% number_urgent = @instructor_urgent_issues.size %>
       <% number_normal = @instructor_normal_issues.size %>

@@ -8,13 +8,9 @@ namespace :states do
         issue.to_instructor_urgent
         issue.save
         puts "#{Time.now} - Updated Issue #{issue.id} to #{issue.aasm_state}!"
-      when issue.created_at < Time.now-0.minutes
+      when issue.created_at < Time.now-2.minutes
         issue.to_instructor_normal
         issue.save 
-        puts "#{Time.now} - Updated Issue #{issue.id} to #{issue.aasm_state}!"
-      when issue.created_at < Time.now-0.minutes
-        issue.to_fellow_student
-        issue.save
         puts "#{Time.now} - Updated Issue #{issue.id} to #{issue.aasm_state}!"
       end       
     end
@@ -30,7 +26,7 @@ namespace :states do
 
     User.admin.each do |admin|
       next unless admin.is_available?
-      issue = Issue.for_instructor
+      issue = Issue.for_instructor.first
       issue.assignee = admin
       issue.save
       redirect_to assigned_path

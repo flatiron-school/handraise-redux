@@ -16,20 +16,16 @@ class Issue < ActiveRecord::Base
   include AASM
 
   aasm :whiny_transitions => false do
-    state :waiting_room, :initial => true
-    state :fellow_student
+    state :fellow_student, :initial => true
     state :instructor_normal
     state :instructor_urgent
     state :post_help
     state :closed
 
-    # before triggering first event, issue.aasm_state will be empty. this method can be called to save issue.aasm_state to 'waiting_room'
-    event :to_waiting_room do
-      transitions :from => :waiting_room, :to => :waiting_room
-    end
+    # before triggering first event, issue.aasm_state will be empty. this method can be called to save issue.aasm_state to 'to_fellow_student'
 
     event :to_fellow_student do
-      transitions :from => [:closed, :waiting_room, :instructor_urgent, :post_help], :to => :fellow_student
+      transitions :from => [:closed, :fellow_student, :instructor_urgent, :post_help], :to => :fellow_student
     end
 
     event :to_instructor_normal do
@@ -45,7 +41,7 @@ class Issue < ActiveRecord::Base
     end
 
     event :to_closed do
-      transitions :from => [:waiting_room, :fellow_student, :instructor_normal, :instructor_urgent, :post_help], :to => :closed
+      transitions :from => [:fellow_student, :instructor_normal, :instructor_urgent, :post_help], :to => :closed
     end
   end
 
@@ -67,10 +63,6 @@ class Issue < ActiveRecord::Base
   scopable_by :instructor_urgent, :pre_scope => :not_assigned
   scopable_by :post_help, :pre_scope => :not_assigned
 
-  def self.waiting_room(user_id)
-    Issue.where(:aasm_state => "waiting_room", :user_id => user_id)
-  end
-
   def self.not_closed
     issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3
     Issue.where(issues[:aasm_state].not_eq("closed"))
@@ -82,11 +74,9 @@ class Issue < ActiveRecord::Base
     # # Filter for
     # only issues that are not closed
     # only issues that are not post_help
-    # only issues that are in states instructor urgent or normal
-    # only issues that are not assigned
-    filter_for_instructor = (issues[:aasm_state].not_eq("closed") and issues[:aasm_state].not_eq("post_help") and (issues[:aasm_state].eq("instructor_urgent") or issues[:aasm_state].eq("instructor_normal")) and issues[:assignee_id].eq(nil))
+    filter_for_instructor = (issues[:aasm_state].not_eq("closed") and issues[:aasm_state].not_eq("post_help"))
 
-    Issue.where(filter_for_instructor).first
+    Issue.where(filter_for_instructor)
   end
 
   def is_assigned?
@@ -101,9 +91,9 @@ class Issue < ActiveRecord::Base
     case
     when self.created_at < Time.now-40.minutes 
       self.to_instructor_urgent
-    when self.created_at < Time.now-0.minutes
+    when self.created_at < Time.now-2.seconds
       self.to_instructor_normal
-    when self.created_at < Time.now-0.minutes
+    when self.created_at < Time.now-1.seconds
       self.to_fellow_student
     end    
   end
