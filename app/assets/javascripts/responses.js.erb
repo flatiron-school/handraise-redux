@@ -1,0 +1,31 @@
+// # Place all the behaviors and hooks related to the matching controller here.
+// # All this logic will automatically be available in application.js.
+// # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
+$('#new_response').submit(function(e){
+  e.preventDefault();
+
+  var answer;
+  var response_count = $('.response').length;
+  if(response_count == 0){
+    answer = $('#status');
+  } else {
+    answer = $('.response:last');
+  }
+
+  $.post('/responses', $('#new_response').serialize(), function(data){
+    $('#responseModal').modal('toggle');
+    if(response_count == 0){
+      answer.after('<h4 id="responses_start">Responses:</h4>')
+      $('#responses_start').after(data);
+    } else {
+      answer.append(data);
+    }
+  })
+  .fail(function(error){
+    console.log(error);
+  })
+
+})
+
+
