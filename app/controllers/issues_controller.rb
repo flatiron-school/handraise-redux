@@ -219,6 +219,7 @@ class IssuesController < ApplicationController
 
     if @current_user.can_votedown?(@issue)
       vote = Vote.where(:user_id => current_user.id, :issue_id => @issue.id).first
+      @issue.votes.delete(vote)
       vote.delete
 
       respond_to do |format|
