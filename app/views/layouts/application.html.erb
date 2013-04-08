@@ -35,7 +35,7 @@
     <%#= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <% if current_page?(issues_path) || current_page?(big_board_path) %>
-      <meta http-equiv="refresh" content="60">
+      <!-- <meta http-equiv="refresh" content="60"> -->
     <% end %>
     
     <% if current_page?(assigned_path) %>
@@ -88,7 +88,7 @@
 
     <div class="container-fluid" id="content">
 
-      <div class="row-fluid">
+      <div class="row-fluid" id="main_content">
 
         <% if current_page?(login_path) || current_page?(big_board_path) || current_page?(signup_path) %>
           <div class="span12">

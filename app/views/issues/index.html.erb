@@ -1,3 +1,7 @@
+<%= content_for :js do %>
+  <script>Refresh.init("index")</script>
+<% end %>
+
 <% if @assignable_issues.present? %>
   <div id="myCarousel" class="carousel slide" data-interval="false">
     <ol class="carousel-indicators">
@@ -41,23 +45,23 @@
     <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
     <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
   </div>
-<% end %>
 
 <div id="issuesindex">
   <hr>
   <h3>Assigned</h3>
   <% @assigned_issues.each do |issue| %>
-  <%= render :partial => 'issue_theme', :locals => { :issues => @assigned_issues, :issue => issue } %>
+    <%= render :partial => 'issue_theme', :locals => { :issues => @assigned_issues, :issue => issue } %>
   <% end %>
 
   <div class="clear"></div>
   <br />
   <hr>
+<% end %>
 
 
   <h3>Urgent</h3>
   <% @instructor_urgent_issues.each do |issue| %>
-  <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>
+    <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>
   <% end %>
 
   <div class="clear"></div>
@@ -66,7 +70,7 @@
 
   <h3>Teacher Queue</h3>
   <% @instructor_normal_issues.each do |issue| %>
-  <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_normal_issues, :issue => issue } %>
+    <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_normal_issues, :issue => issue } %>
   <% end %>
 
   <div class="clear"></div>
@@ -74,10 +78,10 @@
   <hr>
 
   <% unless current_user.admin? %>
-  <h3>Student Queue</h3>
-  <% @fellow_student_issues.each do |issue| %>
-  <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
-  <% end %>
+    <h3>Student Queue</h3>
+    <% @fellow_student_issues.each do |issue| %>
+      <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
+    <% end %>
   <% end %>
 
 </div>
