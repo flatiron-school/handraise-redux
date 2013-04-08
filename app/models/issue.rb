@@ -74,7 +74,7 @@ class Issue < ActiveRecord::Base
     # # Filter for
     # only issues that are not closed
     # only issues that are not post_help
-    filter_for_instructor = (issues[:aasm_state].not_eq("closed") and issues[:aasm_state].not_eq("post_help"))
+    filter_for_instructor = (issues[:aasm_state].not_eq("closed") || issues[:aasm_state].not_eq("post_help"))
 
     Issue.where(filter_for_instructor)
   end
