@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to user_path(@user)
     else
-      render :action => "new", :as => "new", :layout => "fullwidth"
+      render :action => "new", :layout => "fullwidth"
     end
     # respond_to do |format|
     #   if @user.save
