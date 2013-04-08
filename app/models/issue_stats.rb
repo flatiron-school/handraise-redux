@@ -8,7 +8,7 @@ module IssueStats
   end
 
   def wait_time_open_in_seconds
-    Issue.not_closed.inject(0) do |time, issue|
+    Issue.issues_assignable.inject(0) do |time, issue|
       time + (Time.now - issue.created_at) 
     end
   end
@@ -20,7 +20,7 @@ module IssueStats
   end
 
   def total_open_issues
-    Issue.not_closed.size
+    Issue.issues_assignable.size
   end
 
   def total_closed_issues
