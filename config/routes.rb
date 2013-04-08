@@ -1,5 +1,7 @@
 App::Application.routes.draw do
 
+  get 'issues/response_form' => 'responses#response_form'
+
   get 'issues/:id/resolve' => 'issues#resolve', :as => "resolve"
   get 'issues/:id/assign' => 'issues#assign', :as => "assign"
   get 'issues/:id/unassign' => 'issues#unassign', :as => "unassign"

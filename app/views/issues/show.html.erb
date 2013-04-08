@@ -59,13 +59,9 @@
 <hr width="80%">
 <br>
 
+<a href="#responseModal" role="button" class="btn btn-sucess" data-toggle="modal" id="triggerModal">Respond to this issue</a>
 
-
-<a href="#responseModal" role="button" class="btn btn-sucess" data-toggle="modal">Respond to this issue</a>
-
-<div id="responseModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel" aria-hidden="true">
-  <%= render :partial => "response_form", :locals => { :@response => @response , :issue => @issue, :id => @issue.id} %>
-</div>
+<%= render :partial => "response_form", :locals => { :@response => @response , :issue => @issue, :id => @issue.id} %>
 
 
 

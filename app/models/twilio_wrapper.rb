@@ -14,13 +14,23 @@ class TwilioWrapper
   end
 
   def craft_message(issue, type)
-    assigned_user = User.find_by_id(issue.assignee_id).name
+    if issue.class == Issue
+      if issue.assignee_id
+        assigned_user = User.find_by_id(issue.assignee_id).name
+      end
+    end
 
     case type
     when 'assign'
       "Hi #{issue.user.name}, your issue (#{issue.title}) is now assigned to #{assigned_user}."
     when 'unassign'
       "Hi #{issue.user.name}, #{assigned_user} unassigned from your issue '#{issue.title}'"
+    when 'response'
+      "Hi #{issue.user.name}, a response has been posted to your issue '#{issue.title}'"    
+    when 'answer'
+      "Hi #{issue.user.name}, your response has been marked as the answer for '#{issue.issue.title}'"      
+    when 'unanswer'
+      "Hi #{issue.user.name}, your response has been removed as the answer for '#{issue.issue.title}'"    
     end
   end
 

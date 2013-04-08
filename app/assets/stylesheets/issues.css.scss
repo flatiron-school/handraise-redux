@@ -147,7 +147,7 @@ body {
   }
 
   .bigpicture {
-    width: 25%;
+    width: 25em;
   }
 
 }
@@ -158,5 +158,14 @@ body {
 
 textarea, input {
   width: 500px;
+}
+
+.modal-backdrop {
+  z-index: -1;
+}
+
+#responseModal {
+  z-index: 500;
+  /*max-height: 400px;*/
 }
 
