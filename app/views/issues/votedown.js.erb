@@ -1,0 +1,6 @@
+$('#voteup_id_<%= @issue.id %>').show();
+$('#votedown_id_<%= @issue.id %>').hide();
+
+$('#vote_count_id_<%= @issue.id %>').html("<%= @issue.votes.size %>")
+
+console.log("Vote count: " + "<%= @issue.votes.size %>")
