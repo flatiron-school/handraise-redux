@@ -16,20 +16,16 @@ class Issue < ActiveRecord::Base
   include AASM
 
   aasm :whiny_transitions => false do
-    state :waiting_room, :initial => true
-    state :fellow_student
+    state :fellow_student, :initial => true
     state :instructor_normal
     state :instructor_urgent
     state :post_help
     state :closed
 
-    # before triggering first event, issue.aasm_state will be empty. this method can be called to save issue.aasm_state to 'waiting_room'
-    event :to_waiting_room do
-      transitions :from => :waiting_room, :to => :waiting_room
-    end
+    # before triggering first event, issue.aasm_state will be empty. this method can be called to save issue.aasm_state to 'to_fellow_student'
 
     event :to_fellow_student do
-      transitions :from => [:closed, :waiting_room, :instructor_urgent, :post_help], :to => :fellow_student
+      transitions :from => [:closed, :fellow_student, :instructor_urgent, :post_help], :to => :fellow_student
     end
 
     event :to_instructor_normal do
@@ -45,7 +41,7 @@ class Issue < ActiveRecord::Base
     end
 
     event :to_closed do
-      transitions :from => [:waiting_room, :fellow_student, :instructor_normal, :instructor_urgent, :post_help], :to => :closed
+      transitions :from => [:fellow_student, :instructor_normal, :instructor_urgent, :post_help], :to => :closed
     end
   end
 
@@ -66,10 +62,6 @@ class Issue < ActiveRecord::Base
   scopable_by :instructor_normal, :pre_scope => :not_assigned
   scopable_by :instructor_urgent, :pre_scope => :not_assigned
   scopable_by :post_help, :pre_scope => :not_assigned
-
-  def self.waiting_room(user_id)
-    Issue.where(:aasm_state => "waiting_room", :user_id => user_id)
-  end
 
   def self.not_closed
     issues = Issue.arel_table # http://asciicasts.com/episodes/215-advanced-queries-in-rails-3

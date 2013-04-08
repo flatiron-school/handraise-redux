@@ -78,20 +78,4 @@
   <% end %>
   <% end %>
 
-  <div class="clear"></div>
-  <br />
-  <hr>
-
-  <h3><%= "Waiting Room" unless current_user.admin? %></h3>
-  <% @waiting_room_issues.each do |issue| %>
-  <div id="timer">
-  <input id="minutes" type="text" style="width: 14px; border: none; background-color:none; font-size: 16px; font-weight: bold;"> minutes and <input id="seconds" type="text" style="width: 26px; border: none; background-color:none; font-size: 16px; font-weight: bold;"> seconds<br>
-  left in the waiting room.
-  </div>
-  <%= render :partial => 'issue_theme', :locals => { :issues => @waiting_room_issues, :issue => issue } %>
-  <% end %>
-
-  <div class="clear"></div>
-  <br />
-  <hr>
 </div>
