@@ -26,7 +26,7 @@ class IssuesController < ApplicationController
     @response = @issue.responses.build
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render :layout => 'response'}
       format.json { render json: @issue }
     end
   end
