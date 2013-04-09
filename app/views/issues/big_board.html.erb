@@ -9,7 +9,8 @@
 <div class="span3">
   <h2>Currently Assigned</h2>
   <ul>
-    <%  %>
-    <li></li>
+    <% @assigned_issues.each do |issue| %>
+      <li><%= issue.assigned_to %> is helping <%= issue.user.name %> with <%= issue.title %></li>
+    <% end %>
   </ul>
 </div>

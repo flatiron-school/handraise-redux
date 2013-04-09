@@ -146,5 +146,9 @@ class Issue < ActiveRecord::Base
     self.gist_id = gist_hash[:id]
     self.save
   end
-end
 
+  def assigned_to
+    User.find_by_id(self.assignee_id).name
+  end
+
+end
