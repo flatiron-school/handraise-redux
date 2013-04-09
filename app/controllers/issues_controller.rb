@@ -184,6 +184,7 @@ class IssuesController < ApplicationController
     @assigned_issues = Issue.assigned
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
+
     render :layout => 'fullwidth'
   end
 
