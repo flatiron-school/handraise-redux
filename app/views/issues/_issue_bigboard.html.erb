@@ -1,14 +1,12 @@
-<div bigboard_container>
+<a href="/issues/<%=issue.id%>">
   <div class="issue quick-button bigpicture">
     
-    <div>
-      <%= image_tag(issue.user.image.url, :class => "profile_image") if issue.user.image.url.present? %>
-    </div>
+    <%= image_tag(issue.user.image.url, :class => "profile_image") if issue.user.image.url.present? %>
     
-    <div class="credits">
-      <p>
-        <h1><%= link_to issue.user.name, issue.user %></h1> <br>Submitted <%= time_ago_in_words(issue.created_at) %> ago
-      </p>
+    <div class="bigname">
+      <h2><%= issue.user.name %></h2>
+      <p>Submitted <%= time_ago_in_words(issue.created_at) %> ago</p>
     </div>
+
   </div>
-</div>
+</a>

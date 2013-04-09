@@ -1,0 +1,24 @@
+
+<div class="queue">
+  <h1>Issues Up Next</h1>
+  <% unless @instructor_urgent_issues.empty? && @instructor_normal_issues.empty? %>   
+      <% number_urgent = @instructor_urgent_issues.size %>
+      <% number_normal = @instructor_normal_issues.size %>
+
+      <% case %>
+      <% when number_urgent < 3 %> 
+        <% @instructor_urgent_issues.slice(0..(number_urgent-1)).each do |issue| %>
+          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>   
+        <% end %>
+
+        <% @instructor_normal_issues.slice(0..(2-number_urgent)).each do |issue| %>
+          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_normal_issues, :issue => issue } %> 
+        <% end %>
+
+      <% when number_urgent >= 3 %> 
+        <% @instructor_urgent_issues.slice(0..2).each do |issue| %>
+          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %> 
+        <% end %>
+      <% end %>
+    <% end %>
+</div>
