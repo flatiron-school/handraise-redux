@@ -57,7 +57,8 @@ class UsersController < ApplicationController
     @user.set_as_student
 
     if @user.save
-      redirect_to user_path(@user)
+      session[:user_id] = @user.id
+      redirect_to user_path(@user), :notice => 'User was successfully created and logged in'
     else
       render :action => "new", :layout => "fullwidth"
     end
