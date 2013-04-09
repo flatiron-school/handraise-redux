@@ -1,7 +1,6 @@
-<div class="issue quick-button">
+<div class="issue quick-button" id="issue_<%= issue.id %>">
 
   <div class="circles queue_position notification">
-    <%= issues.index(issue) + 1 %>
   </div>
   
   <% unless @current_user == issue.user %>
@@ -44,17 +43,17 @@
   </a>
 
   <ul class="assignment_buttons">
-    <li><%= link_to(raw('<button class="btn btn-success">I\'ll Help</button>'), assign_path(issue), :class => "assign_hide") if issue.assignee_id.blank? && @current_user.can_assign?(issue) && (issue.user != @current_user) %></li>    
-    <li><%= link_to(raw('<button class="btn btn-danger">Unassign</button>'), unassign_path(issue), :class => "assign_hide") if issue.assignee_id.present? && @current_user == issue.assignee && @current_user.can_unassign?(issue) %></li>
+    <li class="assign_button"><%= link_to(raw('<button class="btn btn-success ">I\'ll Help</button>'), assign_path(issue), :class => "assign_me", :remote => true) if show_assign_button?(@current_user, issue) %></li>    
+    <li class="unassign_button"><%= link_to(raw('<button class="btn btn-danger ">Unassign</button>'), unassign_path(issue), :class => "unassign_me", :remote => true) if show_unassign_button?(@current_user, issue) %></li>
   </ul>
   <ul class="issue_icons">
-    <li><%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue) && issue.is_unassigned? %>
+    <li class="delete_button"><%= link_to(raw('<i class="icon-remove btn btn-danger "></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if show_delete_button?(@current_user, issue) %>
     </li>
-    <li><%= link_to(raw('<i class="icon-pencil btn btn-warning"></i>'), edit_issue_path(issue)) if @current_user.can_edit?(issue) && issue.is_unassigned? %></li>
-    <li><%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %></li>
-    <li><%= link_to(raw('<button class="btn btn-danger">Need more help</button>'), unassign_path(issue)) if issue.is_assigned? && (issue.user == current_user) %>
+    <li class="edit_button"><%= link_to(raw('<i class="icon-pencil btn btn-warning "></i>'), edit_issue_path(issue)) if show_edit_button?(@current_user, issue) %></li>
+    <li class="resolve_button"><%= link_to(raw('<i class="icon-ok btn btn-success "></i>'), resolve_path(issue)) if show_resolve_button?(@current_user, issue) %></li>
+    <li class="more_help_button"><%= link_to(raw('<button class="btn btn-danger ">Need more help</button>'), unassign_path(issue)) if show_more_help_button?(@current_user, issue) %>
     </li>
-    <li><%= link_to(raw('<button class="btn btn-success">Done</button>'), helped_path(issue)) if issue.is_assigned? && (current_user.can_mark_as_helped?(issue)) %>
+    <li class="done_button"><%= link_to(raw('<button class="btn btn-success ">Done</button>'), helped_path(issue), :remote => true) if show_admin_done_button?(@current_user, issue) %>
     </li>
   </ul>
 </div>

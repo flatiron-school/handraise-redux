@@ -1,5 +1,5 @@
 <%= content_for :js do %>
-  <script>Refresh.init("index")</script>
+  <script>ajax_buttons.fire</script>
 <% end %>
 
 <% if @assignable_issues.present? %>
@@ -49,9 +49,10 @@
 <div id="issuesindex">
   <hr>
   <h3>Assigned</h3>
-  <% @assigned_issues.each do |issue| %>
-    <%= render :partial => 'issue_theme', :locals => { :issues => @assigned_issues, :issue => issue } %>
-  <% end %>
+  
+  <div class="issues_assigned">  
+  <%= render :partial => 'assigned_queue', :locals => { :issues => @assigned_issues } %>
+  </div>
 
   <div class="clear"></div>
   <br />
@@ -60,18 +61,20 @@
 
 
   <h3>Urgent</h3>
-  <% @instructor_urgent_issues.each do |issue| %>
-    <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>
-  <% end %>
+
+  <div class="issues_instructor_urgent">  
+  <%= render :partial => 'instructor_urgent_queue', :locals => { :issues => @instructor_urgent_issues } %>
+  </div>
 
   <div class="clear"></div>
   <br />
   <hr>
 
   <h3>Teacher Queue</h3>
-  <% @instructor_normal_issues.each do |issue| %>
-    <%= render :partial => 'issue_theme', :locals => { :issues => @instructor_normal_issues, :issue => issue } %>
-  <% end %>
+    
+  <div class="issues_instructor_normal">  
+  <%= render :partial => 'instructor_normal_queue', :locals => { :issues => @instructor_normal_issues } %>
+  </div>
 
   <div class="clear"></div>
   <br />
@@ -79,9 +82,11 @@
 
   <% unless current_user.admin? %>
     <h3>Student Queue</h3>
-    <% @fellow_student_issues.each do |issue| %>
-      <%= render :partial => 'issue_theme', :locals => { :issues => @fellow_student_issues, :issue => issue } %>
-    <% end %>
+    
+    <div class="issues_fellow_student">
+      <%= render :partial => 'fellow_student_queue', :locals => { :issues => @fellow_student_issues } %>
+    </div>
+
   <% end %>
 
 </div>

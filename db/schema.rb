@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404193426) do
+ActiveRecord::Schema.define(:version => 20130409200713) do
 
   create_table "identities", :force => true do |t|
     t.string   "provider"
@@ -28,12 +28,13 @@ ActiveRecord::Schema.define(:version => 20130404193426) do
     t.string   "title"
     t.integer  "user_id"
     t.integer  "status"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "assignee_id"
-    t.text     "relevant_gist", :limit => 255
+    t.text     "relevant_gist",  :limit => 255
     t.string   "aasm_state"
     t.string   "gist_id"
+    t.string   "previous_issue"
   end
 
   create_table "responses", :force => true do |t|

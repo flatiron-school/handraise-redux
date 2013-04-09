@@ -8,8 +8,12 @@ issue_card.remove();
 var state = "<%= @issue.aasm_state %>";
 console.log(state);
 
+var issues = 
+
+html = "<%=j render(:partial => "#{@issue.aasm_state}_queue", :locals => {:issues => @display_issues}) %>";
+
 // 5. insert that new issue into the DOM
-$('.issues_assigned').append("<%=j render(:partial => 'issue_theme.html', :locals => {:issue => @issue}) %>");
+$('.issues_<%= @issue.aasm_state %>').html(html);
 
 recount();
 

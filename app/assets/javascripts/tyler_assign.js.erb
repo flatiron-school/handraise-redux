@@ -1,0 +1,34 @@
+// $.each($('.issue.quick-button'), function() {
+//   var self = this;
+  
+//   // Assignment Event Handler
+//   $(self).find('a.assign_me').click(function (e) {
+//     e.preventDefault();
+//     console.log("Self is: ");
+//     console.log($(self));
+//     console.log("This is: ");
+//     console.log($(this));
+//     var copy = $(self).clone();
+//     $(this).remove();
+//     $(self).remove();
+//     $(copy).prependTo('#issues_assigned');
+//     // Get request to update server
+//     $.get('issues/' + self.id.split('_')[1] + '/assign');
+//   });
+
+//   // Unassignment Event Handler
+//   $(self).find('a.unassign_me').click(function (e) {
+//     e.preventDefault();
+//     console.log("Self is: ");
+//     console.log($(self));
+//     console.log("This is: ");
+//     console.log($(this));
+//     var copy = $(self).clone();
+//     $(this).remove();
+//     $(self).remove();
+//     $(copy).prependTo('#issues_urgent');
+//     // Get request to update server
+//     $.get('issues/' + self.id.split('_')[1] + '/unassign');
+//   });
+
+// });
