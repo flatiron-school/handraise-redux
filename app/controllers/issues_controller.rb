@@ -10,7 +10,7 @@ class IssuesController < ApplicationController
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
     @assigned_issues = Issue.assigned
-    @assignable_issues = Issue.issues_assignable
+    @assignable_issues = Issue.assignable
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @issues }
@@ -35,7 +35,7 @@ class IssuesController < ApplicationController
   # GET /issues/new.json
   def new
     if current_user.has_open_issue?
-      redirect_to issues_path, :notice => "Please close your open issue '#{view_context.link_to(@current_user.issues.not_closed.first.title, issue_path(@current_user.issues.not_closed.first))}' first"
+      redirect_to issues_path, :notice => "Please close your open issue '#{view_context.link_to(@current_user.issues.not_closed.first.title, @current_user)}' on your dashboard before creating a new issue"
     else
       @issue = Issue.new
 
@@ -161,12 +161,9 @@ class IssuesController < ApplicationController
       @issue.assignee_id = session[:user_id]
       @issue.save
       twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
-      
-      respond_to do |format|
-        format.js
-      end
+      redirect_to issues_path, :notice => "You are now assigned to #{@issue.user.name}'s issue."
     else
-      redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue"
+      redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue."
     end
   end
 
@@ -177,7 +174,7 @@ class IssuesController < ApplicationController
       twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
       @issue.assignee_id = nil
       @issue.save
-      redirect_to issues_path
+      redirect_to issues_path, :notice => "This issue is no longer assigned."
     else
       redirect_to issues_path, :notice => "You are not allowed to unassign someone from this issue"
     end
