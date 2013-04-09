@@ -1,0 +1,14 @@
+      </div><!--/row-->
+
+    </div> <!-- /container -->
+
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+<%= render :partial => "responses/response_form", :locals => { :@response => @response, :issue => @issue, :id => @issue.id} %>
+
+    <%= javascript_include_tag "application" %>
+
+  </body>
+</html>

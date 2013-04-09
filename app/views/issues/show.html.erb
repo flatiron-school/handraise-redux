@@ -42,8 +42,6 @@
     <h4 id="responses_start">Responses:</h4>
     <% @issue.responses[0..-2].each do |response| %>
 
-    <%= render :partial => "responses/response", :locals => { :response => response, :@issue => @issue } %>
-
     <% end %>
   </div>
 <% end %>
@@ -51,9 +49,6 @@
 <br>
 
 <a href="#responseModal" role="button" class="btn btn-primary" data-toggle="modal">Respond to this issue</a>
-
-<%= render :partial => "responses/response_form", :locals => { :@response => @response, :issue => @issue, :id => @issue.id} %>
-
 
 <br><br>
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
