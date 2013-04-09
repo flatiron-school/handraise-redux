@@ -5,8 +5,9 @@
 body {
   font-family: 'helvetica neue', helvetica, arial, verdana, sans-serif;
   a:hover {
-    color: #2f96b4;
+    color: #000000;
     background: none;
+    text-decoration: none;
   }
 
   .issue {
@@ -85,19 +86,17 @@ body {
     .issue_box {
       width: 20em;
       height: 12em;
-      a.title {
+      .title {
         font-weight: bold;
         font-size: 1.6em;
         line-height: 1.2em;
         margin: 0.5em 0em;
         display: block;
       }
-      p {
+      p.description {
         margin: 0em 1.5em;
-        a.description {
-          font-size: 1.1em;
-          line-height: 1.6em;
-        }
+        font-size: 1.1em;
+        line-height: 1.6em;
       }
     }
     .assignment_buttons {
