@@ -192,6 +192,7 @@ class IssuesController < ApplicationController
       format.json { render json: @issues }
       format.js {}
     end
+    render :layout => 'fullwidth'
   end
 
   def voteup

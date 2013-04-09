@@ -75,6 +75,10 @@
   display: inline;
 }
 
+label {
+  display: inline;
+}
+
 @media (max-width: 479px) {
   body {
     padding-left: 0px;
