@@ -23,20 +23,16 @@ class UsersController < ApplicationController
       @open_issue = @user.issues.not_closed
       @closed_issues = @user.issues.closed
       @user_login_name = @user.identities.first.login_name if @user.identities.first
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
-    end
+    render :layout => 'dashboard'
   end
 
   # GET /users/new
   # GET /users/new.json
   def new
+    # raise params.inspect
     @user = User.new
-
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user }
+      format.html {render :layout => 'fullwidth'}
     end
   end
 
@@ -60,16 +56,21 @@ class UsersController < ApplicationController
     @user.cell = @user.cell.gsub("-","").gsub(".","").gsub("(","").gsub(")","").gsub(" ","")
     @user.set_as_student
 
-    respond_to do |format|
-      if @user.save
-        session[:user_id] = @user.id
-        format.html { redirect_to user_path(@user), notice: 'User was successfully created and logged in' }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      redirect_to user_path(@user)
+    else
+      render :action => "new", :as => "new", :layout => "fullwidth"
     end
+    # respond_to do |format|
+    #   if @user.save
+    #     session[:user_id] = @user.id
+    #     format.html { redirect_to user_path(@user), notice: 'User was successfully created and logged in' }
+    #     format.json { render json: @user, status: :created, location: @user }
+    #   else
+    #     format.html { render "new" }
+    #     format.json { render json: @user.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PUT /users/1
@@ -145,15 +146,6 @@ class UsersController < ApplicationController
     end
 
     redirect_to indexadmin_path, :notice => "Hey #{@current_user.name}, you toggled #{@admin.name}'s on-call status to #{@admin.on_call}"
-  end
-
-  def dashboard
-    # get the admin
-    @assigned_issue = current_user.currently_assigned_issue
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
-    end
   end
 
 end

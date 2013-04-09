@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
 
   has_many :identities
 
+  validates :email, :name, :presence => true
+  validates_uniqueness_of :email, :message => "Sorry, that e-mail address already belongs to an existing account."
+
   USER_ROLES = {
     :admin => 0,
     :student => 10
