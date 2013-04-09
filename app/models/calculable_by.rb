@@ -5,7 +5,7 @@ module CalculableBy
     define_singleton_method "wait_time_#{status_key}_in_seconds" do
         if status_key == :closed
           Issue.send(status_key).inject(0) do |time, issue|
-            time + (Time.updated - issue.created_at) 
+            time + (Time.updated_at - issue.created_at) 
           end
         else
           Issue.send(status_key).inject(0) do |time, issue|
