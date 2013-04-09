@@ -14,32 +14,35 @@
     <% end %>
   <% end %>
 
+  <a href="/issues/<%=issue.id%>">
+    <div class="issue_box">
+      <span class="title"><%= truncate(issue.title, :length => 35, :omission =>"...") %></span>
+      <p class="description"><%= truncate(issue.content, :length => 140, :omission =>"...") %></p>
+    </div>
 
-  <div class="issue_box">
-    <%= link_to truncate(issue.title, :length => 35, :omission =>"..."), issue_path(issue), :class => "title" %>
-    <p><%= link_to truncate(issue.content, :length => 140, :omission =>"..."), issue_path(issue), :class => "description" %></p>
-  </div>
   <div class="credits">
     <hr>
-    <div class="small_profile">
-      <p>Asked by:</p>
-      <%= image_tag(issue.user.image.url, :class => "small_profile_image") if issue.user.image.url.present? %>
-      <p>
-        <%= link_to issue.user.name, issue.user %>
-      </p>
-    </div>
-    <div class="submission_details">
-      <p>
-        Submitted: <br> <%= time_ago_in_words(issue.created_at) %> ago
-      </p>
-      
-      <%= render :partial => 'assigned', :locals => { :issue => issue } %>
+      <div class="small_profile">
+        <p>Asked by:</p>
+        <%= image_tag(issue.user.image.url, :class => "small_profile_image") if issue.user.image.url.present? %>
+        <p>
+          <%= issue.user.name %>
+        </p>
+      </div>
 
-      <p>Vote Count: </p>
-      <strong id="vote_count_id_<%= issue.id %>"><%= issue.votes.size.to_s %></strong>
+      <div class="submission_details">
+        <p>
+          Submitted: <br> <%= time_ago_in_words(issue.created_at) %> ago
+        </p>
+        
+        <%= render :partial => 'assigned', :locals => { :issue => issue } %>
 
-    </div>
+        <p>Vote Count: </p>
+        <strong id="vote_count_id_<%= issue.id %>"><%= issue.votes.size.to_s %></strong>
+      </div>
   </div>
+  </a>
+
   <ul class="assignment_buttons">
     <li><%= link_to(raw('<button class="btn btn-success">I\'ll Help</button>'), assign_path(issue), id: "will_help", remote: true) if issue.assignee_id.blank? && @current_user.can_assign?(issue) && (issue.user != @current_user) %></li>    
     <li><%= link_to(raw('<button class="btn btn-danger">Unassign</button>'), unassign_path(issue)) if issue.assignee_id.present? && @current_user == issue.assignee && @current_user.can_unassign?(issue) %></li>
@@ -55,4 +58,3 @@
     </li>
   </ul>
 </div>
-

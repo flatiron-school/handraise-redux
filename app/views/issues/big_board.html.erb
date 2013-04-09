@@ -2,44 +2,20 @@
 <script>Refresh.init("big_board")</script>
 <% end %>
 
-<h1>Big Board</h1>
-<div class="bigboard">
-  <div class="clear"></div>
-  <h2> Assigned issues</h2>
-  <div class "queue">
-    <% unless @assigned_issues.empty? %> 
-      <% @assigned_issues.each do |issue| %>
-        <%= render :partial => 'assigned_bigboard', :locals => { :issues => @assigned_issues, :issue => issue } %> 
-      <% end %>
-    <% end %>
+<div class="span9">
+  <%= render 'issues/bigboard_queue' %>
+</div>
+
+<div class="box span3">
+  <div class="box-header">
+    <h2><i class="icon-th-large"></i><span class="break"></span>Currently Assigned</h2>
   </div>
 
-  <div class="clear"></div>
-
-  <hr>
-
-  <div class="queue">
-  <h2> Issues up next</h2>
-  <% unless @instructor_urgent_issues.empty? && @instructor_normal_issues.empty? %>   
-      <% number_urgent = @instructor_urgent_issues.size %>
-      <% number_normal = @instructor_normal_issues.size %>
-
-      <% case %>
-      <% when number_urgent < 3 %> 
-        <% @instructor_urgent_issues.slice(0..(number_urgent-1)).each do |issue| %>
-          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %>   
-        <% end %>
-
-        <% @instructor_normal_issues.slice(0..(2-number_urgent)).each do |issue| %>
-          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_normal_issues, :issue => issue } %> 
-        <% end %>
-
-      <% when number_urgent >= 3 %> 
-        <% @instructor_urgent_issues.slice(0..2).each do |issue| %>
-          <%= render :partial => 'issue_bigboard', :locals => { :issues => @instructor_urgent_issues, :issue => issue } %> 
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-
+  <% @assigned_issues.each do |issue| %>
+    <div class="box-content">
+      
+      <p><%= issue.assigned_to.name %> is helping <%= issue.user.name %> with <%= link_to issue.title, issue %>
+      </p>
+    </div>
+  <% end %>
 </div>
