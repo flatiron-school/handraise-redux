@@ -73,7 +73,7 @@ class Issue < ActiveRecord::Base
     Issue.where(issues[:aasm_state].not_eq("post_help"))
   end
 
-  def self.issues_assignable
+  def self.assignable
     Issue.not_closed.collect {|issue| issue unless issue.aasm_state == "post_help"}.delete_if {|issue| issue.nil?}
   end
 
