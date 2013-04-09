@@ -29,9 +29,7 @@
 
               <hr>
 
-              <button class="btn btn-small btn-inverse">
-                <i class="icon-cog"></i> &nbsp;
-                <%= link_to 'Edit Profile', edit_user_path(@user) %>
+                <%= link_to raw('<i class="icon-cog"></i> &nbsp; Edit Profile'), edit_user_path(@user), :class =>'btn btn-small btn-inverse' %>
               </button>
             </div>
           </div><!--/.box -->
