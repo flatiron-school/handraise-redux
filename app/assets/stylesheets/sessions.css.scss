@@ -1,3 +1,102 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#landing_page {
+  background: url('handraise.jpg') no-repeat center center fixed !important;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  margin-top: -2em;
+}
+
+#about {
+  position: relative;
+  float: right;
+  margin-top: 2em;
+  padding-right: 2em;
+
+  h1 {
+    font-size: 5em;
+    line-height: 1em;
+    padding-left: 0em;
+  }
+
+  h3 {
+    line-height: 1.5em;
+    padding-left: 0em;
+  }
+
+}
+
+#built {
+  p {
+    text-align: center;
+  }
+}
+
+#landing {
+  position: relative;
+  height: 70em;
+  margin-left: 5em;
+
+  /*width: image-width(url('handraise.jpg'));*/
+}
+
+#login {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  padding-left: 1em;
+  padding-right: 1em;
+  z-index: 1000;
+  border-right: solid;
+}
+
+.input-large {
+  background-color: white !important;
+  z-index: 1000;
+}
+
+.login-section {
+  text-align: left;
+}
+
+.login-box {
+
+  background: rgba(255, 255, 255, 0.75) !important;
+
+  .input-prepend {
+    text-align: left !important;
+    padding-left: 15px !important;
+    padding-top: 10px !important;
+    background: rgba(255, 255, 255, 0) !important;
+    border-left: 0px !important;
+  }
+
+  h1 {
+    padding-left: 15px;
+    font-family: monaco;
+    font-weight: normal;
+
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  h3 {
+    margin-left: 0px !important;
+  }
+
+  p {
+    margin-left: 0px !important;
+  }
+
+}
+
+#catPhoto {
+  height: 30em;
+}
+
+.button-login {
+  margin-right: 0 !important;
+}

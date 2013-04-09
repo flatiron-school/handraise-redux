@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   skip_before_filter :login_required, :except => "destroy"
 
   def new
-    render :layout => 'fullwidth'
+    render :layout => 'landing_page'
   end
 
   def new_github
