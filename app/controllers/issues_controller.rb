@@ -58,6 +58,15 @@ class IssuesController < ApplicationController
       @issue.send_to_github(new_gist, @current_user)
     end
 
+    if Issue.assignable.size == 0
+      if @issue.save
+        User.admin.each do |user|
+        twilio_client = TwilioWrapper.new
+        twilio_client.admin_sms(user,'new_issues') if user.has_cell?
+        end
+      end
+    end
+
     respond_to do |format|
       if @issue.save
         format.html { redirect_to issues_path, notice: 'Issue was successfully created.' }
