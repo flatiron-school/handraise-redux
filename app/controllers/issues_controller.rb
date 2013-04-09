@@ -161,12 +161,9 @@ class IssuesController < ApplicationController
       @issue.assignee_id = session[:user_id]
       @issue.save
       twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
-      
-      respond_to do |format|
-        format.js
-      end
+      redirect_to issues_path, :notice => "You are now assigned to #{@issue.user.name}'s issue."
     else
-      redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue"
+      redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue."
     end
   end
 
@@ -177,7 +174,7 @@ class IssuesController < ApplicationController
       twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
       @issue.assignee_id = nil
       @issue.save
-      redirect_to issues_path
+      redirect_to issues_path, :notice => "This issue is no longer assigned."
     else
       redirect_to issues_path, :notice => "You are not allowed to unassign someone from this issue"
     end
