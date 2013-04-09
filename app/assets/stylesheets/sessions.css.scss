@@ -17,6 +17,7 @@
 
   h1 {
     font-size: 5em;
+    font-family: monaco;
     line-height: 1em;
     padding-left: 0em;
   }
@@ -35,20 +36,15 @@
 }
 
 #landing {
-  position: relative;
   height: 70em;
-  margin-left: 5em;
-
+  text-align: center;
   /*width: image-width(url('handraise.jpg'));*/
 }
 
 #login {
-  margin-top: 2em;
-  margin-bottom: 2em;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding: 2em 2em;
   z-index: 1000;
-  border-right: solid;
+  border-right: dotted 1px #dddddd;
 }
 
 .input-large {
@@ -61,34 +57,26 @@
 }
 
 .login-box {
-
   background: rgba(255, 255, 255, 0.75) !important;
 
   .input-prepend {
     text-align: left !important;
-    padding-left: 15px !important;
-    padding-top: 10px !important;
     background: rgba(255, 255, 255, 0) !important;
-    border-left: 0px !important;
-  }
-
-  h1 {
-    padding-left: 15px;
-    font-family: monaco;
-    font-weight: normal;
-
+    padding-top: 10px !important;
   }
 
   label {
+    padding-top: 2em;
     font-weight: bold;
-  }
-
-  h3 {
-    margin-left: 0px !important;
   }
 
   p {
     margin-left: 0px !important;
+  }
+
+  hr {
+    border-top: 0px;
+    border-bottom: dashed 1px #bbb;
   }
 
 }

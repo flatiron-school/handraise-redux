@@ -1636,8 +1636,10 @@ input[type="file"],
 =================================================================== */
 
 .login-box {
-	width: 400px;
 	margin: 100px auto;
+  width: 60em;
+  display: block;
+  text-align: left;
 	background: rgb(245,245,245); /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
 	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y1ZjVmNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjE5JSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9Ijc3JSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmNWY1ZjUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -1673,7 +1675,7 @@ input[type="file"],
 .login-box .icons i:hover {
 	opacity: .8;
 }
-
+/*
 .login-box h2 {
 	color: #646464;
 	margin-left: 30px;
@@ -1691,28 +1693,25 @@ input[type="file"],
 .login-box p {
 	margin: 10px 30px;
 	font-weight: normal;
-}
+}*/
 
 .login-box .input-prepend {
 	background: #fff;
 	width: 100%;
-	text-align: center;
-	padding: 15px 0px;
-	border-left: 3px solid #fff;
+	text-align: left;
+	padding: 1em 0em;
 }
 
 .login-box .input-prepend-focus {
 	background: #fcfcfc;
 	width: 100%;
-	text-align: center;
-	padding: 15px 0px;
-	border-left: 3px solid #646464;
+	text-align: left;
+	padding: 1em 0em;
 }
 
 .login-box .add-on {
 	border: 1px solid #eee !important;
 	background: #fff;
-	margin-left: -10px;
 	padding: 10px;
 }
 
