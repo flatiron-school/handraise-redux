@@ -1,4 +1,4 @@
-<button class="btn btn-large btn-success"><%= link_to("Add An Issue", new_issue_path) %></button>
+<%= link_to "Add An Issue", new_issue_path, :class => 'btn btn-large btn-success' %>
 
 <% unless @open_issue.empty? %>
   <hr>
