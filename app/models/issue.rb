@@ -1,4 +1,13 @@
 class Issue < ActiveRecord::Base
+
+  include AASM
+  extend CalculableBy
+  extend IssueStats
+
+  calculable_by :assignable
+  calculable_by :post_help
+  calculable_by :closed
+
   attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses, :aasm_state
 
   belongs_to :user
@@ -9,11 +18,7 @@ class Issue < ActiveRecord::Base
   has_many :users, :through => :responses
 
   has_many :votes
-  has_many :users, :through => :votes
-
-  extend IssueStats
-
-  include AASM
+  has_many :users, :through => :votes 
 
   aasm :whiny_transitions => false do
     state :fellow_student, :initial => true
@@ -73,7 +78,7 @@ class Issue < ActiveRecord::Base
     Issue.where(issues[:aasm_state].not_eq("post_help"))
   end
 
-  def self.issues_assignable
+  def self.assignable
     Issue.not_closed.collect {|issue| issue unless issue.aasm_state == "post_help"}.delete_if {|issue| issue.nil?}
   end
 

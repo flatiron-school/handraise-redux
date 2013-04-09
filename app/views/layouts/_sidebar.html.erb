@@ -5,10 +5,19 @@
             </div>
             <div class="box-content">
               <p><strong>Current open issues:</strong>
-                <%= Issue.total_open_issues %></p>
+                <%= Issue.total_assignable_issues %></p>
               
-              <p><strong>Average waiting time for open issues:</strong>
-                <%= Issue.average_wait_time_open.to_i %> minutes</p>
+              <p><strong>Avg. wait time for open issues:</strong>
+                <%= Issue.average_wait_time_assignable.to_i %> minutes</p>
+                  
+              <hr>
+
+
+              <p><strong>Current post-help / pending closure issues:</strong>
+                <%= Issue.total_post_help_issues %></p>
+              
+              <p><strong>Avg. wait time for post-help / pending closure issues:</strong>
+                <%= Issue.average_wait_time_post_help.to_i %> minutes</p>
                   
               <hr>
 
@@ -16,7 +25,7 @@
                 <%= Issue.total_closed_issues %></p>
               
               <% if Issue.total_closed_issues > 0 %>
-              <p><strong>Average time taken to resolve issues:</strong>
+              <p><strong>Avg. time taken to resolve issues:</strong>
                 <%= Issue.average_wait_time_closed.to_i %> minutes</p>                            
               <% end %>
             </div>
