@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "HandRaise" %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%#= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%#= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+
+    <% if current_page?(issues_path) || current_page?(big_board_path) %>
+      <meta http-equiv="refresh" content="60">
+    <% end %>
+    
+    <% if current_page?(assigned_path) %>
+      <meta http-equiv="refresh" content='<%=@redirect_delay%>;url=<%=@redirect_url%>'>
+    <% end %>
+  </head>
+  <body>
+
+    <div class="navbar navbar-fluid-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="/">HandRaise</a>
+
+
+          <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse.header-nav">
+            <i class="icon-bar"></i>
+            <i class="icon-bar"></i>
+            <i class="icon-bar"></i>
+          </a>
+
+          <div class="nav-collapse header-nav collapse">
+            <ul class="nav">
+              <li><%= link_to "Issue Queue", issues_path %></li>
+              <li><%= link_to "Big Board", big_board_path %></li>
+              <li><%= link_to "Add An Issue", new_issue_path %></li>
+              <% if current_user && current_user.admin? %>  
+              <li><%= link_to 'Admin Checkin', indexadmin_path %></li> 
+              <% end %>
+              <li><%= link_to "Report A Bug", "https://github.com/flatiron-school/handraise-redux/issues", :target => "_blank" %></li>
+            </ul>
+            <ul class="login">
+              <li>
+                <% if current_user %>
+                  Logged in as: <%= link_to current_user.email, user_path(current_user) %>
+                  <button class="btn btn-small btn-primary"><%= link_to "Logout", logout_path %></button>
+                <% else %>
+                  <% unless current_page?(signup_path) || current_page?(new_user_path) %>
+                    <button class="btn btn-small btn-success"><%= link_to("Sign Up", signup_path) %></button>
+                  <% end %>
+                  <% unless current_page?(login_path) %>
+                    <button class="btn btn-small btn-primary"><%= link_to("Login", login_path) %></button> 
+                  <% end %>
+                <% end %> 
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid" id="content">
+
+      <div class="row-fluid">

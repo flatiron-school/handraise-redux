@@ -187,11 +187,7 @@ class IssuesController < ApplicationController
     @assigned_issues = Issue.assigned
     @instructor_normal_issues = Issue.instructor_normal
     @instructor_urgent_issues = Issue.instructor_urgent
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @issues }
-      format.js {}
-    end
+    render :layout => 'fullwidth'
   end
 
   def voteup
