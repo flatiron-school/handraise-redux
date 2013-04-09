@@ -1,4 +1,13 @@
 class Issue < ActiveRecord::Base
+
+  include AASM
+  extend CalculableBy
+  extend IssueStats
+
+  calculable_by :assignable
+  calculable_by :post_help
+  calculable_by :closed
+
   attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses, :aasm_state
 
   belongs_to :user
@@ -9,11 +18,7 @@ class Issue < ActiveRecord::Base
   has_many :users, :through => :responses
 
   has_many :votes
-  has_many :users, :through => :votes
-
-  extend IssueStats
-
-  include AASM
+  has_many :users, :through => :votes 
 
   aasm :whiny_transitions => false do
     state :fellow_student, :initial => true
