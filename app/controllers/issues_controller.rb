@@ -35,7 +35,7 @@ class IssuesController < ApplicationController
   # GET /issues/new.json
   def new
     if current_user.has_open_issue?
-      redirect_to issues_path, :notice => "Please close your open issue '#{view_context.link_to(@current_user.issues.not_closed.first.title, issue_path(@current_user.issues.not_closed.first))}' first"
+      redirect_to issues_path, :notice => "Please close your open issue '#{view_context.link_to(@current_user.issues.not_closed.first.title, @current_user)}' on your dashboard before creating a new issue"
     else
       @issue = Issue.new
 
