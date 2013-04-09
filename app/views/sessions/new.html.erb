@@ -10,7 +10,7 @@
         <span class="add-on">
           <i class="icon-user"></i>
         </span>
-        <%= text_field_tag :email, "type email", :class => "input-large span10" %>
+        <%= text_field_tag :email, "type email", :class => "input-large span10", :id=> "login_email" %>
       </div>
 
       <div class="input-prepend">
@@ -18,7 +18,7 @@
         <span class="add-on">
           <i class="icon-lock"></i>
         </span>
-        <%= password_field_tag :password, "type password", :class => "input-large span10" %>
+        <%= password_field_tag :password, "type password", :class => "input-large span10", :id=> "login_password" %>
       </div>
 
       <div class="button-login">
