@@ -1,4 +1,4 @@
-class TwilioWrapper
+ class TwilioWrapper
 
   def initialize
     @client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
@@ -30,7 +30,9 @@ class TwilioWrapper
     when 'answer'
       "Hi #{issue.user.name}, your response has been marked as the answer for '#{issue.issue.title}'"      
     when 'unanswer'
-      "Hi #{issue.user.name}, your response has been removed as the answer for '#{issue.issue.title}'"    
+      "Hi #{issue.user.name}, your response has been removed as the answer for '#{issue.issue.title}'" 
+    when 'new_issues'
+      "Hi, there is now an issue in the issue queue."    
     end
   end
 
@@ -40,6 +42,16 @@ class TwilioWrapper
     client.account.sms.messages.create(
       :from => from,
       :to => issue.user.cell,
+      :body => message
+    )
+  end
+
+  def admin_sms(user, type)
+    message = craft_message(user, type)
+
+    client.account.sms.messages.create(
+      :from => from,
+      :to => user.cell,
       :body => message
     )
   end

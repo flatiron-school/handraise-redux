@@ -1,3 +1,4 @@
+
 namespace :states do
   desc "Rake task to update state of issues"
   task :update => :environment do
