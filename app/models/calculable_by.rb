@@ -19,7 +19,7 @@ module CalculableBy
     end
 
     define_singleton_method "average_wait_time_#{status_key}" do
-      if "total_#{status_key}_issues" == 0
+      if Issue.send("total_#{status_key}_issues") == 0
         0
       else
         (Issue.send("wait_time_#{status_key}_in_seconds")/60)/Issue.send("total_#{status_key}_issues")
