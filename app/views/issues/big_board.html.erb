@@ -6,11 +6,16 @@
   <%= render 'issues/bigboard_queue' %>
 </div>
 
-<div class="span3">
-  <h2>Currently Assigned</h2>
-  <ul>
-    <% @assigned_issues.each do |issue| %>
-      <li><%= issue.assigned_to %> is helping <%= issue.user.name %> with <%= issue.title %></li>
-    <% end %>
-  </ul>
+<div class="box span3">
+  <div class="box-header">
+    <h2><i class="icon-th-large"></i><span class="break"></span>Currently Assigned</h2>
+  </div>
+
+  <% @assigned_issues.each do |issue| %>
+    <div class="box-content">
+      
+      <p><%= issue.assigned_to.name %> is helping <%= issue.user.name %> with <%= link_to issue.title, issue %>
+      </p>
+    </div>
+  <% end %>
 </div>
