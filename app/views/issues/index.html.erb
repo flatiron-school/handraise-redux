@@ -20,7 +20,7 @@
             <p><%= issue.content %></p>
             <p>Submitted by: <%= issue.user.name %><br />
               <%= time_ago_in_words(issue.created_at) %> ago<br />
-              <%= "Assigned To: " if issue.assignee_id.present? %><strong><%= issue.assigned_to if issue.assignee_id.present? %></strong>
+              <%= "Assigned To: " if issue.assignee_id.present? %><strong><%= issue.assigned_to.name if issue.assignee_id.present? %></strong>
             </p>
 
             <ul class="issue_actions">

@@ -106,7 +106,7 @@ class Issue < ActiveRecord::Base
   end  
 
   def assigned_to
-    User.find_by_id(self.assignee_id).name
+    User.find_by_id(self.assignee_id)
   end
 
   def self.assigned
@@ -151,5 +151,5 @@ class Issue < ActiveRecord::Base
     self.gist_id = gist_hash[:id]
     self.save
   end
-end
 
+end
