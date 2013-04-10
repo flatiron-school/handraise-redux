@@ -4,46 +4,7 @@
 
 <% if @assignable_issues.present? %>
   <div id="myCarousel" class="carousel slide" data-interval="false">
-    <ol class="carousel-indicators">
-      <% @assignable_issues.each_with_index do |issue, index| %>  
-        <li data-target="#myCarousel" data-slide-to="<%= index %>" class="<%= "active" if index == 0 %>">
-          <%= index + 1 %>
-        </li>
-      <% end %>
-    </ol>
-    <div class="carousel-inner">
-      <% @assignable_issues.each_with_index do |issue, index| %>
-        <div class="item <%= "active" if index == 0 %>">
-          <img src="<%= issue.user.image.url %>" alt="" height="40%">
-          <div class="carousel-caption">
-            <h4><%= issue.title %></h4>
-            <p><%= issue.content %></p>
-            <p>Submitted by: <%= issue.user.name %><br />
-              <%= time_ago_in_words(issue.created_at) %> ago<br />
-              <%= "Assigned To: " if issue.assignee_id.present? %><strong><%= issue.assigned_to.name if issue.assignee_id.present? %></strong>
-            </p>
-
-            <ul class="issue_actions">
-              <li><%= link_to(raw('<button class="btn btn-success">Assign To Me</button>'), assign_path(issue)) if issue.assignee_id.blank? && @current_user.can_assign?(issue) && (issue.user != @current_user) %></li>    
-              <li><%= link_to(raw('<button class="btn btn-danger">Unassign</button>'), unassign_path(issue)) if issue.assignee_id.present? && @current_user == issue.assignee && @current_user.can_unassign?(issue) %></li>
-              <li><%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue) && issue.is_unassigned? %>
-              </li>
-              <li><%= link_to(raw('<i class="icon-pencil btn btn-warning"></i>'), edit_issue_path(issue)) if @current_user.can_edit?(issue) && issue.is_unassigned? %></li>
-              <li><%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %></li>
-              <li><%= link_to(raw('<button class="btn btn-danger">Need more help</button>'), unassign_path(issue)) if issue.is_assigned? && (issue.user == current_user) %>
-              </li>
-              <li><%= link_to(raw('<button class="btn btn-success">Done</button>'), helped_path(issue)) if issue.is_assigned? && (current_user.can_mark_as_helped?(issue)) %>
-              </li>
-            </ul>
-
-
-
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+    <%= render :partial => 'mobile_queue', :locals => { :assignable_issues => @assignable_issues, :current_user => current_user} %>
   </div>
 
 <div id="issuesindex">

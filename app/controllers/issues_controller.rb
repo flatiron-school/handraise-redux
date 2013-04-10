@@ -141,10 +141,14 @@ class IssuesController < ApplicationController
 
   def helped
     @issue = Issue.find(params[:id])
+    
     if @current_user.can_mark_as_helped?(@issue)
       @issue.to_post_help
       @issue.assignee_id = nil
       @issue.save
+
+      #for AJAX
+      @assignable_issues = Issue.assignable
 
       respond_to do |format|
         format.js {}
@@ -167,11 +171,15 @@ class IssuesController < ApplicationController
 
   def assign
     @issue = Issue.find(params[:id])
+
     if @current_user.can_assign?(@issue)
-      twilio_client = TwilioWrapper.new
+      # twilio_client = TwilioWrapper.new
       @issue.assignee_id = session[:user_id]
       @issue.save
-      twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
+      # twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
+
+      #for AJAX
+      @assignable_issues = Issue.assignable
       
       respond_to do |format|
         format.js {}
@@ -184,21 +192,24 @@ class IssuesController < ApplicationController
   def unassign
     @issue = Issue.find(params[:id])
 
-    # Code for AJAX loading issues to inject in DOM
-    case @issue.aasm_state
-    when "fellow_student"
-      @display_issues = Issue.fellow_student
-    when "instructor_normal"
-      @display_issues = Issue.instructor_normal
-    when "instructor_urgent"
-      @display_issues = Issue.instructor_urgent
-    end
-
     if @current_user.can_unassign?(@issue)
-      twilio_client = TwilioWrapper.new
-      twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
+      # twilio_client = TwilioWrapper.new
+      # twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
       @issue.assignee_id = nil
       @issue.save
+
+      #for AJAX
+      @assignable_issues = Issue.assignable
+
+      # Code for AJAX loading issues to inject in DOM
+      case @issue.aasm_state
+      when "fellow_student"
+        @display_issues = Issue.fellow_student
+      when "instructor_normal"
+        @display_issues = Issue.instructor_normal
+      when "instructor_urgent"
+        @display_issues = Issue.instructor_urgent
+      end
       
       respond_to do |format|
         format.js {}
