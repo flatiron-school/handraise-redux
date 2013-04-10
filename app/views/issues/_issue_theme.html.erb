@@ -51,7 +51,7 @@
     </li>
     <li class="edit_button"><%= link_to(raw('<i class="icon-pencil btn btn-warning "></i>'), edit_issue_path(issue)) if show_edit_button?(@current_user, issue) %></li>
     <li class="resolve_button"><%= link_to(raw('<i class="icon-ok btn btn-success "></i>'), resolve_path(issue)) if show_resolve_button?(@current_user, issue) %></li>
-    <li class="more_help_button"><%= link_to(raw('<button class="btn btn-danger ">Need more help</button>'), unassign_path(issue)) if show_more_help_button?(@current_user, issue) %>
+    <li class="more_help_button"><%= link_to(raw('<button class="btn btn-danger ">Need more help</button>'), unassign_path(issue), :remote => true) if show_more_help_button?(@current_user, issue) %>
     </li>
     <li class="done_button"><%= link_to(raw('<button class="btn btn-success ">Done</button>'), helped_path(issue), :remote => true) if show_admin_done_button?(@current_user, issue) %>
     </li>

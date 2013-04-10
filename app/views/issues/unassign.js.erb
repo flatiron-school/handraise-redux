@@ -1,17 +1,21 @@
 // get the complete issue partial
 var issue_card = $('#issue_<%= @issue.id %>');
+var state = "<%= @issue.aasm_state %>";
+var issue_queue = $('.issues_<%= @issue.aasm_state %>');
 var issue_carousel = $('#myCarousel');
 
 // remove issue from origin queue
 issue_card.remove();
 
-var state = "<%= @issue.aasm_state %>";
 console.log(state);
+console.log(issue_queue);
 
 // 5. insert that new issue into the DOM
-$('.issues_<%= @issue.aasm_state %>').append("<%=j render(:partial => 'issue_theme', :locals => {:issue => @issue}) %>");
+// issue_queue.html("<%#=j render(:partial => 'instructor_urgent_queue', :locals => {:issue => @issue}) %>");
 
-issue_carousel.html("<%=j render(:partial => 'mobile_queue', :locals => {:assignable_issues => @assignable_issues, :current_user => current_user}) %>")
+issue_queue.html('<%=j render(:partial => "#{@issue.aasm_state}_queue", :locals => {:issues => @display_issues, :current_user => current_user}) %>');
+
+issue_carousel.html('<%=j render(:partial => 'mobile_queue', :locals => {:assignable_issues => @assignable_issues, :current_user => current_user}) %>');
 
 recount();
 
