@@ -20,6 +20,9 @@ class Issue < ActiveRecord::Base
   has_many :votes
   has_many :users, :through => :votes 
 
+  validates :title, :presence => true
+  validates :content, :length => { :minimum => 80, :too_short => "Your description is too short. Please give us more details of your issue. Help us, help you!" }
+
   aasm :whiny_transitions => false do
     state :fellow_student, :initial => true
     state :instructor_normal
