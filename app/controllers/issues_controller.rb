@@ -141,11 +141,18 @@ class IssuesController < ApplicationController
 
   def helped
     @issue = Issue.find(params[:id])
+    
     if @current_user.can_mark_as_helped?(@issue)
       @issue.to_post_help
       @issue.assignee_id = nil
       @issue.save
-      redirect_to issues_path
+
+      #for AJAX
+      @assignable_issues = Issue.assignable
+
+      respond_to do |format|
+        format.js {}
+      end
     else
       redirect_to issues_path, :notice => "You are not allowed to mark this issue as post help"
     end
@@ -164,13 +171,19 @@ class IssuesController < ApplicationController
 
   def assign
     @issue = Issue.find(params[:id])
+
     if @current_user.can_assign?(@issue)
-      
-      twilio_client = TwilioWrapper.new
+      # twilio_client = TwilioWrapper.new
       @issue.assignee_id = session[:user_id]
       @issue.save
-      twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
-      redirect_to issues_path, :notice => "You are now assigned to #{@issue.user.name}'s issue."
+      # twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
+
+      #for AJAX
+      @assignable_issues = Issue.assignable
+      
+      respond_to do |format|
+        format.js {}
+      end
     else
       redirect_to issues_path, :notice => "You are not allowed to assign yourself to this issue."
     end
@@ -178,12 +191,29 @@ class IssuesController < ApplicationController
 
   def unassign
     @issue = Issue.find(params[:id])
+
     if @current_user.can_unassign?(@issue)
-      twilio_client = TwilioWrapper.new
-      twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
+      # twilio_client = TwilioWrapper.new
+      # twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
       @issue.assignee_id = nil
       @issue.save
-      redirect_to issues_path, :notice => "This issue is no longer assigned."
+
+      #for AJAX
+      @assignable_issues = Issue.assignable
+
+      # Code for AJAX loading issues to inject in DOM
+      case @issue.aasm_state
+      when "fellow_student"
+        @display_issues = Issue.fellow_student
+      when "instructor_normal"
+        @display_issues = Issue.instructor_normal
+      when "instructor_urgent"
+        @display_issues = Issue.instructor_urgent
+      end
+      
+      respond_to do |format|
+        format.js {}
+      end
     else
       redirect_to issues_path, :notice => "You are not allowed to unassign someone from this issue"
     end
@@ -219,6 +249,7 @@ class IssuesController < ApplicationController
 
     if @current_user.can_votedown?(@issue)
       vote = Vote.where(:user_id => current_user.id, :issue_id => @issue.id).first
+      @issue.votes.delete(vote)
       vote.delete
 
       respond_to do |format|
