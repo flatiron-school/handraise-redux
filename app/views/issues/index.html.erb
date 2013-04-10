@@ -4,8 +4,19 @@
 
 <% if @assignable_issues.present? %>
   <div id="myCarousel" class="carousel slide" data-interval="false">
-    <%= render :partial => 'mobile_queue', :locals => { :assignable_issues => @assignable_issues, :current_user => current_user} %>
-  </div>
+    <ol class="carousel-indicators">
+    <% @assignable_issues.each_with_index do |issue, index| %>  
+      <li data-target="#myCarousel" data-slide-to="<%= index %>" class="<%= "active" if index == 0 %>">
+        <%= index + 1 %>
+      </li>
+    <% end %>
+    </ol>
+    <div id="carousel_partial">
+      <%= render :partial => 'mobile_queue', :locals => { :assignable_issues => @assignable_issues, :current_user => current_user} %>
+    </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+  </div> 
 
 <div id="issuesindex">
   <hr>
