@@ -2,7 +2,7 @@
 var issue_card = $('#issue_<%= @issue.id %>');
 var state = "<%= @issue.aasm_state %>";
 var issue_queue = $('.issues_<%= @issue.aasm_state %>');
-var issue_carousel = $('#myCarousel');
+var issue_carousel = $('#carousel_partial');
 
 // remove issue from origin queue
 issue_card.remove();
