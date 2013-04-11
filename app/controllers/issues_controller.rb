@@ -180,10 +180,10 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
 
     if @current_user.can_assign?(@issue)
-      # twilio_client = TwilioWrapper.new
+      twilio_client = TwilioWrapper.new
       @issue.assignee_id = session[:user_id]
       @issue.save
-      # twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
+      twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
 
       #for AJAX
       @assignable_issues = Issue.assignable
@@ -200,8 +200,8 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
 
     if @current_user.can_unassign?(@issue)
-      # twilio_client = TwilioWrapper.new
-      # twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
+      twilio_client = TwilioWrapper.new
+      twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
       @issue.assignee_id = nil
       @issue.save
 
