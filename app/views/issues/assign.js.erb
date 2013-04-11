@@ -2,19 +2,23 @@
 
 var issue_card = $('#issue_<%= @issue.id %>');
 var issue_carousel = $('#carousel_partial');
+var state = "<%= @issue.aasm_state %>";
+
 
 // remove issue from origin queue
 issue_card.remove();
 
-var state = "<%= @issue.aasm_state %>";
-console.log(state);
+// console.log(state);
 
 // 5. insert that new issue into the DOM
 $('.issues_assigned').append("<%=j render(:partial => 'issue_theme', :locals => {:issue => @issue}) %>");
 
 issue_carousel.html("<%=j render(:partial => 'mobile_queue', :locals => {:assignable_issues => @assignable_issues, :current_user => current_user}) %>")
 
-recount();
+var mobile_issues = $('.carousel-inner .item');
+var mobile_issue_id = $('#mobile_issue_<%= @issue.id %>');
+mobile_issues.removeClass("active");
+mobile_issue_id.addClass("active");
 
-// 6. rebind that issues ajax events.
+recount();
 

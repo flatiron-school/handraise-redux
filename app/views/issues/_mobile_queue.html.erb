@@ -1,6 +1,6 @@
 <div class="carousel-inner">
   <% assignable_issues.each_with_index do |issue, index| %>
-    <div class="item <%= "active" if index == 0 %>">
+    <div class="item <%= "active" if index == 0 %>" id="mobile_issue_<%= issue.id %>">
       <img src="<%= issue.user.image.url %>" alt="" height="40%">
       <div class="carousel-caption">
         <h4><%= issue.title %></h4>
