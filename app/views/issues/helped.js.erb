@@ -11,4 +11,4 @@ issue_carousel.html("<%=j render(:partial => 'mobile_queue', :locals => {:assign
 var mobile_issues = $('.carousel-inner .item');
 var mobile_issue_id = $('#mobile_issue_<%= @issue.id %>');
 mobile_issues.removeClass("active");
-mobile_issue_id.addClass("active");
+mobile_issues.first().addClass("active");
