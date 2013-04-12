@@ -1,51 +1,8 @@
 <div id="landing" class="row-fluid">
   <div id="cover_content" class="login-box">
     <div id="login" class="span5">
-      <h1>Please Login</h1>
-
-      <%= form_tag sessions_path, :class => "form-horizontal" do |f| %>
-
-      <div class="input-prepend">
-        <%= label_tag :email %><br/>
-        <span class="add-on">
-          <i class="icon-user"></i>
-        </span>
-        <%= text_field_tag :email, "type email", :class => "input-large span10", :id=> "login_email" %>
-      </div>
-
-      <div class="input-prepend">
-        <%= label_tag :password %><br />
-        <span class="add-on">
-          <i class="icon-lock"></i>
-        </span>
-        <%= password_field_tag :password, "type password", :class => "input-large span10", :id=> "login_password" %>
-      </div>
-
-      <div class="button-login">
-        <button type="submit" class="btn btn-primary">
-          <i class="icon-off icon-white"></i>
-          Login
-        </button>
-      </div>
-
-      <div class="clearfix"></div>
-
-      <hr>
-
-      <h3>Forgot Password?</h3>
-      <p>Too bad! Shoulda remembered! <a href="#catModal" data-toggle="modal">Mwahaha</a></p>
-       
-      <!-- Modal -->
-      <div id="catModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-body">
-          <%= image_tag('http://tekstovi-pesama.com/g_img2/0/m/466425/mwahaha-2.jpg', :id => "catPhoto")%>
-        </div>
-        <div class="modal-footer">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        </div>
-      </div>
-
-      <% end %>
+      <h1>Login or <%= link_to "Sign Up", signup_path %></h1>
+      <%= render :partial => "/sessions/login" %>
     </div>
     <div id="about" class="span7">
       <%= render :partial => "/layouts/about" %>

@@ -41,4 +41,18 @@ $(document).ready(function(){
   }); // end .blur
 
   // add default txt & add class "example_text" when nil values on blur
+
+
+  // 
+  // $('#signup_form').unbind("click").click(function(e) {
+  //   e.preventDefault()
+  //   $.get('/signupform', function(partial) {
+  //     console.log(partial);
+  //     $('#loginform').remove();
+  //     $('#login').append(partial);
+  //   });
+  // });
+
 }); // end document ready
+
+
