@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :login_required, :only => ["new", "create"]
+  skip_before_filter :login_required, :only => ["new", "signupform", "create"]
 
   # GET /users
   # GET /users.json
@@ -29,10 +29,16 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    # raise params.inspect
     @user = User.new
     respond_to do |format|
       format.html {render :layout => 'fullwidth'}
+    end
+  end
+
+  def signupform
+    @user = User.new
+    respond_to do |format|
+      format.html {render :partial => 'users/form'}
     end
   end
 

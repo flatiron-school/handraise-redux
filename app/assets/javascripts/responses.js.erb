@@ -13,7 +13,7 @@ $('#new_response').submit(function(e){
     answer = $('.response:last');
   }
 
-  $.post('/responses', $('#new_response').serialize(), function(data){
+  $.post('/responses', $('#new_response').serialize(), function(data){ 
     $('#responseModal').modal('toggle');
     if(response_count == 0){
       answer.after('<h4 id="responses_start">Responses:</h4>')

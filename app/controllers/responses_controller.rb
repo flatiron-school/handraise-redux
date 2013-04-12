@@ -11,7 +11,6 @@ class ResponsesController < ApplicationController
     @response.save
     twilio_client = TwilioWrapper.new
     twilio_client.create_sms(@response.issue,'response') if @response.issue.user.has_cell?
-
     render :partial => "responses/response", :locals => { :response => @response, :@issue => @response.issue }
   end
 

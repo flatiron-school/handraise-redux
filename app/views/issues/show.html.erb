@@ -39,8 +39,8 @@
   <div>
     <h4 id="responses_start">Responses:</h4>
     <% @issue.responses[0..-2].each do |response| %>
-
-    <% end %>
+      <%= render :partial => "responses/response", :locals => { :response => response, :@issue => response.issue } %>
+     <% end %>
   </div>
 <% end %>
 <hr width="80%">

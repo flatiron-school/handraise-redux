@@ -58,7 +58,7 @@
 
 .login-box {
   background: rgba(255, 255, 255, 0.75) !important;
-
+  width: 60% !important;
   .input-prepend {
     text-align: left !important;
     background: rgba(255, 255, 255, 0) !important;
@@ -91,4 +91,27 @@
 
 .black_font {
   color: #000 !important;
+}
+
+
+@media (max-width: 479px) {
+  #landing {
+    height: 76em;
+  }
+
+  .login-box {
+    width: 80% !important;
+  }
+
+  #about {
+    padding-left: 2em;
+  }
+
+  #about h1 {
+    font-size: 2.5em;
+  }
+
+  #about h2 {
+    font-size: 1.05em;
+  }
 }
