@@ -7,6 +7,7 @@ set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log
 
 every 1.minutes do
   rake "states:update"
+  rake "stats:calculate"
   # rake "states:auto_assign"
 end
 

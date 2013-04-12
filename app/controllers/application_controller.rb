@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
   # end
   # helper_method :issues_page?
 
+  def reset_stats
+    redirect_to issue_stats_reset_stats_path
+  end
+
   def login(user)
     session[:user_id] = user.id
   end

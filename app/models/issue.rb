@@ -1,12 +1,6 @@
 class Issue < ActiveRecord::Base
 
   include AASM
-  extend CalculableBy
-  extend IssueStats
-
-  calculable_by :assignable
-  calculable_by :post_help
-  calculable_by :closed
 
   attr_accessible :content, :status, :title, :user_id, :assignee_id, :relevant_gist, :responses, :aasm_state
 
