@@ -32,7 +32,7 @@
               <p><strong>Total closed issues: </strong>
                 <%= IssueStat.closed.count %></p>
               
-              <% if Issue.total_closed_issues > 0 %>
+              <% if IssueStat.closed.count > 0 %>
               <p><strong>Avg. time taken to resolve issues:</strong>
                 <%= IssueStat.closed_issues_average_wait_time.to_i %> minutes</p>                         
               <% end %>
