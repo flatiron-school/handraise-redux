@@ -11,7 +11,15 @@ group :development, :test do
   gem 'sqlite3'
   gem 'better_errors'
   gem 'binding_of_caller'
-end  
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'terminal-notifier-guard'
+  gem 'rb-fsevent', '~> 0.9'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'database_cleaner'  
+end
 
 group :production do
   gem 'pg'
@@ -61,6 +69,5 @@ gem 'paperclip', '~> 3.0'
 # gem 'debugger'
 
 gem 'pry'
-gem 'pry-rails'
 gem 'whenever'
 gem 'aasm'
