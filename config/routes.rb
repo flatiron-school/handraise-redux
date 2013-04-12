@@ -1,5 +1,23 @@
 App::Application.routes.draw do
 
+  get "issue_stats/new"
+
+  get "issue_stats/create"
+
+  get "issue_stats/update"
+
+  get "issue_stats/calculate"
+
+  get "issue_stats/destroy"
+
+  get "issue_stats/reset_stats"
+
+  get "issue_supdate/calculate"
+
+  get "issue_supdate/destroy"
+
+  get "issue_supdate/reset_stats"
+
   get 'issues/:id/resolve' => 'issues#resolve', :as => "resolve"
   get 'issues/:id/assign' => 'issues#assign', :as => "assign"
   get 'issues/:id/unassign' => 'issues#unassign', :as => "unassign"
@@ -11,6 +29,7 @@ App::Application.routes.draw do
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
+  get 'reset_stats' => 'issue_stats#reset_stats'
 
   get 'indexadmin' => 'users#indexadmin'
   get 'oncall/:id' => 'users#toggle_oncall', :as => 'oncall'

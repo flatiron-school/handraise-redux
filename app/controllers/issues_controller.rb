@@ -71,6 +71,9 @@ class IssuesController < ApplicationController
       if @issue.save
         format.html { redirect_to issues_path, notice: 'Issue was successfully created.' }
         format.json { render json: @issue, status: :created, location: @issue }
+        
+        IssueStat.create(:issue_id => @issue.id, :status =>IssueStat::STATUS_MAP[:assignable], :wait_time => 0)  
+
       else
         format.html { render action: "new" }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
@@ -129,6 +132,9 @@ class IssuesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to issues_path, notice: "Issue was successfully destroyed." }
         format.json { head :no_content }
+        if IssueStat.where(:issue_id=> @issue.id)
+          IssueStat.where(:issue_id=> @issue.id).first.destroy
+        end
       end
     else
       redirect_to issue_path(@issue), :notice => "You are not authorized to destroy this issue"
@@ -140,6 +146,9 @@ class IssuesController < ApplicationController
     if @current_user.can_resolve?(@issue)
       @issue.to_closed
       @issue.save
+      if IssueStat.where(:issue_id=> @issue.id).present?
+        IssueStat.where(:issue_id=> @issue.id).first.update_attributes(:status =>IssueStat::STATUS_MAP[:closed])
+      end
       redirect_to issues_path
     else
       redirect_to issues_path, :notice => "You are not allowed to mark this issue as resolved"
@@ -153,7 +162,10 @@ class IssuesController < ApplicationController
       @issue.to_post_help
       @issue.assignee_id = nil
       @issue.save
-
+      if IssueStat.where(:issue_id=> @issue.id).present?
+        IssueStat.where(:issue_id=> @issue.id).first.update_attributes(:status =>IssueStat::STATUS_MAP[:post_help])
+      end
+        
       #for AJAX
       @assignable_issues = Issue.assignable
 
@@ -170,6 +182,10 @@ class IssuesController < ApplicationController
     if @current_user.owns?(@issue)
       @issue.status_change
       @issue.save
+      if IssueStat.where(:issue_id=> @issue.id).present?
+        IssueStat.where(:issue_id=> @issue.id).first.update_attributes(:status =>IssueStat::STATUS_MAP[:assignable])
+      end
+      
       redirect_to user_path(@current_user)
     else
       redirect_to issues_path, :notice => "You are not allowed to mark this issue as post unhelped"
@@ -184,7 +200,9 @@ class IssuesController < ApplicationController
       @issue.assignee_id = session[:user_id]
       @issue.save
       twilio_client.create_sms(@issue,'assign') if @issue.user.has_cell?
-
+      if IssueStat.where(:issue_id=> @issue.id).present?
+        IssueStat.where(:issue_id=> @issue.id).first.update_attributes(:status =>IssueStat::STATUS_MAP[:assigned])
+      end 
       #for AJAX
       @assignable_issues = Issue.assignable
       
@@ -204,7 +222,9 @@ class IssuesController < ApplicationController
       twilio_client.create_sms(@issue,'unassign') if @issue.user.has_cell?
       @issue.assignee_id = nil
       @issue.save
-
+      if IssueStat.where(:issue_id=> @issue.id).present?
+        IssueStat.where(:issue_id=> @issue.id).first.update_attributes(:status =>IssueStat::STATUS_MAP[:assignable])
+      end  
       #for AJAX
       @assignable_issues = Issue.assignable
 

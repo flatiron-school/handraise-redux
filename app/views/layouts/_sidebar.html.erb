@@ -5,29 +5,44 @@
             </div>
             <div class="box-content">
               <p><strong>Current open issues:</strong>
-                <%= Issue.total_assignable_issues %></p>
+                <%= IssueStat.assignable.count %></p>
               
               <p><strong>Avg. wait time for open issues:</strong>
-                <%= Issue.average_wait_time_assignable.to_i %> minutes</p>
+                <%= IssueStat.assignable_issues_average_wait_time.to_i %> minutes</p>
                   
               <hr>
 
 
+              <p><strong>Current assigned closure issues:</strong>
+                <%= IssueStat.assigned.count %></p>
+              
+              <p><strong>Avg. wait time assigned closure issues:</strong>
+                <%= IssueStat.assigned_issues_average_wait_time.to_i %> minutes</p>
+                  
+              <hr>
+
               <p><strong>Current post-help / pending closure issues:</strong>
-                <%= Issue.total_post_help_issues %></p>
+                <%= IssueStat.post_help.count %></p>
               
               <p><strong>Avg. wait time for post-help / pending closure issues:</strong>
-                <%= Issue.average_wait_time_post_help.to_i %> minutes</p>
+                <%= IssueStat.post_help_issues_average_wait_time.to_i %> minutes</p>
                   
               <hr>
 
               <p><strong>Total closed issues: </strong>
-                <%= Issue.total_closed_issues %></p>
+                <%= IssueStat.closed.count %></p>
               
               <% if Issue.total_closed_issues > 0 %>
               <p><strong>Avg. time taken to resolve issues:</strong>
-                <%= Issue.average_wait_time_closed.to_i %> minutes</p>                            
+                <%= IssueStat.closed_issues_average_wait_time.to_i %> minutes</p>                         
               <% end %>
             </div>
+            
+            <% if current_user.admin? %>
+              <div class="box-content">
+                <%= link_to "Reset issue stats", reset_stats_path, :class =>"btn btn-small btn-primary" %>
+              </div>
+            <% end %>
+
           </div><!--/.box -->
         <% end %>
