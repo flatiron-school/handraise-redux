@@ -34,16 +34,16 @@ class IssuesController < ApplicationController
   # GET /issues/new
   # GET /issues/new.json
   def new
-    # if current_user.has_open_issue?
-    #   redirect_to issues_path, :notice => "Please close your open issue '#{view_context.link_to(@current_user.issues.not_closed.first.title, @current_user)}' on your dashboard before creating a new issue"
-    # else
+    if current_user.has_open_issue?
+      redirect_to issues_path, :notice => "Please close your open issue '#{view_context.link_to(@current_user.issues.not_closed.first.title, @current_user)}' on your dashboard before creating a new issue"
+    else
       @issue = Issue.new
 
-      # respond_to do |format|
-      #   format.html # new.html.erb
-      #   format.json { render json: @issue }
-      # end
-    # end
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @issue }
+      end
+    end
   end
 
   # POST /issues

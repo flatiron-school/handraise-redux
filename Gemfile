@@ -18,7 +18,7 @@ group :development, :test do
   gem 'rb-fsevent', '~> 0.9'
   gem 'capybara'
   gem 'launchy'
-  gem 'database_cleaner'
+  gem 'database_cleaner'  
 end
 
 group :production do
