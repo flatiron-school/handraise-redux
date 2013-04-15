@@ -20,3 +20,8 @@ mobile_issues.removeClass("active");
 mobile_issue_id.addClass("active");
 
 recount();
+
+// dashboard unassign
+// var unassign_button = $('#helping_<%#=@issue.id%>');
+var assigned_issues_table = $('#assigned_issues');
+assigned_issues_table.empty().append('<p>You are currently assigned to no issues.</p><%= link_to "Solve Some Issues", issues_path, :class => 'btn btn-large btn-success' %>');

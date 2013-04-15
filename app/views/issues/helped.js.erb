@@ -12,3 +12,7 @@ var mobile_issues = $('.carousel-inner .item');
 var mobile_issue_id = $('#mobile_issue_<%= @issue.id %>');
 mobile_issues.removeClass("active");
 mobile_issues.first().addClass("active");
+
+// dashboard done button
+var assigned_issues_table = $('#assigned_issues');
+assigned_issues_table.empty().append('<p>You are currently assigned to no issues.</p><%= link_to "Solve Some Issues", issues_path, :class => 'btn btn-large btn-success' %>');
