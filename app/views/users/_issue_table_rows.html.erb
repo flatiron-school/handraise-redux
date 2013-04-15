@@ -1,6 +1,6 @@
-        <tr>
+        <tr id="helping_<%= issue.id %>">
             <td><%= link_to issue.title, issue_path(issue) %></td>
-            <td><%= issue.content %></td>
+            <td><%= link_to issue.content, issue_path(issue) %></td>
             <td><%= issue.aasm_state %></td>
             <td>
               <% if issue.assignee.nil? %>
@@ -12,15 +12,22 @@
             <td>
               <% case issue.aasm_state %>
               <% when "post_help" %>
-                <%= link_to(raw('<i class="icon-remove btn btn-inverse"></i>'), unhelp_path(issue)) if @current_user.owns?(issue) %> &nbsp;
-                  <%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %>
+                <%= link_to raw('<i class="icon-remove"></i> Need More Help'), unhelp_path(issue), :class => 'btn btn-inverse' if @current_user.owns?(issue) %> &nbsp;
+                <%= link_to raw('<i class="icon-ok"></i> Resolved'), resolve_path(issue), :class =>'btn btn-success' if @current_user.can_resolve?(issue)%>
+
               <% else %>
                 <% if issue.closed? %>
                   <!-- Add Reopen Functionality -->
                 <% else %>
-                  <%= link_to(raw('<i class="icon-remove btn btn-danger"></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue) && issue.is_unassigned? %> &nbsp;
-                  <%= link_to(raw('<i class="icon-pencil btn btn-warning"></i>'), edit_issue_path(issue)) if @current_user.can_edit?(issue) && issue.is_unassigned? %> &nbsp;
-                  <%= link_to(raw('<i class="icon-ok btn btn-success"></i>'), resolve_path(issue)) if @current_user.can_resolve?(issue) %>
+                  <%= link_to(raw('<i class="icon-remove"></i> Delete'), issue, :class => 'btn btn-danger' , method: :delete, data: { confirm: 'Are you sure?' }) if current_user.can_destroy?(issue) && issue.is_unassigned? %>
+
+                  <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_issue_path(issue), :class => 'btn btn-warning') if @current_user.can_edit?(issue) && issue.is_unassigned? %>
+
+                  <%= link_to raw('<i class="icon-ok"></i> &nbsp; Resolved'), resolve_path(issue), :class =>'btn btn-success' if @current_user.can_resolve?(issue)%>
+
+                  <%= link_to raw('<i class="icon-remove"></i> Unassign'), unassign_path(issue), :remote => true, :class => "btn btn-danger" if show_unassign_button?(@current_user, issue) %>
+
+                  <%= link_to raw('<i class="icon-ok"></i> Done'), helped_path(issue), :remote => true, :class => "btn btn-success" if show_admin_done_button?(@current_user, issue) %>
                 <% end %>
               <% end %>
             </td>
