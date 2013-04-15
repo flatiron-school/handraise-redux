@@ -149,4 +149,8 @@ class Issue < ActiveRecord::Base
     self.save
   end
 
+  def passed_vote_threshold?(num)
+    true if self.votes.count > num
+  end
+
 end
