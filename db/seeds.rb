@@ -160,20 +160,32 @@ users = User.create([
   ])
 
 issues = Issue.create([
-  { :content => "How do you use Rails form_for helper with multiple models?",
+  { :content => "How do you use Rails form_for helper with multiple models? How do you use Rails form_for helper with multiple models?",
     :title => "Rails form_for helper",
     :user_id => 1,
     :aasm_state => "fellow_student"},
-  { :content => "What is the best way to create many-to-many associations?",
+  { :content => "What is the best way to create many-to-many associations? What is the best way to create many-to-many associations?",
     :title => "Rails associations",
     :user_id => 2,
     :aasm_state => "fellow_student"},
-  { :content => "How do you use DataMapper?",
+  { :content => "How do you use DataMapper? How do you use DataMapper? How do you use DataMapper? How do you use DataMapper? How do you use DataMapper?",
     :title => "ORM - DataMapper",
     :user_id => 3,
     :aasm_state => "fellow_student"},
   { :content => "Where do I save my helper methods?",
     :title => "Rails helpers",
-    :user_id => 4,
-    :aasm_state => "fellow_student"}
+    :user_id => 5,
+    :aasm_state => "instructor_normal"},
+  { :content => "How do you use Sidekiq/Redis to process asynchronous requests? How do you use Sidekiq/Redis to process asynchronous requests?",
+    :title => "Using Sidekiq and Redis",
+    :user_id => 6,
+    :aasm_state => "instructor_normal"},
+  { :content => "How do I make my application responsive for mobile views? How do I make my application responsive for mobile views?",
+    :title => "Responsive CSS",
+    :user_id => 7,
+    :aasm_state => "instructor_normal"},
+  { :content => "How do I use capistrano and passenger to deploy via Digital Ocean? How do I use capistrano and passenger to deploy via Digital Ocean?",
+    :title => "Sys Ops and Deployment",
+    :user_id => 8,
+    :aasm_state => "instructor_urgent"}
   ])
