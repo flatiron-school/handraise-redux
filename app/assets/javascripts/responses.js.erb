@@ -2,6 +2,16 @@
 // # All this logic will automatically be available in application.js.
 // # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+function alternateResponses(){
+  var responses = $('.response:odd')
+  responses.children(".triangle-border").addClass("right").removeClass("left");
+  responses.append(responses.children("img:first"));
+  responses.children("img:odd").remove();
+  responses.attr("align", "right");
+}
+
+alternateResponses();
+
 $('#new_response').submit(function(e){
   e.preventDefault();
 
@@ -20,6 +30,7 @@ $('#new_response').submit(function(e){
       $('#responses_start').after(data);
     } else {
       answer.append(data);
+      alternateResponses();
     }
   })
   .fail(function(error){
@@ -27,5 +38,8 @@ $('#new_response').submit(function(e){
   })
 
 })
+
+
+
 
 

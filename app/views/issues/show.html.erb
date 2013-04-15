@@ -1,18 +1,34 @@
+<div id="post_content">
+  <%= image_tag(@issue.user.image, :class => "span4", :id => "avatar") %>
+  <div class="span8" id="post_title">
+    <h4><%= @issue.user.name %> posted an issue about</h4>
+    <h1><%= @issue.title %></h1>
+  </div>
 
-<h2>
-  <%= @issue.title %>
-</h2>
+<!--   <hr width="80%"> -->
 
-<div>
-  <h4>Posted By:</h4>
-  <%= @issue.user.name %>
+  <div class="span8" id="post_body">
+    <h5>He was all like...</h5>
+    <p><%= @issue.content %></p>
+    <hr>
+  </div>
+
+  <div id="post_footer">
+
+    <div id="post_votes">
+      <h4>Votes: <%= render :partial => 'vote', :locals => {:issue => @issue, :asker => @issue.user} %></h4>
+    </div>
+    <br>
+
+    <div id="status">
+      <h4>Status: <%= @issue.aasm_state %></h4>
+    </div>
+
+  </div>
+
+  <hr>
+
 </div>
-<hr width="80%">
-<div>
-  <h4>Content:</h4>
-  <%= @issue.content %>
-</div>
-<hr width="80%">
 
 <% if @issue.gist_id %>
 <div>
@@ -22,18 +38,7 @@
 <hr width='80%'>
 <% end %>
 
-<div>
-  <h4>Votes:</h4>
-  <%= render :partial => 'vote', :locals => {:issue => @issue, :asker => @issue.user} %>
-</div>
-<hr width='80%'>
 
-<div id="status">
-  <h4>Status:</h4>
-  <%= @issue.aasm_state %>
-    <hr width="80%">
-  <br>
-</div>
 
 <% if @issue.responses.count > 0 %>
   <div>
