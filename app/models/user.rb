@@ -122,4 +122,8 @@ class User < ActiveRecord::Base
     true unless self.issues.not_closed.empty?
   end
 
+  def assigned_issues
+    Issue.not_closed.where(:assignee_id => self.id)
+  end
+
 end
