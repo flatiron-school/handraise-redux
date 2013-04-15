@@ -33,6 +33,8 @@
       "Hi #{issue.user.name}, your response has been removed as the answer for '#{issue.issue.title}'" 
     when 'new_issues'
       "Hi, there is now an issue in the issue queue."    
+    when 'upvote issue'
+      "Hi, the class has voted an issue to urgent status."
     end
   end
 

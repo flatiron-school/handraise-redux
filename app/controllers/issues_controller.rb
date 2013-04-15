@@ -262,6 +262,14 @@ class IssuesController < ApplicationController
       vote.user = current_user
       vote.save
 
+      if @issue.passed_vote_threshold?(5)
+        @issue.to_instructor_urgent
+        @issue.save
+        User.find_all_by_role(0).each do |admin|
+          TwilioWrapper.new.admin_sms(admin,'upvote issue') if admin.has_cell?
+        end
+      end
+
       respond_to do |format|
         #format.html { render :index }
         format.js
@@ -269,6 +277,7 @@ class IssuesController < ApplicationController
     else
       redirect_to issues_path, :notice => "Don't be sneaky, no one likes a cheater!"
     end
+
   end
 
   def votedown
