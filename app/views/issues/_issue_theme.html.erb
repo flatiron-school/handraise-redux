@@ -43,15 +43,15 @@
   </a>
 
   <ul class="assignment_buttons">
-    <li class="assign_button"><%= link_to(raw('<button class="btn btn-success ">I\'ll Help</button>'), assign_path(issue), :class => "assign_me", :remote => true) if show_assign_button?(@current_user, issue) %></li>    
+    <li class="assign_button"><%= link_to(raw('<button class="btn btn-success ">Assign To Me</button>'), assign_path(issue), :class => "assign_me", :remote => true) if show_assign_button?(@current_user, issue) %></li>    
     <li class="unassign_button"><%= link_to(raw('<button class="btn btn-danger ">Unassign</button>'), unassign_path(issue), :class => "unassign_me", :remote => true) if show_unassign_button?(@current_user, issue) %></li>
   </ul>
   <ul class="issue_icons">
-    <li class="delete_button"><%= link_to(raw('<i class="icon-remove btn btn-danger "></i>'), issue, method: :delete, data: { confirm: 'Are you sure?' }) if show_delete_button?(@current_user, issue) %>
+    <li class="delete_button"><%= link_to(raw('<i class="icon-remove btn btn-danger "></i>'), issue, method: :delete, "data-toggle" => "tooltip", "data-trigger" => "hover", :title => "Click to Delete Issue", data: { confirm: 'Are you sure?' }) if show_delete_button?(@current_user, issue) %>
     </li>
-    <li class="edit_button"><%= link_to(raw('<i class="icon-pencil btn btn-warning "></i>'), edit_issue_path(issue)) if show_edit_button?(@current_user, issue) %></li>
-    <li class="resolve_button"><%= link_to(raw('<i class="icon-ok btn btn-success "></i>'), resolve_path(issue)) if show_resolve_button?(@current_user, issue) %></li>
-    <li class="more_help_button"><%= link_to(raw('<button class="btn btn-danger ">Need more help</button>'), unassign_path(issue), :remote => true) if show_more_help_button?(@current_user, issue) %>
+    <li class="edit_button"><%= link_to(raw('<i class="icon-pencil btn btn-warning "></i>'), edit_issue_path(issue), "data-toggle" => "tooltip", :title => "Click to Edit Issue") if show_edit_button?(@current_user, issue) %></li>
+    <li class="resolve_button"><%= link_to(raw('<i class="icon-ok btn btn-success "></i>'), resolve_path(issue), "data-toggle" => "tooltip", :title => "Click to Resolve Issue",) if show_resolve_button?(@current_user, issue) %></li>
+    <li class="more_help_button"><%= link_to(raw('<button class="btn btn-danger ">Need more help</button>'), unassign_path(issue), :remote => true, "data-toggle" => "tooltip", :title => "Click to Unassign",) if show_more_help_button?(@current_user, issue) %>
     </li>
     <li class="done_button"><%= link_to(raw('<button class="btn btn-success ">Done</button>'), helped_path(issue), :remote => true) if show_admin_done_button?(@current_user, issue) %>
     </li>

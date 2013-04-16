@@ -23,7 +23,7 @@
 
                   <%= link_to(raw('<i class="icon-pencil"></i> Edit'), edit_issue_path(issue), :class => 'btn btn-warning') if @current_user.can_edit?(issue) && issue.is_unassigned? %>
 
-                  <%= link_to raw('<i class="icon-ok"></i> &nbsp; Resolved'), resolve_path(issue), :class =>'btn btn-success' if @current_user.can_resolve?(issue)%>
+                  <%= link_to raw('<i class="icon-ok"></i>&nbsp;Resolved'), resolve_path(issue), :class =>'btn btn-success' if @current_user.can_resolve?(issue)%>
 
                   <%= link_to raw('<i class="icon-remove"></i> Unassign'), unassign_path(issue), :remote => true, :class => "btn btn-danger" if show_unassign_button?(@current_user, issue) %>
 
