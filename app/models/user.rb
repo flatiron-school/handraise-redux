@@ -122,6 +122,10 @@ class User < ActiveRecord::Base
     true unless self.issues.not_closed.empty?
   end
 
+  def authenticated_with_github?
+    true if self.identities.first.present?
+  end
+
   def assigned_issues
     Issue.not_closed.where(:assignee_id => self.id)
   end

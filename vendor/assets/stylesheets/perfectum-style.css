@@ -1275,7 +1275,7 @@ ul.chat li.left .message .arrow {
 	position: absolute;
 	top: 5px;
 	left: -10px;
-	background: url(../img/chat-left.png) no-repeat 0px 0px;
+	background: url(chat-left.png) no-repeat 0px 0px;
 }
 
 ul.chat li.right .message .arrow {
@@ -1285,7 +1285,7 @@ ul.chat li.right .message .arrow {
 	position: absolute;
 	top: 5px;
 	right: -10px;
-	background: url(../img/chat-right.png) no-repeat 0px 0px;
+	background: url(chat-right.png) no-repeat 0px 0px;
 }
 
 ul.chat li.right .message {
@@ -1294,10 +1294,13 @@ ul.chat li.right .message {
 	background: #f6f6f6;
 }
 
-ul.chat li .message .text {
+ul.chat li .message .text, ul.chat li .message .time {
 	display: block;	
 }
-
+ul.chat li .message .solution {
+  display: block;
+  margin: 1em 0em;
+} 
 .chat-form {
 	border-top: 1px solid #ddd;
 	background: #eee;
