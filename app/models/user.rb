@@ -126,4 +126,8 @@ class User < ActiveRecord::Base
     true if self.identities.first.present?
   end
 
+  def assigned_issues
+    Issue.not_closed.where(:assignee_id => self.id)
+  end
+
 end
