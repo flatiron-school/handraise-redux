@@ -19,6 +19,9 @@
     <h5>Content</h5><br />
     <%= f.text_area :content, :rows => "10", :cols => "10" %>
   </div>
+  <p class="length_notice">Your description is too short. Please give us more details of your issue. Help us, help you!</p>
+  <p class="length_notice">Remaining Characters: <span class="length_notice" id="chars"></span></p>
+  <br>
 
   <% if @current_user.has_identity?("github") %>
     <div class="field">

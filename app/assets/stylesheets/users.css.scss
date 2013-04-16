@@ -5,3 +5,17 @@
 .user_profile {
   border: 1px solid #ddd;
 }
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+tr {
+  width: 100%;
+}
+
+@media(max-width: 1760px){
+  #helping_9 .btn:not(:first-child) {
+    margin-top: 1px;
+  }
+}
