@@ -3,11 +3,17 @@
 // # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 
-// $('#add_response').submit(function(e) {
-//   e.preventDefault();
-//   $.post('/responses', function(data) {
-//     console.log('hi hi')
-//   })
-// })
+$('#new_response').submit(function(e) {
+  e.preventDefault();
+  var response_count = $('li.left').length;
+
+  $.post('/responses', $('#new_response').serialize(), function(data) {
+    if (response_count == 0){
+      $('.chat').append(data);
+    } else {
+      $('li.left:last').append(data);
+    }
+  });
+})
 
 

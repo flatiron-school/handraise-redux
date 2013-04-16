@@ -4,16 +4,6 @@ class ResponsesController < ApplicationController
     @response = Response.new
   end
 
-  def create
-    @response = Response.new(params[:response])
-    @response.user_id = session[:user_id]
-    @response.issue_id = params[:issue][:id]
-    @response.save
-    twilio_client = TwilioWrapper.new
-    twilio_client.create_sms(@response.issue,'response') if @response.issue.user.has_cell?
-    redirect_to issue_path(@response.issue)
-  end
-
   def answer
     @response = Response.find_by_id(params[:response_id])
     @response.toggle_answer
@@ -36,6 +26,17 @@ class ResponsesController < ApplicationController
     @issue.save
 
     redirect_to issue_path(@response.issue)
+  end
+
+  def create
+    @response = Response.new(params[:response])
+    @response.user_id = session[:user_id]
+    @response.issue_id = params[:issue][:id]
+    @response.save
+    twilio_client = TwilioWrapper.new
+    twilio_client.create_sms(@response.issue,'response') if @response.issue.user.has_cell?
+
+    render :partial => "responses/response", :locals => { :response => @response, :@issue => @response.issue }
   end
 
 end
