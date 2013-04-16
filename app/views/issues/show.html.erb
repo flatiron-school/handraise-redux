@@ -1,58 +1,54 @@
-<div id="post_content">
-  <%= image_tag(@issue.user.image, :class => "span4", :id => "avatar") %>
-  <div class="span8" id="post_title">
-    <h4><%= @issue.user.name %> posted an issue about</h4>
-    <h1><%= @issue.title %></h1>
-  </div>
+<div id="post_content" class="row-fluid">  
 
-<!--   <hr width="80%"> -->
+  <div class="box span12">
+    <div class="box-header">
+      <h2><i class="icon-th"></i><span class="break"></span><%= @issue.user.name %>'s Issue</h2>
+      <div class="box-icon">
+        <%= link_to raw('<i class="icon-wrench"></i> Edit'), edit_issue_path(@issue) if show_edit_button?(@current_user, @issue) %>
 
-  <div class="span8" id="post_body">
-    <h5>He was all like...</h5>
-    <p><%= @issue.content %></p>
-    <hr>
-  </div>
-
-  <div id="post_footer">
-
-    <div id="post_votes">
-      <h4>Votes: <%= render :partial => 'vote', :locals => {:issue => @issue, :asker => @issue.user} %></h4>
+        <%= link_to raw('<i class="icon-remove"></i> Delete'), @issue, method: :delete, data: { confirm: 'Are you sure?' } if show_delete_button?(@current_user, @issue) %>        
+        <%= link_to raw('<i class="icon-ok"></i> Mark As Resolved'), resolve_path(@issue) if show_resolve_button?(@current_user, @issue) %>
+      </div>
     </div>
-    <br>
+    <div class="box-content">
+      <div class="row-fluid">
+        <div class="span4">
+          <%= image_tag(@issue.user.image, :id => "avatar") %>
+        </div>
 
-    <div id="status">
-      <h4>Status: <%= @issue.aasm_state %></h4>
+        <div class="span8" id="post_title">
+          <h1><%= @issue.title %></h1>
+          <p><%= @issue.content %></p>
+          <hr>
+          <%= render :partial => 'vote', :locals => {:issue => @issue, :asker => @issue.user} %> | <strong>Status:</strong> <%= @issue.aasm_state %>
+        </div>
+
+      </div>
     </div>
+  </div> 
 
-  </div>
-
+  <% if @issue.gist_id %>
   <hr>
+    <h1>Gist:</h1>
+    <script src="https://gist.github.com/<%=@user_login_name%>/<%=@issue.gist_id%>.js"></script>
+    </div>
+  <% end %>
+ 
+  <% if @issue.responses.count > 0 %>
+    <div class="row-fluid">
+      <h4 id="responses_start">Responses:</h4>
+      <% @issue.responses[0..-2].each do |response| %>
+        <%= render :partial => "responses/response", :locals => { :response => response, :@issue => response.issue } %>
+       <% end %>
+    </div>
+  <% end %>
 
-</div>
+  <div class="row-fluid">
+    <a href="#responseModal" role="button" class="btn btn-primary" data-toggle="modal">Respond to this issue</a>
+    <br />
+    
+    <%= link_to 'Back', issues_path %>
 
-<% if @issue.gist_id %>
-<div>
-  <h4>Gist:</h4>
-  <script src="https://gist.github.com/<%=@user_login_name%>/<%=@issue.gist_id%>.js"></script>
-</div>
-<hr width='80%'>
-<% end %>
-
-
-
-<% if @issue.responses.count > 0 %>
-  <div>
-    <h4 id="responses_start">Responses:</h4>
-    <% @issue.responses[0..-2].each do |response| %>
-      <%= render :partial => "responses/response", :locals => { :response => response, :@issue => response.issue } %>
-     <% end %>
   </div>
-<% end %>
-<hr width="80%">
-<br>
 
-<a href="#responseModal" role="button" class="btn btn-primary" data-toggle="modal">Respond to this issue</a>
-
-<br><br>
-<%= link_to 'Edit', edit_issue_path(@issue) %> |
-<%= link_to 'Back', issues_path %>
+</div>

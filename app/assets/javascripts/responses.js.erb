@@ -10,7 +10,7 @@ function alternateResponses(){
   responses.attr("align", "right");
 }
 
-alternateResponses();
+// alternateResponses();
 
 $('#new_response').submit(function(e){
   e.preventDefault();
@@ -30,7 +30,7 @@ $('#new_response').submit(function(e){
       $('#responses_start').after(data);
     } else {
       answer.append(data);
-      alternateResponses();
+      // alternateResponses();
     }
   })
   .fail(function(error){
