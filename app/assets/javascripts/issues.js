@@ -54,6 +54,6 @@ $(function(){
 
   var elem = $("#chars");
 
-  $("#issue_content").limiter(80, elem);
+  $('#issue_content').limiter(80, elem);
 
 });
