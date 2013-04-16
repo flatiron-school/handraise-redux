@@ -33,17 +33,18 @@
     <div class="box-header">
       <h2><i class="icon-comment"></i><span class="break"></span>Responses</h2>    
     </div>
-    <div class="box-content" id="responses-box">
+    
+    <div class="box-content" id="responses-box response_start">
       <% if @issue.responses.count < 1 %>
         <p>There are currently no responses to this issue.</p>
       <% end %>
-      <% if @issue.responses.count > 0 %>
       <ul class="chat">
+      <% if @issue.responses.count > 0 %>
         <% @issue.responses[0..-2].each do |response| %>
           <%= render :partial => "responses/response", :locals => { :response => response, :@issue => response.issue } %>
         <% end %>
+        <% end %>
       </ul>
-      <% end %>
       <div class="chat-form">
         <%= form_for(Response.new) do |f| %>
           <%= hidden_field :issue, :id %>
