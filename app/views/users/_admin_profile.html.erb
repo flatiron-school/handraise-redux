@@ -1,4 +1,25 @@
-<% unless @open_issue.empty? %>
-<h1>My Open Issues</h1>
+<% if @assigned_issues.empty? %>
+  <p>You are currently assigned to no issues.</p>
 
+  <% unless Issue.not_closed.empty? %>
+    <%= link_to "Solve Some Issues", issues_path, :class => 'btn btn-large btn-primary' %>  
+  <% else %>
+    <p>The issue queue is currently empty.</p>
+  <% end %>
+
+<% end %>
+
+<% unless @assigned_issues.empty? %>
+  <div id="assigned_issues">
+    <h1>Issues You Are Currently Assigned To:</h1>
+
+      <table class="table table-condensed">
+        <%= render 'issue_table_header' %>
+        <tbody>
+          <% @assigned_issues.each do |issue| %>
+            <%= render :partial => 'issue_table_rows', :locals => {:issue => issue} %>
+          <% end %>
+        </tbody>
+      </table>
+  </div>
 <% end %>

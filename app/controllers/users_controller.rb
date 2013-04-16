@@ -23,6 +23,7 @@ class UsersController < ApplicationController
       @open_issue = @user.issues.not_closed
       @closed_issues = @user.issues.closed
       @user_login_name = @user.identities.first.login_name if @user.identities.first
+      @assigned_issues = @user.assigned_issues
     render :layout => 'dashboard'
   end
 
