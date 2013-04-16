@@ -2,7 +2,7 @@
 
   <div class="box span12">
     <div class="box-header">
-      <h2><i class="icon-th"></i><span class="break"></span><%= @issue.user.name %>'s Issue</h2>
+      <h2><i class="icon-question-sign"></i><span class="break"></span><%= @issue.user.name %>'s Issue</h2>
       <div class="box-icon">
         <%= link_to raw('<i class="icon-wrench"></i> Edit'), edit_issue_path(@issue) if show_edit_button?(@current_user, @issue) %>
 
@@ -15,7 +15,6 @@
         <div class="span4">
           <%= image_tag(@issue.user.image, :id => "avatar") %>
         </div>
-
         <div class="span8" id="post_title">
           <h1><%= @issue.title %></h1>
           <p><%= @issue.content %></p>
@@ -25,30 +24,31 @@
 
       </div>
     </div>
+    <% if @issue.gist_id %>  
+      <div class="box-header">
+        <h2><i class="icon-chevron-left"></i><i class="icon-chevron-right"></i><span class="break"></span>Code Snippet</h2>
+      </div>    
+      <script src="https://gist.github.com/<%=@user_login_name%>/<%=@issue.gist_id%>.js"></script>
+    <% end %>
+      <div class="box-header">
+        <h2><i class="icon-comment"></i><span class="break"></span>Responses</h2>    
+      </div>
+      <div class="box-content">
+        <% if @issue.responses.count > 0 %>
+          <% @issue.responses[0..-2].each do |response| %>
+            <%= render :partial => "responses/response", :locals => { :response => response, :@issue => response.issue } %>
+          <% end %>
+        <% end %>
+        <% if @issue.responses.count < 1 %>
+          <p>There are currently no responses to this issue.</p>
+        <% end %>
+        <a href="#responseModal" role="button" class="btn btn-primary" data-toggle="modal">Respond to this issue</a>
+      </div>
   </div> 
-
-  <% if @issue.gist_id %>
-  <hr>
-    <h1>Gist:</h1>
-    <script src="https://gist.github.com/<%=@user_login_name%>/<%=@issue.gist_id%>.js"></script>
-    </div>
-  <% end %>
  
-  <% if @issue.responses.count > 0 %>
-    <div class="row-fluid">
-      <h4 id="responses_start">Responses:</h4>
-      <% @issue.responses[0..-2].each do |response| %>
-        <%= render :partial => "responses/response", :locals => { :response => response, :@issue => response.issue } %>
-       <% end %>
-    </div>
-  <% end %>
 
   <div class="row-fluid">
-    <a href="#responseModal" role="button" class="btn btn-primary" data-toggle="modal">Respond to this issue</a>
-    <br />
-    
     <%= link_to 'Back', issues_path %>
-
   </div>
 
 </div>

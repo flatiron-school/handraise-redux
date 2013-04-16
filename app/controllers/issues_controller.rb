@@ -4,7 +4,7 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index   
-    @issues = Issue.all
+    @issues = Issue.order('created_at')
     @closed_issues = Issue.closed
     @fellow_student_issues = Issue.fellow_student
     @instructor_normal_issues = Issue.instructor_normal
@@ -101,18 +101,18 @@ class IssuesController < ApplicationController
 
   def update
     @issue = Issue.find(params[:id])
-
     respond_to do |format|
       if @issue.update_attributes(params[:issue])
-        if @issue.assignee.nil?
-        elsif @issue.gist_id
-          @gist = params[:issue]["relevant_gist"]
-          @issue.relevant_gist = @gist
-          @issue.edit_github_gist(@gist, @current_user)
-        else
-          new_gist = params[:issue]["relevant_gist"]
-          @issue.send_to_github(new_gist, @current_user) if new_gist != ""
-          @issue.relevant_gist = new_gist
+        if @issue.user.authenticated_with_github?
+          if @issue.gist_id
+            @gist = params[:issue]["relevant_gist"]
+            @issue.relevant_gist = @gist
+            @issue.edit_github_gist(@gist, @current_user)
+          else
+            new_gist = params[:issue]["relevant_gist"]
+            @issue.send_to_github(new_gist, @current_user) if new_gist != ""
+            @issue.relevant_gist = new_gist
+          end
         end
         format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
         format.json { head :no_content }
