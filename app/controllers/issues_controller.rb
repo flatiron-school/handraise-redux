@@ -4,7 +4,7 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index   
-    @issues = Issue.order('created_at')
+    @issues = Issue.all
     @closed_issues = Issue.closed
     @fellow_student_issues = Issue.fellow_student
     @instructor_normal_issues = Issue.instructor_normal

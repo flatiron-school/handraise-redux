@@ -15,11 +15,11 @@
         <div class="span4">
           <%= image_tag(@issue.user.image, :id => "avatar") %>
         </div>
-        <div class="span8" id="post_title">
+        <div class="span8" id="issue_content">
           <h1><%= @issue.title %></h1>
-          <p><%= @issue.content %></p>
+          <div id="issue_body"><%= @issue.content %></div>
           <hr>
-          <%= render :partial => 'vote', :locals => {:issue => @issue, :asker => @issue.user} %> | <strong>Status:</strong> <%= @issue.aasm_state %>
+          <div id="issue_details"><%= render :partial => 'vote', :locals => {:issue => @issue, :asker => @issue.user} %> | <strong>Status:</strong> <%= @issue.aasm_state %></div>
         </div>
 
       </div>
