@@ -1,20 +1,22 @@
-<div class="response span12">
-
-<%= image_tag(response.user.image) %>
-
-  <div class="triangle-border left">
-    <h5><%= response.user.name %> | <%= time_ago_in_words(response.created_at) %> ago</h5>
-    <% if response.answer %>
-      <h6 class="label label-inverse">Correct Answer!</h6><br />
-      <% if @issue.asker?(current_user) %>
-        <%= link_to "Unmark as Solution", { :controller => "responses", :action => "answer", :response_id => response.id }, :class => "btn btn-mini btn-danger" %><br />
-      <% end %>
-    <% end %>
-    <%= response.content %>
-    <br><br>  
-    <% if !@issue.answered? && @issue.asker?(current_user) %>
-      <%= link_to "Mark As Solution", { :controller => "responses", :action => "answer", :response_id => response.id }, :class => "btn btn-mini btn-success" %>
-    <% end %>
-  </div>
-
-</div>
+  <li class="left">
+    <%= image_tag response.user.image, :class => 'avatar' %>
+    <span class="message"><span class="arrow"></span>
+      <span class="from"><strong><%= response.user.name %>:</strong></span>
+      <span class="text">
+        <%= response.content %>
+      </span>
+      <span class="solution">
+        <% if response.answer %>
+          <h6 class="label label-inverse">Correct Answer!</h6><br />
+          <% if @issue.asker?(current_user) %>
+            <%= link_to "Unmark as Solution", { :controller => "responses", :action => "answer", :response_id => response.id }, :class => "btn btn-mini btn-danger" %><br />
+          <% end %>
+        <% end %>
+        
+        <% if !@issue.answered? && @issue.asker?(current_user) %>
+          <%= link_to "Mark As Solution", { :controller => "responses", :action => "answer", :response_id => response.id }, :class => "btn btn-mini btn-success" %>
+        <% end %>
+      </span>
+      <span class="time"><small><%= time_ago_in_words(response.created_at) %> ago</small></span>
+    </span>                                   
+  </li>
