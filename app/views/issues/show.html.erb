@@ -45,9 +45,10 @@
       </ul>
       <% end %>
       <div class="chat-form">
-        <%= form_for(@response) do |f| %>
+        <%= form_for(Response.new) do |f| %>
+          <%= hidden_field :issue, :id %>
           <%= f.text_area :content %>
-          <%= f.submit 'Add a Response', :class => 'btn btn-info' %>
+          <%= f.submit 'Add a Response', :class => 'btn btn-info', :issue => @issue %>
         <% end %>
       </div>
     </div>
