@@ -36,8 +36,7 @@ App::Application.routes.draw do
 
   get 'dashboard' => 'users#dashboard'
 
-  get 'issues/:id/answer' => 'responses#answer'
-  post 'issues/:id/answer' => 'responses#answer'
+  post 'answer' => 'responses#answer', :as => "response_answer"
 
   match '/auth/github/callback', :to => "sessions#github"
 
