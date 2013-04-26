@@ -41,7 +41,7 @@ App::Application.configure do
   #   :authentication => :plain,
   #   :address => "smtp.mailgun.org",
   #   :port => 587,
-  #   :domain => "handraise.mailgun.org",
+  #   :domain => ENV['MAILGUN_DOMAIN'],
   #   :user_name => ENV['MAILGUN_LOGIN'],
   #   :password => ENV['MAILGUN_PASSWORD'],
   # }
