@@ -60,9 +60,7 @@ class IssuesController < ApplicationController
 
     if Issue.assignable.size == 0
       if @issue.save
-        User.admin.each do |user|
-        twilio_client = TwilioWrapper.new
-        twilio_client.admin_sms(user,'new_issues') if user.has_cell?
+        User.notify_on_call_admins
         end
       end
     end

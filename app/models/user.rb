@@ -51,6 +51,16 @@ class User < ActiveRecord::Base
     USER_ROLES
   end
 
+  def self.notify_on_call_admins
+    self.admin.each do |admin|
+      TwilioWraper.new.admin_sms(admin,'new_issues') if user.notifiable?
+    end
+  end
+
+  def notifiable?
+    self.on_call? && self.has_cell?
+  end
+
   def on_call?
     true if self.on_call == true
   end
