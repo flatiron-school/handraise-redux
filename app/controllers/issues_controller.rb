@@ -61,7 +61,6 @@ class IssuesController < ApplicationController
     if Issue.assignable.size == 0
       if @issue.save
         User.notify_on_call_admins
-        end
       end
     end
 
