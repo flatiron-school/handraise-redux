@@ -129,7 +129,7 @@ class IssuesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to issues_path, notice: "Issue was successfully destroyed." }
         format.json { head :no_content }
-        if IssueStat.where(:issue_id=> @issue.id)
+        if IssueStat.where(:issue_id=> @issue.id).present?
           IssueStat.where(:issue_id=> @issue.id).first.destroy
         end
       end
