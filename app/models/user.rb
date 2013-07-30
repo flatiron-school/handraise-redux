@@ -53,7 +53,6 @@ class User < ActiveRecord::Base
 
   def self.notify_on_call_admins
     self.admin.each do |admin|
-      debugger
       TwilioWrapper.new.admin_sms(admin,'new_issues') if admin.notifiable?
     end
   end
