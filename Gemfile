@@ -49,7 +49,6 @@ gem 'figaro'
 gem 'exception_notification'
 gem 'quiet_assets'
 gem 'thin'
-gem 'debugger'
 gem 'paperclip', '~> 3.0'
 gem "unicorn", "~> 4.8.1"
 
@@ -65,9 +64,6 @@ gem "unicorn", "~> 4.8.1"
 
 # Deploy with Capistrano
  gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
 
 gem 'pry'
 gem 'whenever'
