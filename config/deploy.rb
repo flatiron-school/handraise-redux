@@ -9,11 +9,12 @@ set :repository,  "git@github.com:flatiron-school/handraise-redux.git"
 set :user, 'handraise'
 set :deploy_to, "/home/#{user}/#{application}"
 set :use_sudo, false
+set :ssh_options, { :forward_agent => true }
 
 set :scm, :git
+set :branch, 'master'
 
 default_run_options[:pty] = true
-
 primary = '192.241.158.61'
 server primary, :web, :app, :db, :worker, primary: true
 
