@@ -51,6 +51,7 @@ gem 'quiet_assets'
 gem 'thin'
 gem 'debugger'
 gem 'paperclip', '~> 3.0'
+gem "unicorn", "~> 4.8.1"
 
 # To use ActiveModel has_secure_password
  gem 'bcrypt-ruby', '~> 3.0.0'
