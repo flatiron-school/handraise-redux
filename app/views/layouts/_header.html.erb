@@ -14,7 +14,7 @@
       <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
-    <% if Issue.assignable.empty? || current_page?(login_path) || current_page?(signup_path) %>
+    <% if Issue.assignable.empty? || current_page?(login_path) %>
       <!-- For third-generation iPad with high-resolution Retina display: -->
       <!-- Size should be 144 x 144 pixels -->
       <%= favicon_link_tag 'handraise.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
@@ -93,9 +93,6 @@
                   Logged in as: <%= link_to current_user.email, user_path(current_user) %>
                  <%= link_to "Logout", logout_path, :class =>"btn btn-small btn-success" %>
                 <% else %>
-                  <% unless current_page?(signup_path) %>
-                    <%= link_to "Sign Up", signup_path, :class =>"btn btn-small btn-success" %>
-                  <% end %>
                   <% unless current_page?(login_path) %>
                     <%= link_to "Login", login_path, :class =>"btn btn-small btn-primary" %> 
                   <% end %>

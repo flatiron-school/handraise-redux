@@ -27,15 +27,6 @@ class UsersController < ApplicationController
     render :layout => 'dashboard'
   end
 
-  # GET /users/new
-  # GET /users/new.json
-  def new
-    @user = User.new
-    respond_to do |format|
-      format.html {render :layout => 'fullwidth'}
-    end
-  end
-
   def signupform
     @user = User.new
     respond_to do |format|
