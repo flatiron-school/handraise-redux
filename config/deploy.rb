@@ -13,11 +13,11 @@ set :ssh_options, { :forward_agent => true }
 set :rvm_ruby_string, :local
 
 set :scm, :git
-set :branch, 'add-rvm-cap'
+set :branch, fetch(:branch, 'master')
 
 default_run_options[:pty] = true
-primary = '107.170.25.96'
-server primary, :web, :app, :db, :worker, primary: true
+abort("ERROR! Must pass in server_ip. Try 'cap deploy -S server_ip=107.170.25.96'") unless fetch(:server_ip, nil)
+server "#{server_ip}", :web, :app, :db, :worker, primary: true
 
 after "deploy:restart", "deploy:cleanup"
 
