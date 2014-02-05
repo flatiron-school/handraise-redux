@@ -1,7 +1,7 @@
+require "rvm/capistrano" # For RVM
 require 'bundler/capistrano' # for bundler support
-
-set :whenever_command, "bundle exec whenever"
 require 'whenever/capistrano' # for whenever support 
+set :whenever_command, "bundle exec whenever"
 
 set :application, "handraise"
 set :repository,  "git@github.com:flatiron-school/handraise-redux.git"
@@ -10,13 +10,14 @@ set :user, 'handraise'
 set :deploy_to, "/home/#{user}/#{application}"
 set :use_sudo, false
 set :ssh_options, { :forward_agent => true }
+set :rvm_ruby_string, :local
 
 set :scm, :git
-set :branch, 'master'
+set :branch, fetch(:branch, 'master')
 
 default_run_options[:pty] = true
-primary = '192.241.158.61'
-server primary, :web, :app, :db, :worker, primary: true
+abort("ERROR! Must pass in server_ip. Try 'cap deploy -S server_ip=107.170.25.96'") unless fetch(:server_ip, nil)
+server "#{server_ip}", :web, :app, :db, :worker, primary: true
 
 after "deploy:restart", "deploy:cleanup"
 
@@ -60,3 +61,5 @@ end
 
 after "deploy","customs:symlink"
 after "deploy","deploy:cleanup"
+before 'deploy:setup', 'rvm:install_rvm'  
+before 'deploy:setup', 'rvm:install_ruby' 
