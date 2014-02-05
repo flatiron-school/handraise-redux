@@ -1,7 +1,7 @@
+require "rvm/capistrano" # For RVM
 require 'bundler/capistrano' # for bundler support
-
-set :whenever_command, "bundle exec whenever"
 require 'whenever/capistrano' # for whenever support 
+set :whenever_command, "bundle exec whenever"
 
 set :application, "handraise"
 set :repository,  "git@github.com:flatiron-school/handraise-redux.git"
@@ -15,7 +15,7 @@ set :scm, :git
 set :branch, 'master'
 
 default_run_options[:pty] = true
-primary = '192.241.158.61'
+primary = '107.170.25.96'
 server primary, :web, :app, :db, :worker, primary: true
 
 after "deploy:restart", "deploy:cleanup"
@@ -60,3 +60,5 @@ end
 
 after "deploy","customs:symlink"
 after "deploy","deploy:cleanup"
+before 'deploy:setup', 'rvm:install_rvm'  
+before 'deploy:setup', 'rvm:install_ruby' 
