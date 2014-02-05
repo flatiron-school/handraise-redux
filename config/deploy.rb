@@ -10,9 +10,10 @@ set :user, 'handraise'
 set :deploy_to, "/home/#{user}/#{application}"
 set :use_sudo, false
 set :ssh_options, { :forward_agent => true }
+set :rvm_ruby_string, :local
 
 set :scm, :git
-set :branch, 'master'
+set :branch, 'add-rvm-cap'
 
 default_run_options[:pty] = true
 primary = '107.170.25.96'
