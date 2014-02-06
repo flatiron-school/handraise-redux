@@ -28,7 +28,7 @@ HandRaise is a 'question counter' for creating question queues in a class settin
 * whenever --update-crontab
 
 ## About us
-Handraise was built by 
+Handraise was built by: 
 * [Anthony Wijnen](https://github.com/awijnen)
 * [Ei-Lene Heng](https://github.com/eewang)
 * [Eugene Wang](https://github.com/eewang)
