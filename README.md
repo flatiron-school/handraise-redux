@@ -18,8 +18,7 @@ HandRaise is a 'question counter' for creating question queues in a class settin
 
 ## Getting Started: Part 2
 * bundle install
-* rake db:create
-* rake db:migrate
+* rake db:schema:load
 * Update exception notification email details in exception_notifier.rb
 
 ## Web Servers & background processes
