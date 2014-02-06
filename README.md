@@ -2,11 +2,6 @@
 
 HandRaise is a 'question counter' for creating question queues in a class setting. It allows the teacher or TA to see who to help next.
 
-##Versions / Database
-* Ruby 1.9.3
-* Rails 3.2
-* Postgres database
-
 ##Getting Started: Application.yml file
 * Create an application.yml file
 * Insert the following code into the application.yml, replacing [[input_description]] with the actual input:
@@ -33,7 +28,9 @@ MAILGUN_PASSWORD : [[Mailgun password]]
 * whenever --update-crontab
 
 ## About us
-Handrai.se was built by "Anthony Wijnen":https://github.com/awijnen , "Ei-Lene Heng":https://github.com/eewang ,  "Eugene Wang":https://github.com/eewang and "Jane Vora":https://github.com/janeeats while attending "The Flatiron School":http://flatironschool.com/
-
-last update: 26th April 2013
-
+Handraise was built by 
+* [Anthony Wijnen](https://github.com/awijnen)
+* [Ei-Lene Heng](https://github.com/eewang)
+* [Eugene Wang](https://github.com/eewang)
+* [Jane Vora](https://github.com/janeeats) 
+while attending [The Flatiron School](http://flatironschool.com)
