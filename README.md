@@ -5,16 +5,16 @@ HandRaise is a 'question counter' for creating question queues in a class settin
 ##Getting Started: Application.yml file
 * Create an application.yml file
 * Insert the following code into the application.yml, replacing [[input_description]] with the actual input:
-TWILIO_ACCOUNT_SID: [[Twilio account SID]]
-TWILIO_AUTH_TOKEN: [[Twilio account auth token]]
-TWILIO_FROM: [[Twilio phone number]]
+  TWILIO_ACCOUNT_SID: [[Twilio account SID]]
+  TWILIO_AUTH_TOKEN: [[Twilio account auth token]]
+  TWILIO_FROM: [[Twilio phone number]]
 
-GITHUB_CLIENT_ID: [[Github client_ID]]
-GITHUB_CLIENT_SECRET: [[Github client_secret]]
+  GITHUB_CLIENT_ID: [[Github client_ID]]
+  GITHUB_CLIENT_SECRET: [[Github client_secret]]
 
-MAILGUN_DOMAIN   : [[Mailgun domain name]]
-MAILGUN_LOGIN    : [[Mailgun user name]]
-MAILGUN_PASSWORD : [[Mailgun password]]
+  MAILGUN_DOMAIN   : [[Mailgun domain name]]
+  MAILGUN_LOGIN    : [[Mailgun user name]]
+  MAILGUN_PASSWORD : [[Mailgun password]]
 
 ## Getting Started: Part 2
 * bundle install
@@ -33,4 +33,5 @@ Handraise was built by
 * [Ei-Lene Heng](https://github.com/eewang)
 * [Eugene Wang](https://github.com/eewang)
 * [Jane Vora](https://github.com/janeeats) 
+
 while attending [The Flatiron School](http://flatironschool.com)
