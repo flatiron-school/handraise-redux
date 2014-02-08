@@ -11,6 +11,7 @@ describe SessionsController do
         post :create, {email: 'test@example.com', password: 'secret'}
         user = assigns(:user) 
         expect(user).not_to be_nil
+        expect(session[:user_id]).to eq(1)
         expect(subject).to redirect_to(user_path(user))
       end
 
@@ -40,8 +41,20 @@ describe SessionsController do
         post :create, {email: 'test@example.com', password: 'secret'}
         user = assigns(:user) 
         expect(user).not_to be_nil
+        expect(session[:user_id]).to eq(1)
         expect(subject).to redirect_to(issues_path)
       end
+    end
+  end
+  describe "Logging out" do
+    it 'negates user session and redirects' do
+      User.stub(:find) { true }
+      session[:user_id] = 1
+
+      delete :destroy
+      expect(session[:user_id]).to be_nil
+      expect(subject).to redirect_to(login_path)
+
     end
   end
 end

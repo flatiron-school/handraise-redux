@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     if @user.try(:authenticate, params[:password])
-      login @user
+      session[:user_id] = @user.id
       @user.extend(WebRole)
       redirect_to @user.successful_login_path, :notice => "Logged in!" 
     else
@@ -36,5 +36,4 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to login_path, :notice => "Logged out!"
   end
-
 end
