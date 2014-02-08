@@ -23,13 +23,10 @@ class SessionsController < ApplicationController
   
   def create
     @user = User.find_by_email(params[:email])
-    if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
-      if @user.admin?
-        redirect_to issues_path, :notice => "Logged in!" 
-      else
-        redirect_to user_path(@user), :notice => "Logged in!"  
-      end
+    if @user.try(:authenticate, params[:password])
+      login @user
+      @user.extend(WebRole)
+      redirect_to @user.successful_login_path, :notice => "Logged in!" 
     else
       redirect_to login_path, :notice => "Invalid email or password"
     end
