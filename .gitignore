@@ -17,5 +17,4 @@
 # Ignore API keys
 /config/application.yml
 # Ignore application configuration
-/config/database.yml
 .idea/
